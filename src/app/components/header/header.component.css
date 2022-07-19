@@ -1,6 +1,6 @@
 :host {
     width: 100vw;
-    height: 2.5rem;
+    height: 3rem;
     background-color: black;
     color: aliceblue;
     display: flex;
@@ -16,19 +16,33 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
+    align-items: center;
 }
 
 .buttons a {
     text-decoration: none;
     color: grey;
+    font-size: 1.2rem;
 }
 
 #login {
-    width: 5rem;
     color: green;
+    padding-left: .3rem;
+    padding-right: .3rem;
     background-color: black;
     border: 2px solid green;
     border-radius: 1.5rem;
+    font-size: 1.1rem;
+}
+
+#login:hover {
+    color: black;
+    background-color: green;
+    cursor: pointer;
+}
+
+.buttons a:hover{
+    color: white;
 }
 
 #header-name {
