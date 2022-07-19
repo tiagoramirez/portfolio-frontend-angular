@@ -1,0 +1,37 @@
+:host {
+    width: 100vw;
+    height: 2.5rem;
+    background-color: black;
+    color: aliceblue;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons {
+    margin-right: .5rem;
+    width: 20vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.buttons a {
+    text-decoration: none;
+    color: grey;
+}
+
+#login {
+    width: 5rem;
+    color: green;
+    background-color: black;
+    border: 2px solid green;
+    border-radius: 1.5rem;
+}
+
+#header-name {
+    margin-left: .5rem;
+    font-size: 1.25rem;
+}
