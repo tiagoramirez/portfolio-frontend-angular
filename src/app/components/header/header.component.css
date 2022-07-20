@@ -1,6 +1,6 @@
 :host {
     width: 100vw;
-    height: 3rem;
+    min-height: 3.5rem;
     background-color: black;
     color: aliceblue;
     display: flex;
@@ -47,6 +47,7 @@
 
 #header-name {
     font-size: 1.25rem;
+    text-align: center;
 }
 
 #logo-argentina-programa {
