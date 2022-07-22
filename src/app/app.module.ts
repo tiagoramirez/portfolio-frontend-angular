@@ -8,21 +8,38 @@ import { AboutMeComponent } from './components/about-me/about-me.component';
 import { ExperienceComponent } from './components/experience/experience.component';
 import { EducationComponent } from './components/education/education.component';
 import { SkillsComponent } from './components/skills/skills.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    MainProfileComponent,
-    AboutMeComponent,
-    ExperienceComponent,
-    EducationComponent,
-    SkillsComponent
-  ],
-  imports: [
-    BrowserModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        MainProfileComponent,
+        AboutMeComponent,
+        ExperienceComponent,
+        EducationComponent,
+        SkillsComponent
+    ],
+    imports: [
+        BrowserModule,
+        NgCircleProgressModule.forRoot({
+            radius: 100,
+            animation: true,
+            animationDuration: 400,
+            outerStrokeWidth: 6,
+            innerStrokeWidth: 2,
+            outerStrokeColor: "#66fcf1",
+            innerStrokeColor: "#45A29E",
+            titleColor: '#c5c6c7',
+            titleFontSize: '1.7rem',
+            titleFontWeight: '700',
+            subtitleColor: '#858585',
+            subtitleFontSize: '1.1rem',
+            lazy: true,
+        })
+
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
