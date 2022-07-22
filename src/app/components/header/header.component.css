@@ -1,5 +1,5 @@
 :host {
-    width: 100vw;
+    width: 100%;
     min-height: 3.5rem;
     background-color: #0b0c10;
     display: flex;

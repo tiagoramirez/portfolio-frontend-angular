@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MainProfileComponent } from './components/main-profile/main-profile.component';
 import { AboutMeComponent } from './components/about-me/about-me.component';
-import { ExperienceEducationComponent } from './components/experience-education/experience-education.component';
+import { ExperienceComponent } from './components/experience/experience.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,7 @@ import { ExperienceEducationComponent } from './components/experience-education/
     HeaderComponent,
     MainProfileComponent,
     AboutMeComponent,
-    ExperienceEducationComponent
+    ExperienceComponent
   ],
   imports: [
     BrowserModule
