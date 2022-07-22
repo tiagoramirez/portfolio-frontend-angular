@@ -6,6 +6,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { MainProfileComponent } from './components/main-profile/main-profile.component';
 import { AboutMeComponent } from './components/about-me/about-me.component';
 import { ExperienceComponent } from './components/experience/experience.component';
+import { EducationComponent } from './components/education/education.component';
+import { SkillsComponent } from './components/skills/skills.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +15,9 @@ import { ExperienceComponent } from './components/experience/experience.componen
     HeaderComponent,
     MainProfileComponent,
     AboutMeComponent,
-    ExperienceComponent
+    ExperienceComponent,
+    EducationComponent,
+    SkillsComponent
   ],
   imports: [
     BrowserModule
