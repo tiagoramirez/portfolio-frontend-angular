@@ -10,6 +10,7 @@ import { EducationComponent } from './components/education/education.component';
 import { SkillsComponent } from './components/skills/skills.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { MyProjectsComponent } from './components/my-projects/my-projects.component';
+import {HttpClientModule} from '@angular/common/http'
 
 @NgModule({
     declarations: [
@@ -38,8 +39,8 @@ import { MyProjectsComponent } from './components/my-projects/my-projects.compon
             subtitleColor: '#858585',
             subtitleFontSize: '1.1rem',
             lazy: true,
-        })
-
+        }),
+        HttpClientModule
     ],
     providers: [],
     bootstrap: [AppComponent]
