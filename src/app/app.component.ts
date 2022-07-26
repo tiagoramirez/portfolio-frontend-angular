@@ -1,13 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { IPerson } from './models/person.interface';
+import { PersonService } from './services/person.service';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-    constructor() { }
+    constructor(private personService: PersonService) { }
+
+    ngOnInit(): void {
+        this.personService.getAll().subscribe((res) => {
+            this.person = res[0];
+            this.cargando = false;
+            console.log(this.person);
+        });
+    }
+
+    person: IPerson;
+
+    cargando: boolean = true;
 
     // cargar(event: any) {
     //     const img = event.target.files[0];

@@ -1,7 +1,9 @@
-<app-header class="animate__animated animate__fadeIn" [name]="'Tiago'"></app-header>
-<app-main-profile class="animate__animated animate__zoomInDown"></app-main-profile>
-<app-about-me class="animate__animated animate__zoomInDown"></app-about-me>
-<app-experience class="animate__animated animate__zoomInDown"></app-experience>
-<app-education class="animate__animated animate__zoomInDown"></app-education>
-<app-skills class="animate__animated animate__zoomInDown"></app-skills>
-<app-my-projects class="animate__animated animate__zoomInDown"></app-my-projects>
+<app-header *ngIf="!cargando" class="animate__animated animate__fadeIn" [socialMedia]="person.my_social_media">
+</app-header>
+<app-main-profile *ngIf="!cargando" class="animate__animated animate__zoomInDown" [person]="person"
+    [location]="person.location"></app-main-profile>
+<app-about-me *ngIf="!cargando" class="animate__animated animate__zoomInDown"></app-about-me>
+<app-experience *ngIf="!cargando" class="animate__animated animate__zoomInDown"></app-experience>
+<app-education *ngIf="!cargando" class="animate__animated animate__zoomInDown"></app-education>
+<app-skills *ngIf="!cargando" class="animate__animated animate__zoomInDown"></app-skills>
+<app-my-projects *ngIf="!cargando" class="animate__animated animate__zoomInDown"></app-my-projects>

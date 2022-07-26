@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IMySocialMedia } from 'src/app/models/my_social_media.interface';
-import { SocialMediaService } from '../../services/social-media.service';
 
 @Component({
     selector: 'app-header',
@@ -9,16 +8,9 @@ import { SocialMediaService } from '../../services/social-media.service';
 })
 export class HeaderComponent implements OnInit {
 
-    constructor(private socialMediaService: SocialMediaService) { }
+    constructor() { }
 
-    ngOnInit(): void {
-        this.socialMediaService.getAll().subscribe((res) => {
-            this.socialMedia = res;
+    ngOnInit(): void { }
 
-        });
-    }
-
-    socialMedia: IMySocialMedia[] = [];
-
-    @Input() name: string;
+    @Input() socialMedia: IMySocialMedia[];
 }

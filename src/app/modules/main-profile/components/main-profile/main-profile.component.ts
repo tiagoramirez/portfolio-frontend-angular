@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ILocation } from 'src/app/models/location.interface';
+import { IPerson } from 'src/app/models/person.interface';
 
 @Component({
-  selector: 'app-main-profile',
-  templateUrl: './main-profile.component.html',
-  styleUrls: ['./main-profile.component.css']
+    selector: 'app-main-profile',
+    templateUrl: './main-profile.component.html',
+    styleUrls: ['./main-profile.component.css']
 })
-export class MainProfileComponent implements OnInit {
+export class MainProfileComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+    @Input() person: IPerson;
+    @Input() location: ILocation;
 }

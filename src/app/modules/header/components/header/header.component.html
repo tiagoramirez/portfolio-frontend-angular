@@ -1,15 +1,9 @@
 <img src="../../../assets/images/Logo Arg Programa.png" id="logo-argentina-programa">
 
-<p id="header-name">{{name}}</p>
-
-<div class="buttons">
-
-
+<div *ngIf="socialMedia.length!=0" class="social-media-container">
     <div *ngFor="let social of socialMedia" class="social-media">
         <a [href]="social.link" target="_blank"><i [ngClass]="social.social_media.bootstrap_class"></i></a>
     </div>
-
-
-
-    <button href="#" id="login">Login <i class="bi bi-box-arrow-in-right"></i></button>
 </div>
+
+<button href="#" id="login">Login <i class="bi bi-box-arrow-in-right"></i></button>

@@ -9,6 +9,8 @@ import { ExperienceModule } from './modules/experience/experience.module';
 import { EducationModule } from './modules/education/education.module';
 import { SkillsModule } from './modules/skills/skills.module';
 import { MyProjectsModule } from './modules/my-projects/my-projects.module';
+import { HttpClientModule } from '@angular/common/http';
+import { PersonService } from './services/person.service';
 
 @NgModule({
     declarations: [
@@ -22,9 +24,10 @@ import { MyProjectsModule } from './modules/my-projects/my-projects.module';
         ExperienceModule,
         EducationModule,
         SkillsModule,
-        MyProjectsModule
+        MyProjectsModule,
+        HttpClientModule
     ],
-    providers: [],
+    providers: [PersonService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
