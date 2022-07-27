@@ -1,4 +1,4 @@
-<app-header *ngIf="!cargando" class="animate__animated animate__fadeIn" [socialMedia]="person.my_social_media">
+<!-- <app-header *ngIf="!cargando" class="animate__animated animate__fadeIn" [socialMedia]="person.my_social_media">
 </app-header>
 <app-main-profile *ngIf="!cargando" class="animate__animated animate__zoomInDown" [person]="person"
     [location]="person.location"></app-main-profile>
@@ -7,3 +7,20 @@
 <app-education *ngIf="!cargando" class="animate__animated animate__zoomInDown"></app-education>
 <app-skills *ngIf="!cargando" class="animate__animated animate__zoomInDown"></app-skills>
 <app-my-projects *ngIf="!cargando" class="animate__animated animate__zoomInDown"></app-my-projects>
+<h1 *ngIf="error">Error en la conexion. Intenta de nuevo mas tarde 😊</h1> -->
+
+
+
+<!-- Trigger/Open The Modal -->
+<button (click)="btnclick()" id="myBtn">Open Modal</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div (click)="windowclick($event)" class="modal-content">
+        <span (click)="spanclick()" class="close">&times;</span>
+        <p>Some text in the Modal..</p>
+    </div>
+
+</div>

@@ -11,7 +11,7 @@ export class PersonService {
 
     constructor(private http: HttpClient) { }
 
-    getAll(): Observable<IPerson> {
-        return this.http.get<IPerson>(environment.API_URL+"/personas");
+    getById(id: number): Observable<IPerson> {
+        return this.http.get<IPerson>(environment.API_URL + "/personas/" + id);
     }
 }
