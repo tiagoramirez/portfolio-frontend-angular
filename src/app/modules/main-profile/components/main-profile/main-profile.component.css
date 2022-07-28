@@ -10,6 +10,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 1rem;
 }
 
 #banner {
@@ -17,13 +18,19 @@
     height: 25vh;
 }
 
-#profile-img {
+.profile-img-with-banner {
     position: relative;
     border-radius: 50%;
     width: 15vh;
     height: 15vh;
     margin-top: -10vh;
-    margin-left: 1%;
+}
+
+.profile-img-without-banner {
+    border-radius: 50%;
+    width: 15vh;
+    height: 15vh;
+    margin-top: 1rem;
 }
 
 #name {
@@ -40,10 +47,6 @@
 #mail {
     font-size: 1.1rem;
     margin-top: 1rem;
-}
-
-#location {
-    margin-bottom: 1rem;
 }
 
 .more-info {

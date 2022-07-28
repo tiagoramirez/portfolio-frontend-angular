@@ -1,8 +1,8 @@
-<img id="banner" src="../../../assets/images/bannerTest.jpg" alt="">
-<img id="profile-img" src="../../../assets/images/profileTest.jpg" alt="">
+<img *ngIf="configuration.show_banner" id="banner" src="../../../assets/images/bannerTest.jpg" alt="">
+<img *ngIf="configuration.show_photo" [ngClass]="configuration.show_banner?'profile-img-with-banner':'profile-img-without-banner'" src="../../../assets/images/profileTest.jpg" alt="">
 <h1 id="name">{{person.full_name}}</h1>
 <h2 id="description">{{person.description}}</h2>
-<h2 *ngIf="!loading" id="location">{{location.state+" ("+location.country+")"}}</h2>
+<h2 *ngIf="!loading && configuration.show_location" id="location">{{location.state+" ("+location.country+")"}}</h2>
 <h3 *ngIf="loading">Cargando...</h3>
 
 <a class="more-info" (click)="toggleModal()" href="#">+Mas info</a>
@@ -11,8 +11,8 @@
     <div class="modal-content">
         <span (click)="toggleModal()" class="close">&times;</span>
         <h1 id="modal-title">Mas informacion</h1>
-        <h2 id="birthday">Fecha de nacimiento: {{person.birthday}}</h2>
-        <h2 id="phone">Numero de telefono: {{person.phone}}</h2>
+        <h2 id="birthday" *ngIf="configuration.show_birthday">Fecha de nacimiento: {{person.birthday}}</h2>
+        <h2 id="phone" *ngIf="configuration.show_phone">Numero de telefono: {{person.phone}}</h2>
         <h2 id="mail">Mail: {{person.mail}}</h2>
     </div>
 </div>

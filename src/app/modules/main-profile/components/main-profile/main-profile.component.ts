@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
+import { IConfiguration } from 'src/app/models/configuration.interface';
 import { ILocation } from 'src/app/models/location.interface';
 import { IPerson } from 'src/app/models/person.interface';
 import { LocationService } from '../../services/location.service';
@@ -32,8 +33,7 @@ export class MainProfileComponent implements OnInit, OnDestroy {
             complete: () => {
                 this.subsContainer.add(sub);
             }
-        })
-
+        })        
     }
 
     ngOnDestroy(): void {
@@ -41,8 +41,9 @@ export class MainProfileComponent implements OnInit, OnDestroy {
     }
 
     @Input() person: IPerson;
-    @Input() location: ILocation;
-
+    @Input() configuration: IConfiguration;
+    
+    location: ILocation;
     loading: boolean = true;
     locationNull: boolean = false;
     error: boolean = false;

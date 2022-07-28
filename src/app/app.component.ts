@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SubscriptionContainer } from './helpers/subscriptionContainer';
+import { IConfiguration } from './models/configuration.interface';
 import { IPerson } from './models/person.interface';
+import { ConfigurationService } from './services/configuration.service';
 import { PersonService } from './services/person.service';
 
 @Component({
@@ -11,13 +13,30 @@ import { PersonService } from './services/person.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-    constructor(private personService: PersonService) { }
+    constructor(private personService: PersonService, private configurationService: ConfigurationService) { }
 
     ngOnInit(): void {
         let sub: Subscription = this.personService.getById(1).subscribe({
-            next: (v) => {
-                if (v !== undefined && v !== null) {
-                    this.person = v;                    
+            next: (p) => {
+                if (p !== undefined && p !== null) {
+                    this.person = p;
+                    let subConfiguration: Subscription = this.configurationService.getById(this.person.id).subscribe({
+                        next: (c) => {
+                            if (c !== undefined && c !== null) {
+                                this.configuration = c;
+                                this.configLoaded = true;
+                            } else {
+                                this.configLoaded = false;
+                            }
+                        },
+                        error: (e) => {
+                            this.error = true;
+                            console.error(e);
+                        },
+                        complete: () => {
+                            this.subsContainer.add(subConfiguration);
+                        }
+                    })
                 }
                 else {
                     this.error = true;
@@ -29,7 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
                 console.error(e);
                 this.loading = false;
             },
-            complete: () => {                
+            complete: () => {
                 this.subsContainer.add(sub);
             }
         });
@@ -39,9 +58,12 @@ export class AppComponent implements OnInit, OnDestroy {
         this.subsContainer.unsubscribeAll();
     }
     person: IPerson;
+    configuration: IConfiguration;
 
     loading: boolean = true;
     error: boolean = false;
+
+    configLoaded: boolean = false;
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 
