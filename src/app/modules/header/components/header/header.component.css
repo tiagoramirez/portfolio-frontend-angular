@@ -14,6 +14,12 @@
     height: 3rem;
 }
 
+.social-media-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .social-media a {
     text-decoration: none;
     color: grey;
@@ -26,6 +32,14 @@
 }
 
 .social-media a:hover {
+    color: #66fcf29c;
+}
+
+.edit{
+    color: #66FCF1;
+}
+
+.edit:hover{
     color: #66fcf29c;
 }
 

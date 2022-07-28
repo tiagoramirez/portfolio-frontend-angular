@@ -5,7 +5,7 @@
 <h2 *ngIf="!loading && configuration.show_location" id="location">{{location.state+" ("+location.country+")"}}</h2>
 <h3 *ngIf="loading">Cargando...</h3>
 
-<a class="more-info" (click)="toggleModal()" href="#">+Mas info</a>
+<a class="more-info" (click)="toggleModal()"><i class="bi bi-arrows-angle-expand"></i> Mas info</a>
 
 <div *ngIf="showModal" class="modal">
     <div class="modal-content">

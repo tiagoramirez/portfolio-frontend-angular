@@ -53,6 +53,18 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
+    color: #66FCF1;
+    padding: .35rem .5rem;
+    border: 2px solid #66FCF1;
+    border-radius: 1.5rem;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.more-info:hover {
+    color: black;
+    cursor: pointer;
+    background-color: #66FCF1;
 }
 
 #modal-title {

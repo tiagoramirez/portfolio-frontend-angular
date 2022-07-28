@@ -35,13 +35,14 @@ export class AppComponent implements OnInit, OnDestroy {
                         },
                         complete: () => {
                             this.subsContainer.add(subConfiguration);
+                            this.loading = false;
                         }
                     })
                 }
                 else {
                     this.error = true;
+                    this.loading = false;
                 }
-                this.loading = false;
             },
             error: (e) => {
                 this.error = true;
@@ -62,7 +63,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     loading: boolean = true;
     error: boolean = false;
-
     configLoaded: boolean = false;
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
