@@ -1,11 +1,15 @@
 :host {
     margin-top: 1rem;
     width: 70vw;
-    min-height: 40vh;
+    min-height: 10vh;
     border-radius: 1rem;
-    overflow-x: hidden;
+    overflow: hidden;
     box-shadow: 2px 3px .7rem #000;
     color: #c5c6c7;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #banner {
@@ -18,64 +22,76 @@
     border-radius: 50%;
     width: 15vh;
     height: 15vh;
-    margin-top: -13vh;
+    margin-top: -10vh;
     margin-left: 1%;
 }
 
-.basic-info {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-}
-
 #name {
+    margin-top: .5rem;
     font-size: 1.8rem;
     font-weight: bold;
     color: #66FCF1;
 }
 
 #description,
-#location {
+#location,
+#birthday,
+#phone,
+#mail {
     font-size: 1.1rem;
     margin-top: 1rem;
 }
 
-#work-info,
-#education-info {
-    text-align: left;
-    font-size: 1.1rem;
-}
-
-.work,
-.education {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.work {
+#location {
     margin-bottom: 1rem;
 }
 
-#education-img,
-#work-img {
-    height: 7vh;
-    width: auto;
-    border-radius: 50%;
+.more-info {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
 }
 
-.profesional-info {
+#modal-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #66FCF1;
+}
+
+.modal {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #1f2833;
+    padding: 1rem;
+    border-radius: 1rem;
+    min-width: 50%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
 }
 
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 28px;
+    font-weight: bold;
+}
 
-.profesional-info img {
-    margin-right: 1rem;
+.close:hover {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }

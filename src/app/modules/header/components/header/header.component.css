@@ -8,20 +8,25 @@
     align-items: center;
 }
 
-.buttons {
-    margin-right: 1rem;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    align-items: center;
+#logo-argentina-programa {
+    margin-left: .5rem;
+    width: 5rem;
+    height: 3rem;
 }
 
 .social-media a {
     text-decoration: none;
     color: grey;
     font-size: 1.2rem;
-    margin-right: 1rem;
+    margin: 0 1rem;
+}
+
+.social-media a {
+    color: #66FCF1;
+}
+
+.social-media a:hover {
+    color: #66fcf29c;
 }
 
 #login {
@@ -32,35 +37,11 @@
     border: 2px solid #66FCF1;
     border-radius: 1.5rem;
     font-size: 1.1rem;
+    margin-right: 1rem;
 }
 
 #login:hover {
     color: #1F2833;
     background-color: #66FCF1;
     cursor: pointer;
-}
-
-.bi:hover {
-    color: black;
-}
-
-.social-media .bi {
-    color: #66FCF1;
-}
-
-.social-media .bi:hover {
-    color: #66fcf29c;
-}
-
-#header-name {
-    font-size: 1.25rem;
-    text-align: center;
-    color: #66FCF1;
-    font-weight: bold;
-}
-
-#logo-argentina-programa {
-    margin-left: .5rem;
-    width: 5rem;
-    height: 3rem;
 }

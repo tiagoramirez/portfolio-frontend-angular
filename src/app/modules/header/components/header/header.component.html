@@ -1,6 +1,6 @@
 <img src="../../../assets/images/Logo Arg Programa.png" id="logo-argentina-programa">
 
-<div *ngIf="socialMedia.length!=0" class="social-media-container">
+<div *ngIf="!loading && socialMedia.length!=0" class="social-media-container">
     <div *ngFor="let social of socialMedia" class="social-media">
         <a [href]="social.link" target="_blank"><i [ngClass]="social.social_media.bootstrap_class"></i></a>
     </div>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainProfileComponent } from './components/main-profile/main-profile.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -9,7 +10,8 @@ import { MainProfileComponent } from './components/main-profile/main-profile.com
         MainProfileComponent
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        HttpClientModule
     ],
     exports: [
         MainProfileComponent

@@ -17,32 +17,22 @@ export class AppComponent implements OnInit, OnDestroy {
         let sub: Subscription = this.personService.getById(1).subscribe({
             next: (v) => {
                 if (v !== undefined && v !== null) {
-                    this.person = v;
-                    this.cargando = false;
+                    this.person = v;                    
                 }
                 else {
                     this.error = true;
                 }
+                this.loading = false;
             },
             error: (e) => {
                 this.error = true;
                 console.error(e);
+                this.loading = false;
             },
-            complete: () => {
+            complete: () => {                
                 this.subsContainer.add(sub);
             }
         });
-
-
-
-
-        this.modal = document.getElementById("myModal");
-
-        // Get the button that opens the modal
-        this.btn = document.getElementById("myBtn");
-
-        // Get the <span> element that closes the modal
-        this.span = document.getElementsByClassName("close")[0];
     };
 
     ngOnDestroy(): void {
@@ -50,7 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
     person: IPerson;
 
-    cargando: boolean = true;
+    loading: boolean = true;
     error: boolean = false;
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
@@ -76,26 +66,4 @@ export class AppComponent implements OnInit, OnDestroy {
 
     //     this.http.post<IPerson>("http://localhost:8080/personas/crear", subir).subscribe((res) => console.log(res));
     // }
-
-
-    modal: any;
-    btn: any;
-    span: any;
-
-    // When the user clicks on the button, open the modal
-    btnclick = function () {
-        this.modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    spanclick = function () {
-        this.modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    windowclick = function (event) {
-        if (event.target == this.modal) {
-            this.modal.style.display = "none";
-        }
-    }
 }

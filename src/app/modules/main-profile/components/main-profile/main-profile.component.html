@@ -1,9 +1,18 @@
 <img id="banner" src="../../../assets/images/bannerTest.jpg" alt="">
 <img id="profile-img" src="../../../assets/images/profileTest.jpg" alt="">
-<div class="basic-info">
-    <div class="info">
-        <h1 id="name">{{person.full_name}}</h1>
-        <h2 id="description">{{person.about_me}}</h2>
-        <h2 id="location">{{location.state+" ("+location.country+")"}}</h2>
+<h1 id="name">{{person.full_name}}</h1>
+<h2 id="description">{{person.description}}</h2>
+<h2 *ngIf="!loading" id="location">{{location.state+" ("+location.country+")"}}</h2>
+<h3 *ngIf="loading">Cargando...</h3>
+
+<a class="more-info" (click)="toggleModal()" href="#">+Mas info</a>
+
+<div *ngIf="showModal" class="modal">
+    <div class="modal-content">
+        <span (click)="toggleModal()" class="close">&times;</span>
+        <h1 id="modal-title">Mas informacion</h1>
+        <h2 id="birthday">Fecha de nacimiento: {{person.birthday}}</h2>
+        <h2 id="phone">Numero de telefono: {{person.phone}}</h2>
+        <h2 id="mail">Mail: {{person.mail}}</h2>
     </div>
 </div>
