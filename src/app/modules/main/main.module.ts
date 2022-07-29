@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
 import { HeaderModule } from '../header/header.module';
 import { MainProfileModule } from '../main-profile/main-profile.module';
 import { AboutMeModule } from '../about-me/about-me.module';

@@ -1,11 +1,12 @@
 export interface IPerson {
     id?: number;
     full_name: string;
-    birthday: Date;
-    phone: number;
+    birthday?: Date;
+    phone?: number;
     mail: string;
     description: string;
-    about_me: string;
-    photo: string;
-    banner: string;
+    location_state?: string;
+    location_country?: string;
+    photo?: string;
+    banner?: string;
 }

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { checkURL } from 'src/app/helpers/checkURL';
 import { IMySocialMedia } from 'src/app/models/my_social_media.interface';
 import { ISocialMedia } from 'src/app/models/social_media.interface';
 import { environment } from 'src/environments/environment';
@@ -37,6 +38,7 @@ export class SocialMediaService {
     }
 
     check(sm: IMySocialMedia): number {
+        sm.link=checkURL(sm.link);
         if (sm.link.length > 255) {
             return 1;
         }
@@ -49,7 +51,7 @@ export class SocialMediaService {
     getErrorMessage(error: number): string {
         switch (error) {
             case 1: return "El link no puede tener mas de 255 caracteres.";
-            case 2: return "El link no fue ingresado.";
+            case 2: return "El link no fue ingresado o no es valido.";
             case 0: return "";
         }
         return "";

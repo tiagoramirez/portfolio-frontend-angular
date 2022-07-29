@@ -49,24 +49,6 @@
     margin-top: 1rem;
 }
 
-.more-info {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    color: #66FCF1;
-    padding: .35rem .5rem;
-    border: 2px solid #66FCF1;
-    border-radius: 1.5rem;
-    font-size: 1rem;
-    text-decoration: none;
-}
-
-.more-info:hover {
-    color: black;
-    cursor: pointer;
-    background-color: #66FCF1;
-}
-
 #modal-title {
     font-size: 1.8rem;
     font-weight: bold;
@@ -109,4 +91,34 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.edit {
+    margin: 0 1rem;
+    color: #66FCF1;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 1rem;
+    padding: .35rem .5rem;
+    border: 2px solid #66FCF1;
+    border-radius: 1.5rem;
+}
+
+.more-info {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: #66FCF1;
+    padding: .35rem .5rem;
+    border: 2px solid #66FCF1;
+    border-radius: 1.5rem;
+    font-size: 1rem;
+}
+
+.more-info:hover,
+.edit:hover {
+    color: black;
+    cursor: pointer;
+    background-color: #66FCF1;
 }

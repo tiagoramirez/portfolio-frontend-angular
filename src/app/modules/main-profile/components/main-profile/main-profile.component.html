@@ -1,11 +1,13 @@
 <img *ngIf="configuration.show_banner" id="banner" src="../../../assets/images/bannerTest.jpg" alt="">
-<img *ngIf="configuration.show_photo" [ngClass]="configuration.show_banner?'profile-img-with-banner':'profile-img-without-banner'" src="../../../assets/images/profileTest.jpg" alt="">
+<img *ngIf="configuration.show_photo"
+    [ngClass]="configuration.show_banner?'profile-img-with-banner':'profile-img-without-banner'"
+    src="../../../assets/images/profileTest.jpg" alt="">
 <h1 id="name">{{person.full_name}}</h1>
 <h2 id="description">{{person.description}}</h2>
-<h2 *ngIf="!loading && configuration.show_location" id="location">{{location.state+" ("+location.country+")"}}</h2>
-<h3 *ngIf="loading">Cargando...</h3>
+<h2 id="location">{{person.location_state+" ("+person.location_country+")"}}</h2>
 
 <a class="more-info" (click)="openModal()"><i class="bi bi-arrows-angle-expand"></i> Mas info</a>
+<a [routerLink]="['perfil/editar/'+person.id]" class="edit"><i class="bi bi-pencil-square"></i></a>
 
 <div *ngIf="showModal" class="modal">
     <div class="modal-content animate__animated animate__fadeIn">
