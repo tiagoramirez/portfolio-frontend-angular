@@ -4,7 +4,7 @@
     <div *ngFor="let social of socialMedia" class="social-media">
         <a [href]="social.link" target="_blank"><i [ngClass]="social.social_media.bootstrap_class"></i></a>
     </div>
-    <a href="" class="edit"><i class="bi bi-pencil-square"></i></a>
+    <a [routerLink]="['redes-sociales/editar/'+personId]" class="edit"><i class="bi bi-pencil-square"></i></a>
 </div>
 
 <button href="#" id="login">Login <i class="bi bi-box-arrow-in-right"></i></button>

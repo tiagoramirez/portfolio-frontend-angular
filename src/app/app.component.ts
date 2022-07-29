@@ -1,71 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { SubscriptionContainer } from './helpers/subscriptionContainer';
-import { IConfiguration } from './models/configuration.interface';
-import { IPerson } from './models/person.interface';
-import { ConfigurationService } from './services/configuration.service';
-import { PersonService } from './services/person.service';
+import { Component} from '@angular/core';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
-
-    constructor(private personService: PersonService, private configurationService: ConfigurationService) { }
-
-    ngOnInit(): void {
-        let sub: Subscription = this.personService.getById(1).subscribe({
-            next: (p) => {
-                if (p !== undefined && p !== null) {
-                    this.person = p;
-                    let subConfiguration: Subscription = this.configurationService.getById(this.person.id).subscribe({
-                        next: (c) => {
-                            if (c !== undefined && c !== null) {
-                                this.configuration = c;
-                                this.configLoaded = true;
-                            } else {
-                                this.configLoaded = false;
-                            }
-                        },
-                        error: (e) => {
-                            this.error = true;
-                            console.error(e);
-                        },
-                        complete: () => {
-                            this.subsContainer.add(subConfiguration);
-                            this.loading = false;
-                        }
-                    })
-                }
-                else {
-                    this.error = true;
-                    this.loading = false;
-                }
-            },
-            error: (e) => {
-                this.error = true;
-                console.error(e);
-                this.loading = false;
-            },
-            complete: () => {
-                this.subsContainer.add(sub);
-            }
-        });
-    };
-
-    ngOnDestroy(): void {
-        this.subsContainer.unsubscribeAll();
-    }
-    person: IPerson;
-    configuration: IConfiguration;
-
-    loading: boolean = true;
-    error: boolean = false;
-    configLoaded: boolean = false;
-
-    subsContainer: SubscriptionContainer = new SubscriptionContainer();
+export class AppComponent {
 
     // cargar(event: any) {
     //     const img = event.target.files[0];

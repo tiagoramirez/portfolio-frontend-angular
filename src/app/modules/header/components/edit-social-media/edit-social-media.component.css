@@ -1,0 +1,73 @@
+:host {
+    width: 100vw;
+    min-height: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social-media {
+    margin-top: 1rem;
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+    background-color: #1f2833;
+    box-shadow: 2px 3px .7rem black;
+    color: #c5c6c7;
+    border-radius: .75rem;
+}
+
+.social-media #name {
+    color: #66FCF1;
+    margin-bottom: .75rem;
+}
+
+#new-social-media {
+    position: fixed;
+    right: 1rem;
+    top: 1rem;
+    width: 5vh;
+    height: 5vh;
+    border: 1px #66FCF1 solid;
+    background-color: #1f2833;
+    border-radius: 50%;
+    color: #66FCF1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+    box-shadow: 2px 3px .7rem black;
+}
+
+.actions {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 20%;
+}
+
+.delete,
+.edit {
+    border: 1px #66FCF1 solid;
+    background-color: #1f2833;
+    border-radius: 50%;
+    color: #66FCF1;
+    width: 3vh;
+    height: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.delete:hover,
+.edit:hover,
+#new-social-media:hover {
+    background-color: #66FCF1;
+    color: #1f2833;
+}

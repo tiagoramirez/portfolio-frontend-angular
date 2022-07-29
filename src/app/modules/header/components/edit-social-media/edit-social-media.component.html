@@ -1,0 +1,10 @@
+<div *ngFor="let socialM of socialMedia" class="social-media">
+    <h1 id="name">{{socialM.social_media.name.toUpperCase()}}</h1>
+    <p>{{socialM.link}}</p>
+    <div class="actions">
+        <a class="delete" href=""><i class="bi bi-trash3"></i></a>
+        <a class="edit" href=""><i class="bi bi-pencil-square"></i></a>
+    </div>
+</div>
+
+<a href="" id="new-social-media"><i class="bi bi-plus-circle-dotted"></i></a>

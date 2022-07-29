@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { EditSocialMediaComponent } from './modules/header/components/edit-social-media/edit-social-media.component';
 import { HeaderModule } from './modules/header/header.module';
-import { MainProfileModule } from './modules/main-profile/main-profile.module';
-import { AboutMeModule } from './modules/about-me/about-me.module';
-import { ExperienceModule } from './modules/experience/experience.module';
-import { EducationModule } from './modules/education/education.module';
-import { SkillsModule } from './modules/skills/skills.module';
-import { MyProjectsModule } from './modules/my-projects/my-projects.module';
-import { HttpClientModule } from '@angular/common/http';
-import { PersonService } from './services/person.service';
+import { MainComponent } from './modules/main/components/main/main.component';
+import { MainModule } from './modules/main/main.module';
+
+const routes: Routes = [
+    { path: '', component: MainComponent },
+    { path: 'redes-sociales/editar/:id', component: EditSocialMediaComponent }
+]
 
 @NgModule({
     declarations: [
@@ -18,16 +19,11 @@ import { PersonService } from './services/person.service';
     ],
     imports: [
         BrowserModule,
-        HeaderModule,
-        MainProfileModule,
-        AboutMeModule,
-        ExperienceModule,
-        EducationModule,
-        SkillsModule,
-        MyProjectsModule,
-        HttpClientModule
+        RouterModule.forRoot(routes),
+        MainModule,
+        HeaderModule
     ],
-    providers: [PersonService],
+    providers: [],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
