@@ -39,7 +39,7 @@ export class EditSocialMediaComponent implements OnInit, OnDestroy {
 
     personId: number;
 
-    socialMedia: IMySocialMedia[];
+    socialMedia: IMySocialMedia[] = [];
 
     loading: boolean = true;
     error: boolean = false;

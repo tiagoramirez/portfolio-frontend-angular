@@ -5,19 +5,25 @@ import { SocialMediaService } from './services/social-media.service';
 import { HttpClientModule } from "@angular/common/http";
 import { EditSocialMediaComponent } from './components/edit-social-media/edit-social-media.component';
 import { RouterModule } from '@angular/router';
+import { HandleSocialMediaComponent } from './components/handle-social-media/handle-social-media.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
         HeaderComponent,
-        EditSocialMediaComponent
+        EditSocialMediaComponent,
+        HandleSocialMediaComponent
     ],
     imports: [
+        FormsModule,
         CommonModule,
         HttpClientModule,
         RouterModule
     ],
     exports: [
-        HeaderComponent
+        HeaderComponent,
+        EditSocialMediaComponent,
+        HandleSocialMediaComponent
     ],
     providers: [
         SocialMediaService

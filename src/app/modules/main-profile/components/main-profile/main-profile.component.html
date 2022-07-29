@@ -5,11 +5,11 @@
 <h2 *ngIf="!loading && configuration.show_location" id="location">{{location.state+" ("+location.country+")"}}</h2>
 <h3 *ngIf="loading">Cargando...</h3>
 
-<a class="more-info" (click)="toggleModal()"><i class="bi bi-arrows-angle-expand"></i> Mas info</a>
+<a class="more-info" (click)="openModal()"><i class="bi bi-arrows-angle-expand"></i> Mas info</a>
 
 <div *ngIf="showModal" class="modal">
-    <div class="modal-content">
-        <span (click)="toggleModal()" class="close">&times;</span>
+    <div class="modal-content animate__animated animate__fadeIn">
+        <span (click)="closeModal()" class="close">&times;</span>
         <h1 id="modal-title">Mas informacion</h1>
         <h2 id="birthday" *ngIf="configuration.show_birthday">Fecha de nacimiento: {{person.birthday}}</h2>
         <h2 id="phone" *ngIf="configuration.show_phone">Numero de telefono: {{person.phone}}</h2>

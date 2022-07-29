@@ -33,7 +33,7 @@ export class MainProfileComponent implements OnInit, OnDestroy {
             complete: () => {
                 this.subsContainer.add(sub);
             }
-        })        
+        })
     }
 
     ngOnDestroy(): void {
@@ -42,7 +42,7 @@ export class MainProfileComponent implements OnInit, OnDestroy {
 
     @Input() person: IPerson;
     @Input() configuration: IConfiguration;
-    
+
     location: ILocation;
     loading: boolean = true;
     locationNull: boolean = false;
@@ -52,7 +52,11 @@ export class MainProfileComponent implements OnInit, OnDestroy {
 
     showModal = false;
 
-    toggleModal() {
-        this.showModal = !this.showModal;
+    openModal() {
+        this.showModal = true;
+    }
+
+    closeModal() {
+        this.showModal = false;
     }
 }
