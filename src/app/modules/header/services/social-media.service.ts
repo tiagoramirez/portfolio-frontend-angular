@@ -40,12 +40,16 @@ export class SocialMediaService {
         if (sm.link.length > 255) {
             return 1;
         }
+        if (sm.link.length == 0 || sm.link === null || sm.link === undefined) {
+            return 2;
+        }
         return 0;
     }
 
     getErrorMessage(error: number): string {
         switch (error) {
             case 1: return "El link no puede tener mas de 255 caracteres.";
+            case 2: return "El link no fue ingresado.";
             case 0: return "";
         }
         return "";
