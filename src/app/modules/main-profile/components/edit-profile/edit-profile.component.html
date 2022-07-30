@@ -1,43 +1,72 @@
-<h1 id="title">DATOS PERFIL</h1>
+<h1 id="title">CONFIGURACION PERFIL</h1>
 
-<div class="inputs">
+<div class="config" *ngIf="!loadingConfig">
+    <div class="show_photo">
+        <label>Mostrar foto de perfil: </label>
+        <input type="checkbox" [(ngModel)]="config.show_photo">
+    </div>
+    <div class="show_banner">
+        <label>Mostrar banner: </label>
+        <input type="checkbox" [(ngModel)]="config.show_banner">
+    </div>
+    <div class="show_birthday">
+        <label>Mostrar nacimiento: </label>
+        <input type="checkbox" [(ngModel)]="config.show_birthday">
+    </div>
+    <div class="show_location">
+        <label>Mostrar ubicacion: </label>
+        <input type="checkbox" [(ngModel)]="config.show_location">
+    </div>
+    <div class="show_phone">
+        <label>Mostrar telefono: </label>
+        <input type="checkbox" [(ngModel)]="config.show_phone">
+    </div>
+    <p *ngIf="newConfigSaved" class="saved">Nueva configuracion cargada</p>
+    <button class="save" (click)="saveConfig()"><i class="bi bi-save"></i> Guardar</button>
+</div>
+
+<h2 id="title">DATOS PERFIL</h2>
+
+<div class="inputs" *ngIf="!loadingPerson && !loadingConfig">
     <div class="full_name">
         <label>Nombre completo: * </label>
-        <input type="text" placeholder="Nombre completo">
+        <input type="text" placeholder="Nombre completo" [(ngModel)]="person.full_name">
     </div>
-    <div class="birthday">
+    <div class="birthday" *ngIf="config.show_birthday">
         <label>Nacimiento: </label>
-        <input type="date">
+        <input type="date" [(ngModel)]="person.birthday">
     </div>
-    <div class="phone">
+    <div class="phone" *ngIf="config.show_phone">
         <label>Telefono: </label>
-        <input type="number" placeholder="Telefono">
+        <input type="number" placeholder="Telefono" [(ngModel)]="person.phone">
     </div>
     <div class="mail">
         <label>Mail: * </label>
-        <input type="text" placeholder="Mail">
+        <input type="text" placeholder="Mail" [(ngModel)]="person.mail">
     </div>
     <div class="description">
         <label>Descripcion: * </label>
-        <input type="text" placeholder="Descripcion">
+        <input type="text" placeholder="Descripcion" [(ngModel)]="person.description">
     </div>
-    <div class="location_state">
+    <div class="location_state" *ngIf="config.show_location">
         <label>Estado/Provincia: </label>
-        <input type="text" placeholder="Estado/Provincia">
+        <input type="text" placeholder="Estado/Provincia" [(ngModel)]="person.location_state">
     </div>
-    <div class="location_country">
+    <div class="location_country" *ngIf="config.show_location">
         <label>Pais: </label>
-        <input type="text" placeholder="Pais">
+        <input type="text" placeholder="Pais" [(ngModel)]="person.location_country">
     </div>
-    <div class="photo">
+    <div class="photo" *ngIf="config.show_photo">
         <label>Foto de perfil: </label>
-        <input type="file" accept="image/*">
+        <button class="loadFile">Cargar nueva imagen</button>
     </div>
-    <div class="banner">
+    <div class="banner" *ngIf="config.show_banner">
         <label>Fondo: </label>
-        <input type="file" accept="image/*">
+        <button class="loadFile">Cargar nueva imagen</button>
     </div>
-    <button class="save"><i class="bi bi-save"></i> Guardar</button>
+    <button class="save" (click)="savePerson()"><i class="bi bi-save"></i> Guardar</button>
 </div>
 
 <a [routerLink]="['']" class="go-back"><i class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</a>
+
+<span *ngIf="loadingPerson || loadingConfig" class="loader"></span>

@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
+import { IConfiguration } from 'src/app/models/configuration.interface';
 import { IPerson } from 'src/app/models/person.interface';
+import { ConfigurationService } from '../../services/configuration.service';
 import { PersonService } from '../../services/person.service';
 
 @Component({
@@ -11,25 +13,38 @@ import { PersonService } from '../../services/person.service';
 })
 export class EditProfileComponent implements OnInit, OnDestroy {
 
-    constructor(private route: ActivatedRoute, private personService: PersonService) { }
+    constructor(private route: ActivatedRoute, private router: Router, private personService: PersonService, private configService: ConfigurationService) { }
 
     ngOnInit(): void {
         this.personId = this.route.snapshot.params['id'];
         let subPerson = this.personService.getById(this.personId).subscribe({
             next: (p) => {
                 this.person = p;
-                this.loading = false;
+                this.loadingPerson = false;
             },
             error: (e) => {
                 this.error = true;
-                this.loading = false;
+                this.loadingPerson = false;
                 console.error(e);
             },
             complete: () => {
                 this.subsContainer.add(subPerson);
             }
-        })
-
+        });
+        let subConfig = this.configService.getById(this.personId).subscribe({
+            next: (c) => {
+                this.config = c;
+                this.loadingConfig = false;
+            },
+            error: (e) => {
+                console.log(e);
+                this.error = true;
+                this.loadingConfig = false;
+            },
+            complete: () => {
+                this.subsContainer.add(subConfig);
+            }
+        });
     }
 
     ngOnDestroy(): void {
@@ -37,10 +52,47 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     }
 
     personId: number;
-    person: IPerson
+    person: IPerson;
+
+    config: IConfiguration;
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 
-    loading: boolean = true;
+    loadingPerson: boolean = true;
+    loadingConfig: boolean = true;
     error: boolean = false;
+
+    newConfigSaved: boolean = false;
+
+    saveConfig() {
+        let subConfig = this.configService.edit(this.config).subscribe({
+            next: (c) => {
+                console.log("Configuracion cargada correctamente");
+                console.log(c);
+                this.newConfigSaved = true;
+            },
+            error: (e) => {
+                console.error(e);
+            },
+            complete: () => {
+                this.subsContainer.add(subConfig);
+            }
+        });
+    }
+
+    savePerson() {
+        let subPerson = this.personService.edit(this.person).subscribe({
+            next: (p) => {
+                console.log("Datos cargados correctamente");
+                console.log(p);
+            },
+            error: (e) => {
+                console.error(e);
+            },
+            complete: () => {
+                this.subsContainer.add(subPerson);
+                this.router.navigate(['.']);
+            }
+        });
+    }
 }

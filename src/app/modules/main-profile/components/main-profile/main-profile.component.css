@@ -1,16 +1,14 @@
 :host {
-    margin-top: 1rem;
     width: 70vw;
-    min-height: 10vh;
+    min-height: 20vh;
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: 2px 3px .7rem #000;
     color: #c5c6c7;
-    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 1rem;
+    justify-content: space-around;
 }
 
 #banner {
@@ -35,6 +33,7 @@
 
 #name {
     margin-top: .5rem;
+    margin-bottom: .5rem;
     font-size: 1.8rem;
     font-weight: bold;
     color: #66FCF1;
@@ -46,13 +45,7 @@
 #phone,
 #mail {
     font-size: 1.1rem;
-    margin-top: 1rem;
-}
-
-#modal-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #66FCF1;
+    margin-bottom: 1rem;
 }
 
 .modal {
@@ -61,6 +54,13 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.75);
+}
+
+#modal-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: .75rem;
+    color: #66FCF1;
 }
 
 .modal-content {
