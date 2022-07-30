@@ -1,7 +1,7 @@
 <h1 id="title">REDES SOCIALES</h1>
 
 <h2 *ngIf="socialMedia.length==0 && !error && !loading">No hay redes sociales cargadas. Agrega una nueva</h2>
-<h2 *ngIf="loading">Cargando...</h2>
+<span *ngIf="loading" class="loader"></span>
 <h2 *ngIf="error">Error en la conexion. Intenta de nuevo mas tarde 😊</h2>
 
 <div *ngFor="let socialM of socialMedia" class="social-media">
@@ -15,4 +15,4 @@
 
 <a [routerLink]="['../crear/'+personId+'/-1']" id="new-social-media"><i class="bi bi-plus-circle-dotted"></i></a>
 
-<a [routerLink]="['']" id="go-back"><i class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</a>
+<a [routerLink]="['']" class="go-back"><i class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</a>

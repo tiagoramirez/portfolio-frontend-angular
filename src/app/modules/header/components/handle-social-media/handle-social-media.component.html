@@ -2,7 +2,7 @@
 <h1 id="title" *ngIf="action==='editar'">Editar</h1>
 <h1 id="title" *ngIf="action==='borrar'">Borrar</h1>
 
-<div class="social-media" *ngIf="!loading">
+<div class="social-media" *ngIf="!loadingMySocialMedia && !loadingSocialMedia">
     <h2 id="name" *ngIf="action==='borrar'">{{my_social_media.social_media.name.toUpperCase()}}</h2>
     <p *ngIf="action==='borrar'">{{my_social_media.link}}</p>
 
@@ -18,6 +18,6 @@
         Guardar</button>
 </div>
 
-<p *ngIf="loading">Cargando...</p>
+<span *ngIf="loadingMySocialMedia || loadingSocialMedia" class="loader"></span>
 
-<a [routerLink]="['../../../'+idPersonToModify]" id="go-back"><i class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</a>
+<a [routerLink]="['../../../'+idPersonToModify]" class="go-back"><i class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</a>

@@ -11,4 +11,4 @@
 
 <h1 *ngIf="error">Error en la conexion. Intenta de nuevo mas tarde 😊</h1>
 <h1 *ngIf="!configLoaded && !loading && !error">No se cargo una configuracion del perfil</h1>
-<h1 *ngIf="loading">Cargando...</h1>
+<span *ngIf="loading" class="loader"></span>

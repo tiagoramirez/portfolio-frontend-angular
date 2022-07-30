@@ -19,16 +19,17 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
         this.idSmToModify = this.route.snapshot.params['idSm'];
         this.idPersonToModify = this.route.snapshot.params['idPerson'];
         this.action = this.route.snapshot.params['action'];
+        
         if (this.action !== 'crear') {
             let subMySocialMedia: Subscription = this.socialMediaService.getById(this.idSmToModify).subscribe({
                 next: (sm) => {
                     this.my_social_media = sm;
-                    this.loading = false;
+                    this.loadingMySocialMedia = false;
                 },
                 error: (e) => {
                     console.error(e);
                     this.error = true;
-                    this.loading = false;
+                    this.loadingMySocialMedia = false;
                 },
                 complete: () => {
                     this.subsContainer.add(subMySocialMedia);
@@ -36,7 +37,7 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
             });
         }
         else {
-            this.loading = false;
+            this.loadingMySocialMedia = false;
             this.my_social_media = {
                 id_person: this.idPersonToModify,
                 id_social_media: null,
@@ -48,17 +49,20 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
             let subSocialMedia: Subscription = this.socialMediaService.getAllAvailable().subscribe({
                 next: (all_sm) => {
                     this.all_social_media = all_sm;
-                    this.loading = false;
+                    this.loadingSocialMedia = false;
                 },
                 error: (e) => {
                     console.error(e);
                     this.error = true;
-                    this.loading = false;
+                    this.loadingSocialMedia = false;
                 },
                 complete: () => {
                     this.subsContainer.add(subSocialMedia);
                 }
             });
+        }
+        else {
+            this.loadingSocialMedia = false;
         }
     }
 
@@ -73,7 +77,8 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
     all_social_media: ISocialMedia[];
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 
-    loading: boolean = true;
+    loadingMySocialMedia: boolean = true;
+    loadingSocialMedia: boolean = true;
     error: boolean = false;
     errorMessage: string;
 
