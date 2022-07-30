@@ -2,23 +2,23 @@
 
 <div class="config" *ngIf="!loadingConfig">
     <div class="show_photo">
-        <label>Mostrar foto de perfil: </label>
+        <p>Mostrar foto de perfil: </p>
         <input type="checkbox" [(ngModel)]="config.show_photo">
     </div>
     <div class="show_banner">
-        <label>Mostrar banner: </label>
+        <p>Mostrar banner: </p>
         <input type="checkbox" [(ngModel)]="config.show_banner">
     </div>
     <div class="show_birthday">
-        <label>Mostrar nacimiento: </label>
+        <p>Mostrar nacimiento: </p>
         <input type="checkbox" [(ngModel)]="config.show_birthday">
     </div>
     <div class="show_location">
-        <label>Mostrar ubicacion: </label>
+        <p>Mostrar ubicacion: </p>
         <input type="checkbox" [(ngModel)]="config.show_location">
     </div>
     <div class="show_phone">
-        <label>Mostrar telefono: </label>
+        <p>Mostrar telefono: </p>
         <input type="checkbox" [(ngModel)]="config.show_phone">
     </div>
     <p *ngIf="newConfigSaved" class="saved">Nueva configuracion cargada</p>
@@ -29,39 +29,39 @@
 
 <div class="inputs" *ngIf="!loadingPerson && !loadingConfig">
     <div class="full_name">
-        <label>Nombre completo: * </label>
+        <p>Nombre completo: * </p>
         <input type="text" placeholder="Nombre completo" [(ngModel)]="person.full_name">
     </div>
     <div class="birthday" *ngIf="config.show_birthday">
-        <label>Nacimiento: </label>
+        <p>Nacimiento: </p>
         <input type="date" [(ngModel)]="person.birthday">
     </div>
     <div class="phone" *ngIf="config.show_phone">
-        <label>Telefono: </label>
+        <p>Telefono: </p>
         <input type="number" placeholder="Telefono" [(ngModel)]="person.phone">
     </div>
     <div class="mail">
-        <label>Mail: * </label>
+        <p>Mail: * </p>
         <input type="text" placeholder="Mail" [(ngModel)]="person.mail">
     </div>
     <div class="description">
-        <label>Descripcion: * </label>
+        <p>Descripcion: * </p>
         <input type="text" placeholder="Descripcion" [(ngModel)]="person.description">
     </div>
     <div class="location_state" *ngIf="config.show_location">
-        <label>Estado/Provincia: </label>
+        <p>Estado/Provincia: </p>
         <input type="text" placeholder="Estado/Provincia" [(ngModel)]="person.location_state">
     </div>
     <div class="location_country" *ngIf="config.show_location">
-        <label>Pais: </label>
+        <p>Pais: </p>
         <input type="text" placeholder="Pais" [(ngModel)]="person.location_country">
     </div>
     <div class="photo" *ngIf="config.show_photo">
-        <label>Foto de perfil: </label>
+        <p>Foto de perfil: </p>
         <button class="loadFile">Cargar nueva imagen</button>
     </div>
     <div class="banner" *ngIf="config.show_banner">
-        <label>Fondo: </label>
+        <p>Fondo: </p>
         <button class="loadFile">Cargar nueva imagen</button>
     </div>
     <button class="save" (click)="savePerson()"><i class="bi bi-save"></i> Guardar</button>
