@@ -11,24 +11,36 @@
     justify-content: space-around;
 }
 
-#banner {
+.banner {
     width: 100%;
-    height: 25vh;
+    height: 30vh;
 }
 
-.profile-img-with-banner {
-    position: relative;
-    border-radius: 50%;
-    width: 15vh;
-    height: 15vh;
-    margin-top: -10vh;
+.banner img {
+    width: 100%;
+    height: 100%;
 }
 
-.profile-img-without-banner {
+.photo-banner {
+    margin-top: -15vh;
     border-radius: 50%;
-    width: 15vh;
-    height: 15vh;
-    margin-top: 1rem;
+    overflow: hidden;
+    width: 20vh;
+    height: 20vh;
+}
+
+.photo-no-banner {
+    margin-top: 1vh;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 20vh;
+    height: 20vh;
+}
+
+.photo-banner img,
+.photo-no-banner img {
+    width: 20vh;
+    height: 20vh;
 }
 
 #name {

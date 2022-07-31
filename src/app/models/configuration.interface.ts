@@ -1,6 +1,6 @@
 export interface IConfiguration {
     id?: number;
-    id_person: number;
+    personId: number;
     show_photo: boolean;
     show_banner: boolean;
     show_birthday: boolean;

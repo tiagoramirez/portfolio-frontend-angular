@@ -6,11 +6,13 @@ import { PersonService } from './services/person.service';
 import { RouterModule } from '@angular/router';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { FormsModule } from '@angular/forms';
+import { EditPhotoComponent } from './components/edit-photo/edit-photo.component';
 
 @NgModule({
     declarations: [
         MainProfileComponent,
-        EditProfileComponent
+        EditProfileComponent,
+        EditPhotoComponent
     ],
     imports: [
         CommonModule,

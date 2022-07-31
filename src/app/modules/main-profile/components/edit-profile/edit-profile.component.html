@@ -3,26 +3,29 @@
 <div class="config" *ngIf="!loadingConfig">
     <div class="show_photo">
         <p>Mostrar foto de perfil: </p>
-        <input type="checkbox" [(ngModel)]="config.show_photo">
+        <span *ngIf="loadingNewConfig" class="loader"></span>
+        <input type="checkbox" [(ngModel)]="config.show_photo" (change)="saveConfig()">
     </div>
     <div class="show_banner">
         <p>Mostrar banner: </p>
-        <input type="checkbox" [(ngModel)]="config.show_banner">
+        <span *ngIf="loadingNewConfig" class="loader"></span>
+        <input type="checkbox" [(ngModel)]="config.show_banner" (change)="saveConfig()">
     </div>
     <div class="show_birthday">
         <p>Mostrar nacimiento: </p>
-        <input type="checkbox" [(ngModel)]="config.show_birthday">
+        <span *ngIf="loadingNewConfig" class="loader"></span>
+        <input type="checkbox" [(ngModel)]="config.show_birthday" (change)="saveConfig()">
     </div>
     <div class="show_location">
         <p>Mostrar ubicacion: </p>
-        <input type="checkbox" [(ngModel)]="config.show_location">
+        <span *ngIf="loadingNewConfig" class="loader"></span>
+        <input type="checkbox" [(ngModel)]="config.show_location" (change)="saveConfig()">
     </div>
     <div class="show_phone">
         <p>Mostrar telefono: </p>
-        <input type="checkbox" [(ngModel)]="config.show_phone">
+        <span *ngIf="loadingNewConfig" class="loader"></span>
+        <input type="checkbox" [(ngModel)]="config.show_phone" (change)="saveConfig()">
     </div>
-    <p *ngIf="newConfigSaved" class="saved">Nueva configuracion cargada</p>
-    <button class="save" (click)="saveConfig()"><i class="bi bi-save"></i> Guardar</button>
 </div>
 
 <h2 id="title">DATOS PERFIL</h2>
@@ -58,11 +61,11 @@
     </div>
     <div class="photo" *ngIf="config.show_photo">
         <p>Foto de perfil: </p>
-        <button class="loadFile">Cargar nueva imagen</button>
+        <a [routerLink]="['./foto']" class="loadFile">Cargar nueva imagen</a>
     </div>
     <div class="banner" *ngIf="config.show_banner">
         <p>Fondo: </p>
-        <button class="loadFile">Cargar nueva imagen</button>
+        <a [routerLink]="['./fondo']" class="loadFile">Cargar nueva imagen</a>
     </div>
     <button class="save" (click)="savePerson()"><i class="bi bi-save"></i> Guardar</button>
 </div>

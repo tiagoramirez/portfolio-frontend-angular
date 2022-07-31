@@ -39,7 +39,7 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
         else {
             this.loadingMySocialMedia = false;
             this.my_social_media = {
-                id_person: this.idPersonToModify,
+                personId: this.idPersonToModify,
                 id_social_media: null,
                 social_media: null,
                 link: "",

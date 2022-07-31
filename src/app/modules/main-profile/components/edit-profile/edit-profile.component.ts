@@ -62,17 +62,19 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     loadingConfig: boolean = true;
     error: boolean = false;
 
-    newConfigSaved: boolean = false;
+    loadingNewConfig: boolean = false;
 
     saveConfig() {
+        this.loadingNewConfig = true;
         let subConfig = this.configService.edit(this.config).subscribe({
             next: (c) => {
                 console.log("Configuracion cargada correctamente");
                 console.log(c);
-                this.newConfigSaved = true;
+                this.loadingNewConfig = false;
             },
             error: (e) => {
                 console.error(e);
+                this.loadingNewConfig = false;
             },
             complete: () => {
                 this.subsContainer.add(subConfig);

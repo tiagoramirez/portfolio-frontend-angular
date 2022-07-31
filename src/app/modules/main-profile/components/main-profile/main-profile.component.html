@@ -1,7 +1,12 @@
-<img *ngIf="configuration.show_banner" id="banner" src="../../../assets/images/bannerTest.jpg" alt="">
-<img *ngIf="configuration.show_photo"
-    [ngClass]="configuration.show_banner?'profile-img-with-banner':'profile-img-without-banner'"
-    src="../../../assets/images/profileTest.jpg" alt="">
+<div class="banner" *ngIf="configuration.show_banner">
+    <img [src]="bannerString" alt="">
+</div>
+
+<div class="photo" [ngClass]="configuration.show_banner?'photo-banner':'photo-no-banner'"
+    *ngIf="configuration.show_photo">
+    <img [src]="photoString" alt="">
+</div>
+
 <h1 id="name">{{person.full_name}}</h1>
 <h2 id="description">{{person.description}}</h2>
 <h2 id="location" *ngIf="configuration.show_location">{{person.location_state+" ("+person.location_country+")"}}</h2>

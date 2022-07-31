@@ -27,8 +27,8 @@ body {
 }
 
 .loader {
-    width: 7vh;
-    height: 7vh;
+    width: 3vh;
+    height: 3vh;
     border-radius: 50%;
     display: inline-block;
     position: relative;
@@ -50,8 +50,8 @@ body {
     margin: auto;
     border: 3px solid;
     border-color: transparent transparent #FFF #FFF;
-    width: 6vh;
-    height: 6vh;
+    width: 2vh;
+    height: 2vh;
     border-radius: 50%;
     box-sizing: border-box;
     animation: rotationBack 0.5s linear infinite;
@@ -59,8 +59,8 @@ body {
 }
 
 .loader::before {
-    width: 5vh;
-    height: 5vh;
+    width: 1vh;
+    height: 1vh;
     border-color: #66FCF1 #66FCF1 transparent transparent;
     animation: rotation 1.5s linear infinite;
 }

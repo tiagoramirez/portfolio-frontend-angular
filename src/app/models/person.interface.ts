@@ -1,5 +1,7 @@
 export interface IPerson {
     id?: number;
+    id_photo?:number;
+    id_banner?:number;
     full_name: string;
     birthday?: Date;
     phone?: number;
@@ -7,6 +9,4 @@ export interface IPerson {
     description: string;
     location_state?: string;
     location_country?: string;
-    photo?: string;
-    banner?: string;
 }
