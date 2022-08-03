@@ -10,6 +10,8 @@ import { EditProfileComponent } from './modules/main-profile/components/edit-pro
 import { EditPhotoComponent } from './modules/main-profile/components/edit-photo/edit-photo.component';
 import { MainComponent } from './modules/main/components/main/main.component';
 import { MainModule } from './modules/main/main.module';
+import { LoginComponent } from './auth/login.component';
+import { RegisterComponent } from './auth/register.component';
 
 const routes: Routes = [
     { path: '', component: MainComponent },
@@ -22,6 +24,8 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
+        LoginComponent,
+        RegisterComponent,
     ],
     imports: [
         BrowserModule,
