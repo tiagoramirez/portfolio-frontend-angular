@@ -11,11 +11,15 @@ export class ConfigurationService {
 
     constructor(private http: HttpClient) { }
 
-    getById(id: number): Observable<IConfiguration> {
-        return this.http.get<IConfiguration>(environment.API_URL + "/configuracion/" + id);
+    getByProfileId(profileId: number): Observable<IConfiguration> {
+        return this.http.get<IConfiguration>(environment.API_URL + '/configuration/' + profileId);
+    }
+
+    addNew(config: IConfiguration): Observable<IConfiguration> {
+        return this.http.post<IConfiguration>(environment.API_URL + '/configuration/create', config);
     }
 
     edit(config: IConfiguration): Observable<IConfiguration> {
-        return this.http.put<IConfiguration>(environment.API_URL + '/configuracion/editar', config);
+        return this.http.put<IConfiguration>(environment.API_URL + '/configuration/edit', config);
     }
 }

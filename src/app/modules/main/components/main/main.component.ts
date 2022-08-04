@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IConfiguration } from 'src/app/models/configuration.interface';
-import { IPerson } from 'src/app/models/person.interface';
+import { IProfile } from 'src/app/models/person.interface';
 import { ConfigurationService } from 'src/app/services/configuration.service';
-import { PersonService } from 'src/app/services/person.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
     selector: 'app-main',
@@ -13,14 +13,14 @@ import { PersonService } from 'src/app/services/person.service';
 })
 export class MainComponent implements OnInit, OnDestroy {
 
-    constructor(private personService: PersonService, private configurationService: ConfigurationService) { }
+    constructor(private profileService: ProfileService, private configurationService: ConfigurationService) { }
 
     ngOnInit(): void {
-        let sub: Subscription = this.personService.getById(1).subscribe({
+        let sub: Subscription = this.profileService.getById(1).subscribe({
             next: (p) => {
                 if (p !== undefined && p !== null) {
-                    this.person = p;
-                    let subConfiguration: Subscription = this.configurationService.getById(this.person.id).subscribe({
+                    this.profile = p;
+                    let subConfiguration: Subscription = this.configurationService.getById(this.profile.id).subscribe({
                         next: (c) => {
                             if (c !== undefined && c !== null) {
                                 this.configuration = c;
@@ -58,7 +58,8 @@ export class MainComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.subsContainer.unsubscribeAll();
     }
-    person: IPerson;
+    
+    profile: IProfile;
     configuration: IConfiguration;
 
     loading: boolean = true;

@@ -11,13 +11,19 @@ export class BannerService {
 
     constructor(private http: HttpClient) { }
 
-    addNew(image: File): Observable<IBanner> {
-        const uploadData = new FormData();
-        uploadData.append('banner', image, image.name);
-        return this.http.post<IBanner>(environment.API_URL + '/fondo/crear', uploadData);
+    getByUserId(userId: number): Observable<IBanner> {
+        return this.http.get<IBanner>(environment.API_URL + '/banner/' + userId);
     }
 
-    getById(id: number): Observable<IBanner> {
-        return this.http.get<IBanner>(environment.API_URL + '/fondo/' + id);
+    addNew(image: File, userId: number): Observable<IBanner> {
+        const uploadData = new FormData();
+        uploadData.append('banner', image, image.name);
+        return this.http.post<IBanner>(environment.API_URL + '/banner/add/' + userId, uploadData);
+    }
+
+    edit(image: File, userId: number, bannerId: number): Observable<IBanner> {
+        const uploadData = new FormData();
+        uploadData.append('banner', image, image.name);
+        return this.http.put<IBanner>(environment.API_URL + '/banner/edit/' + userId + '/' + bannerId, uploadData);
     }
 }

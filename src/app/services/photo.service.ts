@@ -11,13 +11,19 @@ export class PhotoService {
 
     constructor(private http: HttpClient) { }
 
-    addNew(image: File): Observable<IPhoto> {
-        const uploadData = new FormData();
-        uploadData.append('photo', image, image.name);
-        return this.http.post<IPhoto>(environment.API_URL + '/foto/crear', uploadData);
+    getByUserId(userId: number): Observable<IPhoto> {
+        return this.http.get<IPhoto>(environment.API_URL + '/photo/' + userId);
     }
 
-    getById(id: number): Observable<IPhoto> {
-        return this.http.get<IPhoto>(environment.API_URL + '/foto/' + id);
+    addNew(image: File, userId: number): Observable<IPhoto> {
+        const uploadData = new FormData();
+        uploadData.append('photo', image, image.name);
+        return this.http.post<IPhoto>(environment.API_URL + '/photo/add/' + userId, uploadData);
+    }
+
+    edit(image: File, userId: number, photoId: number) {
+        const uploadData = new FormData();
+        uploadData.append('photo', image, image.name);
+        return this.http.put<IPhoto>(environment.API_URL + 'photo/edit/' + userId + '/' + photoId, uploadData);
     }
 }

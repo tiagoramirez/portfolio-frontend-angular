@@ -4,10 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { getBase64 } from 'src/app/helpers/getBase64';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
-import { IPerson } from 'src/app/models/person.interface';
 import { BannerService } from 'src/app/services/banner.service';
-import { PersonService } from 'src/app/services/person.service';
 import { PhotoService } from 'src/app/services/photo.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
     selector: 'app-edit-photo',
@@ -16,12 +15,12 @@ import { PhotoService } from 'src/app/services/photo.service';
 })
 export class EditPhotoComponent implements OnInit, OnDestroy {
 
-    constructor(private route: ActivatedRoute, private router: Router, private personService: PersonService, private photoService: PhotoService, private bannerService: BannerService) { }
+    constructor(private route: ActivatedRoute, private router: Router, private profileService: ProfileService, private photoService: PhotoService, private bannerService: BannerService) { }
 
     ngOnInit(): void {
         this.personId = this.route.snapshot.params['id'];
         this.type = this.route.snapshot.params['type'];
-        let subPerson: Subscription = this.personService.getById(this.personId).subscribe({
+        let subPerson: Subscription = this.profileService.getById(this.personId).subscribe({
             next: (p) => {
                 this.person = p;
                 if (p.id_photo !== null && p.id_photo !== undefined) {
@@ -99,7 +98,7 @@ export class EditPhotoComponent implements OnInit, OnDestroy {
                     next: (p) => {
                         console.log("Nueva foto cargada exitosamente");
                         this.person.id_photo = p.id;
-                        let subPerson: Subscription = this.personService.edit(this.person).subscribe({
+                        let subPerson: Subscription = this.profileService.edit(this.person).subscribe({
                             next: (person) => {
                                 console.log("Imagen de la persona cargada exitosamente");
                                 console.log(person);
@@ -126,7 +125,7 @@ export class EditPhotoComponent implements OnInit, OnDestroy {
                     next: (p) => {
                         console.log("Nueva foto cargada exitosamente");
                         this.person.id_banner = p.id;
-                        let subPerson: Subscription = this.personService.edit(this.person).subscribe({
+                        let subPerson: Subscription = this.profileService.edit(this.person).subscribe({
                             next: (person) => {
                                 console.log("Imagen de la persona cargada exitosamente");
                                 console.log(person);

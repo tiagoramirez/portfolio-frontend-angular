@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     constructor(private socialMediaService: SocialMediaService) { }
 
     ngOnInit(): void {
-        let sub: Subscription = this.socialMediaService.getAllByPersonId(this.personId).subscribe({
+        let sub: Subscription = this.socialMediaService.getAllByPersonId(this.profile).subscribe({
             next: (v) => {
                 this.socialMedia = v;
                 this.loading = false;
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.subsContainer.unsubscribeAll();
     }
 
-    @Input() personId: number;
+    @Input() profile: number;
 
     socialMedia: IUserSocialMedia[];
 

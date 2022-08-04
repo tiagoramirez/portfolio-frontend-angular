@@ -1,12 +1,8 @@
-export interface IPerson {
+export interface IProfile {
     id?: number;
-    id_photo?:number;
-    id_banner?:number;
-    full_name: string;
-    birthday?: Date;
-    phone?: number;
-    mail: string;
+    id_user?:number;
     description: string;
+    phone?: string;
     location_state?: string;
     location_country?: string;
 }

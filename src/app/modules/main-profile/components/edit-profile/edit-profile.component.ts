@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IConfiguration } from 'src/app/models/configuration.interface';
-import { IPerson } from 'src/app/models/person.interface';
+import { IProfile } from 'src/app/models/person.interface';
 import { ConfigurationService } from 'src/app/services/configuration.service';
-import { PersonService } from 'src/app/services/person.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
     selector: 'app-edit-profile',
@@ -13,11 +13,11 @@ import { PersonService } from 'src/app/services/person.service';
 })
 export class EditProfileComponent implements OnInit, OnDestroy {
 
-    constructor(private route: ActivatedRoute, private router: Router, private personService: PersonService, private configService: ConfigurationService) { }
+    constructor(private route: ActivatedRoute, private router: Router, private profileService: ProfileService, private configService: ConfigurationService) { }
 
     ngOnInit(): void {
         this.personId = this.route.snapshot.params['id'];
-        let subPerson = this.personService.getById(this.personId).subscribe({
+        let subPerson = this.profileService.getById(this.personId).subscribe({
             next: (p) => {
                 this.person = p;
                 this.loadingPerson = false;
@@ -52,7 +52,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     }
 
     personId: number;
-    person: IPerson;
+    person: IProfile;
 
     config: IConfiguration;
 
@@ -83,7 +83,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     }
 
     savePerson() {
-        let subPerson = this.personService.edit(this.person).subscribe({
+        let subPerson = this.profileService.edit(this.person).subscribe({
             next: (p) => {
                 console.log("Datos cargados correctamente");
                 console.log(p);
