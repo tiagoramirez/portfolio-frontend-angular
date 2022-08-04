@@ -1,8 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
-import { IMySocialMedia } from 'src/app/models/my_social_media.interface';
-import { SocialMediaService } from '../../services/social-media.service';
+import { IUserSocialMedia } from 'src/app/models/user_social_media.interface';
+import { SocialMediaService } from 'src/app/services/social-media.service';
 
 @Component({
     selector: 'app-header',
@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     @Input() personId: number;
 
-    socialMedia: IMySocialMedia[];
+    socialMedia: IUserSocialMedia[];
 
     loading: boolean = true;
     error: boolean = false;

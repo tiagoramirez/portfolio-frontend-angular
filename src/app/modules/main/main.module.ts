@@ -9,8 +9,6 @@ import { SkillsModule } from '../skills/skills.module';
 import { MyProjectsModule } from '../my-projects/my-projects.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MainComponent } from './components/main/main.component';
-import { PersonService } from './services/person.service';
-import { ConfigurationService } from './services/configuration.service';
 
 @NgModule({
     declarations: [
@@ -26,7 +24,6 @@ import { ConfigurationService } from './services/configuration.service';
         SkillsModule,
         MyProjectsModule,
         HttpClientModule
-    ],
-    providers: [PersonService, ConfigurationService]
+    ]
 })
 export class MainModule { }

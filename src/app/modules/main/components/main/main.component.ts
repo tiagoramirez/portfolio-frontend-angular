@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IConfiguration } from 'src/app/models/configuration.interface';
 import { IPerson } from 'src/app/models/person.interface';
-import { ConfigurationService } from '../../services/configuration.service';
-import { PersonService } from '../../services/person.service';
+import { ConfigurationService } from 'src/app/services/configuration.service';
+import { PersonService } from 'src/app/services/person.service';
 
 @Component({
     selector: 'app-main',

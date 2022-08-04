@@ -2,8 +2,8 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
-import { IMySocialMedia } from 'src/app/models/my_social_media.interface';
-import { SocialMediaService } from '../../services/social-media.service';
+import { IUserSocialMedia } from 'src/app/models/user_social_media.interface';
+import { SocialMediaService } from 'src/app/services/social-media.service';
 
 @Component({
     selector: 'app-edit-social-media',
@@ -39,7 +39,7 @@ export class EditSocialMediaComponent implements OnInit, OnDestroy {
 
     personId: number;
 
-    socialMedia: IMySocialMedia[] = [];
+    socialMedia: IUserSocialMedia[] = [];
 
     loading: boolean = true;
     error: boolean = false;

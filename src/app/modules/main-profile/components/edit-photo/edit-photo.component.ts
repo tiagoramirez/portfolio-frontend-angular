@@ -5,11 +5,9 @@ import { Subscription } from 'rxjs';
 import { getBase64 } from 'src/app/helpers/getBase64';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IPerson } from 'src/app/models/person.interface';
-import { IPhoto } from 'src/app/models/photo.interface';
-import { environment } from 'src/environments/environment';
-import { BannerService } from '../../services/banner.service';
-import { PersonService } from '../../services/person.service';
-import { PhotoService } from '../../services/photo.service';
+import { BannerService } from 'src/app/services/banner.service';
+import { PersonService } from 'src/app/services/person.service';
+import { PhotoService } from 'src/app/services/photo.service';
 
 @Component({
     selector: 'app-edit-photo',

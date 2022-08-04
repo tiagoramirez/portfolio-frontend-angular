@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
-import { IMySocialMedia } from 'src/app/models/my_social_media.interface';
 import { ISocialMedia } from 'src/app/models/social_media.interface';
-import { SocialMediaService } from '../../services/social-media.service';
+import { IUserSocialMedia } from 'src/app/models/user_social_media.interface';
+import { SocialMediaService } from 'src/app/services/social-media.service';
 
 @Component({
     selector: 'app-handle-social-media',
@@ -39,7 +39,7 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
         else {
             this.loadingMySocialMedia = false;
             this.my_social_media = {
-                personId: this.idPersonToModify,
+                id_user: this.idPersonToModify,
                 id_social_media: null,
                 social_media: null,
                 link: "",
@@ -73,7 +73,7 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
     idSmToModify: number;
     idPersonToModify: number;
     action: string;
-    my_social_media: IMySocialMedia;
+    my_social_media: IUserSocialMedia;
     all_social_media: ISocialMedia[];
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 

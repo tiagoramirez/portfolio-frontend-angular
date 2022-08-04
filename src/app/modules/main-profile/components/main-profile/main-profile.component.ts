@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IConfiguration } from 'src/app/models/configuration.interface';
 import { IPerson } from 'src/app/models/person.interface';
-import { BannerService } from '../../services/banner.service';
-import { PhotoService } from '../../services/photo.service';
+import { BannerService } from 'src/app/services/banner.service';
+import { PhotoService } from 'src/app/services/photo.service';
 
 @Component({
     selector: 'app-main-profile',
