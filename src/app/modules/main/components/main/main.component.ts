@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IConfiguration } from 'src/app/models/configuration.interface';
 import { IProfile } from 'src/app/models/person.interface';
@@ -10,11 +11,15 @@ import { IProfile } from 'src/app/models/person.interface';
 })
 export class MainComponent implements OnInit, OnDestroy {
 
-    constructor() { }
+    constructor(private route:ActivatedRoute) { }
 
     ngOnInit(): void {
-
+        this.username=this.route.snapshot.params['username'];
+        console.log(this.username);
+        
     }
+    
+    username:string;
 
     // ngOnInit(): void {
     //     let sub: Subscription = this.profileService.getById(1).subscribe({

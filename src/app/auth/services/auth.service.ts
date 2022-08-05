@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { IJwtDTO } from '../models/jwt_dto.interface';
 import { ILogin } from '../models/login.interface';
 import { IRegister } from '../models/register.interface';
+import { IUser } from '../models/user.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -19,6 +20,10 @@ export class AuthService {
 
     public login(loginUser: ILogin): Observable<IJwtDTO> {
         return this.http.post<IJwtDTO>(environment.API_URL + '/auth/login', loginUser);
+    }
+
+    public getAllUsers(): Observable<IUser[]> {
+        return this.http.get<IUser[]>(environment.API_URL + '/auth/all');
     }
 
     checkRegister(register: IRegister, password2: string): number {
@@ -49,7 +54,7 @@ export class AuthService {
         if (register.mail.length == 0 || register.mail === null || register.mail === undefined) {
             return 9;
         }
-        if(password2!==register.password){
+        if (password2 !== register.password) {
             return 10;
         }
         return 0;

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { MainComponent } from './components/main/main.component';
 
 @NgModule({
@@ -8,8 +7,7 @@ import { MainComponent } from './components/main/main.component';
         MainComponent
     ],
     imports: [
-        CommonModule,
-        HttpClientModule
+        CommonModule
     ]
 })
 export class MainModule { }

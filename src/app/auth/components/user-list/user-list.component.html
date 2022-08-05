@@ -1,0 +1,6 @@
+<p *ngIf="error" class="error-message">Error en el servidor</p>
+<span *ngIf="loading" class="loader"></span>
+
+<div *ngFor="let user of users" class="users-container">
+    <a class="user" [routerLink]="'/'+user.username">{{user.full_name}}</a>
+</div>
