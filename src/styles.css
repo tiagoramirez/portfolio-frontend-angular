@@ -107,3 +107,11 @@ body {
     background-color: #66FCF1;
     color: #1f2833;
 }
+
+.error-message{
+    color: red;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    white-space: wrap;
+    text-align: center;
+}

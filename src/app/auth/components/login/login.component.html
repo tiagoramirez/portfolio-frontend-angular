@@ -1,0 +1,21 @@
+<h1 *ngIf="isLogged">Ya iniciaste sesion</h1>
+<h1 *ngIf="!isLogged">Iniciar Sesion</h1>
+<div class="login" *ngIf="!isLogged">
+    <div class="buttons">
+        <a routerLink="/login"> Iniciar sesion</a>
+        <a routerLink="/register"> Crear cuenta</a>
+    </div>
+    <form #f="ngForm" novalidate (ngSubmit)="onLogin()">
+        <div class="username-form">
+            <label for="username">Nombre de usuario</label>
+            <input type="text" name="username" id="username" [(ngModel)]="userLogin.username" required>
+        </div>
+        <div class="password-form">
+            <label for="password">Contraseña</label>
+            <input type="password" name="password" id="password" [(ngModel)]="userLogin.password" required>
+        </div>
+        <button *ngIf="!loadingLogin" type="submit" [disabled]="!f.valid">Iniciar sesion</button>
+        <span *ngIf="loadingLogin" class="loader"></span>
+        <p class="error-message" *ngIf="loginFailed">{{errorMessage}}</p>
+    </form>
+</div>
