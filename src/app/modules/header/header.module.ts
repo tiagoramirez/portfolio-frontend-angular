@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
-import { HttpClientModule } from "@angular/common/http";
-import { EditSocialMediaComponent } from './components/edit-social-media/edit-social-media.component';
 import { RouterModule } from '@angular/router';
+import { EditSocialMediaComponent } from './components/edit-social-media/edit-social-media.component';
 import { HandleSocialMediaComponent } from './components/handle-social-media/handle-social-media.component';
 import { FormsModule } from '@angular/forms';
 
@@ -14,10 +13,9 @@ import { FormsModule } from '@angular/forms';
         HandleSocialMediaComponent
     ],
     imports: [
-        FormsModule,
         CommonModule,
-        HttpClientModule,
-        RouterModule
+        RouterModule,
+        FormsModule
     ],
     exports: [
         HeaderComponent,

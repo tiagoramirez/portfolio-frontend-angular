@@ -1,5 +1,4 @@
-<!-- <app-header *ngIf="!loading && !error && configLoaded" class="animate__animated animate__fadeIn" [profile]="profile.id">
-</app-header> -->
+<app-header class="animate__animated animate__fadeIn"></app-header>
 <!-- <app-main-profile *ngIf="!loading && !error && configLoaded" class="animate__animated animate__zoomInDown"
     [person]="person" [configuration]="configuration">
 </app-main-profile> -->
@@ -8,7 +7,3 @@
 <!-- <app-education *ngIf="!loading && !error && configLoaded" class="animate__animated animate__zoomInDown"></app-education> -->
 <!-- <app-skills *ngIf="!loading && !error && configLoaded" class="animate__animated animate__zoomInDown"></app-skills> -->
 <!-- <app-my-projects *ngIf="!loading && !error && configLoaded" class="animate__animated animate__zoomInDown"></app-my-projects> -->
-
-<h1 *ngIf="error">Error en la conexion. Intenta de nuevo mas tarde 😊</h1>
-<h1 *ngIf="!configLoaded && !loading && !error">No se cargo una configuracion del perfil</h1>
-<span *ngIf="loading" class="loader"></span>

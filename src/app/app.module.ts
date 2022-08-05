@@ -7,6 +7,8 @@ import { AuthModule } from './auth/auth.module';
 import { LoginComponent } from './auth/components/login/login.component';
 import { RegisterComponent } from './auth/components/register/register.component';
 import { UserListComponent } from './auth/components/user-list/user-list.component';
+import { EditSocialMediaComponent } from './modules/header/components/edit-social-media/edit-social-media.component';
+import { HandleSocialMediaComponent } from './modules/header/components/handle-social-media/handle-social-media.component';
 import { MainComponent } from './modules/main/components/main/main.component';
 import { MainModule } from './modules/main/main.module';
 import { BannerService } from './services/banner.service';
@@ -16,12 +18,12 @@ import { ProfileService } from './services/profile.service';
 import { SocialMediaService } from './services/social-media.service';
 
 const routes: Routes = [
-    { path: '', component: UserListComponent},
+    { path: '', component: UserListComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: ':username',component:MainComponent }
-    // { path: 'redes-sociales/editar/:id', component: EditSocialMediaComponent },
-    // { path: 'redes-sociales/editar/:action/:idPerson/:idSm', component: HandleSocialMediaComponent },
+    { path: ':username', component: MainComponent },
+    { path: ':username/redes-sociales/editar', component: EditSocialMediaComponent },
+    { path: ':username/redes-sociales/editar/:action/:idSm', component: HandleSocialMediaComponent },
     // { path: 'perfil/editar/:id', component: EditProfileComponent },
     // { path: 'perfil/editar/:id/:type', component: EditPhotoComponent },
 ]

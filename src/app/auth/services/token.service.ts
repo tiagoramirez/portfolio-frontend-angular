@@ -17,6 +17,15 @@ export class TokenService {
         return sessionStorage.getItem(TOKEN_KEY);
     }
 
+    public setUserId(userId: number): void {
+        sessionStorage.removeItem(USER_ID_KEY);
+        sessionStorage.setItem(USER_ID_KEY, userId.toString());
+    }
+
+    public getUserId(): number {
+        return parseInt(sessionStorage.getItem(USER_ID_KEY));
+    }
+
     public setUsername(username: string): void {
         window.sessionStorage.removeItem(USERNAME_KEY);
         window.sessionStorage.setItem(USERNAME_KEY, username);
@@ -48,4 +57,5 @@ export class TokenService {
 
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
+const USER_ID_KEY = 'AuthUserId';
 const AUTHORITIES_KEY = 'AuthAuthorities';

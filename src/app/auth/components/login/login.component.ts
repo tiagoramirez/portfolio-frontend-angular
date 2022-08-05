@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     this.tokenService.setToken(jwt.token);
                     this.tokenService.setUsername(jwt.username);
                     this.tokenService.setAuthorities(jwt.authorities);
+                    this.tokenService.setUserId(jwt.userId);
                     this.roles = jwt.authorities;
                     this.router.navigate(['']);
                 },

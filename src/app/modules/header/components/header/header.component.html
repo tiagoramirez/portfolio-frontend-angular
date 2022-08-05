@@ -4,9 +4,10 @@
 
 <div *ngIf="!loading && socialMedia.length!=0" class="social-media-container">
     <div *ngFor="let social of socialMedia" class="social-media">
-        <a [href]="social.link" target="_blank"><i [ngClass]="social.social_media.bootstrap_class"></i></a>
+        <a [href]="social.link" target="_blank"><i [ngClass]="social.social_media.icon_class"></i></a>
     </div>
-    <a [routerLink]="['redes-sociales/editar/'+personId]" class="edit"><i class="bi bi-pencil-square"></i></a>
 </div>
+<a class="edit" *ngIf="isLogged && username===loggedUsername" [routerLink]="'./redes-sociales/editar'"><i class="bi bi-pencil-square"></i></a>
 
-<button href="#" id="login">Login <i class="bi bi-box-arrow-in-right"></i></button>
+<button routerLink="/login" *ngIf="!isLogged" id="login">Login <i class="bi bi-box-arrow-in-right"></i></button>
+<button routerLink="/logout" *ngIf="isLogged" id="login">Logout <i class="bi bi-box-arrow-in-right"></i></button>

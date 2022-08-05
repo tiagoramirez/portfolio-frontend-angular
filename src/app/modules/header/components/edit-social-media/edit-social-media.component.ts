@@ -15,19 +15,20 @@ export class EditSocialMediaComponent implements OnInit, OnDestroy {
     constructor(private socialMediaService: SocialMediaService, private route: ActivatedRoute) { }
 
     ngOnInit(): void {
-        this.personId = this.route.snapshot.params['id'];
-
-        let sub: Subscription = this.socialMediaService.getAllByPersonId(this.personId).subscribe({
-            next: (v) => {
-                this.socialMedia = v;
-                this.loading = false;
+        this.username = this.route.snapshot.params['username'];
+        
+        let sub: Subscription = this.socialMediaService.getAllByUsername(this.username).subscribe({
+            next: (data) => {
+                this.socialMedia = data;
             },
             error: (e) => {
+                this.loading = false;
                 this.error = true;
                 console.error(e);
-                this.loading = false;
             },
             complete: () => {
+                this.loading = false;
+                this.error = false;
                 this.subsContainer.add(sub);
             }
         })
@@ -37,12 +38,11 @@ export class EditSocialMediaComponent implements OnInit, OnDestroy {
         this.subsContainer.unsubscribeAll();
     }
 
-    personId: number;
-
+    username: string;
     socialMedia: IUserSocialMedia[] = [];
 
+    subsContainer: SubscriptionContainer = new SubscriptionContainer();
+    
     loading: boolean = true;
     error: boolean = false;
-
-    subsContainer: SubscriptionContainer = new SubscriptionContainer();
 }

@@ -3,13 +3,13 @@
 <h1 id="title" *ngIf="action==='borrar'">Borrar</h1>
 
 <div class="social-media" *ngIf="!loadingMySocialMedia && !loadingSocialMedia">
-    <h2 id="name" *ngIf="action==='borrar'">{{my_social_media.social_media.name.toUpperCase()}}</h2>
-    <p *ngIf="action==='borrar'">{{my_social_media.link}}</p>
+    <h2 id="name" *ngIf="action==='borrar'">{{user_social_media.social_media.name.toUpperCase()}}</h2>
+    <p *ngIf="action==='borrar'">{{user_social_media.link}}</p>
 
-    <select *ngIf="action==='editar' || action==='crear'" [(ngModel)]="my_social_media.id_social_media">
+    <select *ngIf="action==='editar' || action==='crear'" [(ngModel)]="user_social_media.id_social_media">
         <option *ngFor="let sm of all_social_media" [value]="sm.id">{{sm.name}}</option>
     </select>
-    <input *ngIf="action==='crear' || action==='editar'" type="text" [(ngModel)]="my_social_media.link">
+    <input *ngIf="action==='crear' || action==='editar'" type="text" [(ngModel)]="user_social_media.link">
 
     <p *ngIf="error">{{errorMessage}}</p>
 
@@ -20,4 +20,5 @@
 
 <span *ngIf="loadingMySocialMedia || loadingSocialMedia" class="loader"></span>
 
-<a [routerLink]="['../../../'+idPersonToModify]" class="go-back"><i class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</a>
+<a [routerLink]="['/'+username+'/redes-sociales/editar']" class="go-back"><i
+        class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</a>
