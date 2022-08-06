@@ -26,6 +26,10 @@ export class AuthService {
         return this.http.get<IUser[]>(environment.API_URL + '/auth/all');
     }
 
+    public getUserByUsername(username: string): Observable<IUser> {
+        return this.http.get<IUser>(environment.API_URL + '/auth/user/' + username);
+    }
+
     checkRegister(register: IRegister, password2: string): number {
         if (register.username.length > 25) {
             return 1;

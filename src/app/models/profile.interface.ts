@@ -1,6 +1,6 @@
 export interface IProfile {
     id?: number;
-    id_user?:number;
+    userId?:number;
     description: string;
     phone?: string;
     location_state?: string;

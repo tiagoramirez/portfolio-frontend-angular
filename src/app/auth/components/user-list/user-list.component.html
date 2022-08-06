@@ -6,3 +6,8 @@
     <a class="user" [routerLink]="'/'+user.username"><i class="bi bi-caret-right"></i> {{user.full_name}} <i
             class="bi bi-caret-left"></i></a>
 </div>
+
+<a routerLink="/register" class="register">Crear cuenta</a>
+
+<a *ngIf="!isLogged" routerLink="/login" class="login-logout">Login</a>
+<a *ngIf="isLogged" (click)="onLogout()" class="login-logout">Logout</a>

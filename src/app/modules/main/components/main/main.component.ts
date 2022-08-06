@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TokenService } from 'src/app/auth/services/token.service';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
-import { IProfile } from 'src/app/models/person.interface';
+import { IProfile } from 'src/app/models/profile.interface';
 import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
@@ -19,28 +19,30 @@ export class MainComponent implements OnInit, OnDestroy {
 
         this.username = this.route.snapshot.params['username'];
 
-        if (this.tokenService.getToken() === null || this.tokenService.getUsername() !== this.username) {
-            this.router.navigate(['./'])
-        }
-        else {
-            let sub: Subscription = this.profileService.getByUsername(this.username).subscribe({
-                next: (data) => {
-                    this.profiles = data;
-                },
-                error: (e) => {
-                    this.loading = false;
-                    this.error = true;
-                    console.log(e);
-                },
-                complete: () => {
-                    this.loading = false;
-                    this.error = false;
-                    this.subsContainer.add(sub);
-                    this.profiles.length == 0 ? this.router.navigate(['/' + this.username + '/first-time-config']) : null;
-                }
-            });
-        }
 
+        let sub: Subscription = this.profileService.getByUsername(this.username).subscribe({
+            next: (data) => {
+                this.profiles = data;
+            },
+            error: (e) => {
+                this.loading = false;
+                this.error = true;
+                console.log(e);
+            },
+            complete: () => {
+                this.loading = false;
+                this.error = false;
+                this.subsContainer.add(sub);
+                if (this.profiles.length == 0) {
+                    if (this.tokenService.getUsername() === this.username) {
+                        this.router.navigate(['/' + this.username + '/first-time-config'])
+                    }
+                    else {
+                        this.router.navigate(['./'])
+                    }
+                }
+            }
+        });
     }
 
     ngOnDestroy(): void {

@@ -11,8 +11,8 @@ export class PhotoService {
 
     constructor(private http: HttpClient) { }
 
-    getByUserId(userId: number): Observable<IPhoto> {
-        return this.http.get<IPhoto>(environment.API_URL + '/photo/' + userId);
+    getByUsername(username: string): Observable<IPhoto> {
+        return this.http.get<IPhoto>(environment.API_URL + '/photo/' + username);
     }
 
     addNew(image: File, userId: number): Observable<IPhoto> {

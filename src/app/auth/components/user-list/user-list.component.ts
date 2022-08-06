@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IUser } from '../../models/user.interface';
 import { AuthService } from '../../services/auth.service';
+import { TokenService } from '../../services/token.service';
 
 @Component({
     selector: 'app-user-list',
@@ -10,9 +11,12 @@ import { AuthService } from '../../services/auth.service';
 })
 export class UserListComponent implements OnInit, OnDestroy {
 
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private tokenService: TokenService) { }
 
     ngOnInit(): void {
+
+        this.tokenService.getToken() ? this.isLogged = true : this.isLogged = false;
+
         let sub = this.authService.getAllUsers().subscribe({
             next: (data) => {
                 this.users = data;
@@ -34,7 +38,14 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.subsContainer.unsubscribeAll();
     }
 
+    onLogout() {
+        this.tokenService.logOut();
+        window.location.reload();
+    }
+
     users: IUser[] = [];
+
+    isLogged: boolean;
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 

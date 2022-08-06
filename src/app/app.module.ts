@@ -12,6 +12,7 @@ import { EditSocialMediaComponent } from './modules/header/components/edit-socia
 import { HandleSocialMediaComponent } from './modules/header/components/handle-social-media/handle-social-media.component';
 import { MainComponent } from './modules/main/components/main/main.component';
 import { MainModule } from './modules/main/main.module';
+import { EditProfileComponent } from './modules/profile/components/edit-profile/edit-profile.component';
 import { BannerService } from './services/banner.service';
 import { ConfigurationService } from './services/configuration.service';
 import { PhotoService } from './services/photo.service';
@@ -26,7 +27,7 @@ const routes: Routes = [
     { path: ':username/first-time-config', component: FirstTimeConfigComponent },
     { path: ':username/redes-sociales/editar', component: EditSocialMediaComponent },
     { path: ':username/redes-sociales/editar/:action/:idSm', component: HandleSocialMediaComponent },
-    // { path: 'perfil/editar/:id', component: EditProfileComponent },
+    { path: ':username/profile/edit/:profileId', component: EditProfileComponent },
     // { path: 'perfil/editar/:id/:type', component: EditPhotoComponent },
 ]
 

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IProfile } from '../models/person.interface';
+import { IProfile } from '../models/profile.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -13,6 +13,10 @@ export class ProfileService {
 
     getByUsername(username: string): Observable<IProfile[]> {
         return this.http.get<IProfile[]>(environment.API_URL + "/profile/" + username);
+    }
+
+    getById(id: number): Observable<IProfile> {
+        return this.http.get<IProfile>(environment.API_URL + '/profile?id=' + id);
     }
 
     addNew(profile: IProfile): Observable<IProfile> {

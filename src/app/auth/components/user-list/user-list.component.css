@@ -28,3 +28,36 @@
 .user:hover {
     color: #66fcf29c;
 }
+
+.register,
+.login-logout {
+    position: fixed;
+    top: 1rem;
+    width: 7rem;
+    height: 2rem;
+    border: 1px #66FCF1 solid;
+    background-color: #1f2833;
+    border-radius: .5rem;
+    color: #66FCF1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.1rem;
+    box-shadow: 2px 3px .7rem black;
+}
+
+.register {
+    right: 1rem;
+}
+
+.login-logout {
+    left: 1rem;
+}
+
+.register:hover,
+.login-logout:hover {
+    background-color: #66FCF1;
+    color: #1f2833;
+    cursor: pointer;
+}
