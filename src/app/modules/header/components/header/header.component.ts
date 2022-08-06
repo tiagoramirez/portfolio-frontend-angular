@@ -47,6 +47,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.subsContainer.unsubscribeAll();
     }
 
+    onLogout() {
+        this.tokenService.logOut();
+        window.location.reload();
+    }
+
     username: string;
     socialMedia: IUserSocialMedia[] = [];
     loggedUsername: string = "";
@@ -57,9 +62,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     loading: boolean = true;
     error: boolean = false;
-
-    onLogout() {
-        this.tokenService.logOut();
-        window.location.reload();
-    }
 }
