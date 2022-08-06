@@ -10,7 +10,7 @@
 #title {
     margin-top: 1rem;
     font-size: 2rem;
-    color: #66FCF1;
+    color: var(--secondary-color);
 }
 
 .social-media {
@@ -28,7 +28,7 @@
 }
 
 .social-media #name {
-    color: #66FCF1;
+    color: var(--secondary-color);
     margin-bottom: .75rem;
 }
 
@@ -36,7 +36,7 @@
     width: 70%;
     background-color: #1f2833;
     color: #c5c6c7;
-    border: 1px #66FCF1 solid;
+    border: 1px var(--secondary-color) solid;
     border-radius: .5rem;
     font-size: 1rem;
     text-align: center;
@@ -50,14 +50,14 @@
     width: 7rem;
     font-size: 1.1rem;
     background-color: #1f2833;
-    color: #66FCF1;
-    border: 1px #66FCF1 solid;
+    color: var(--secondary-color);
+    border: 1px var(--secondary-color) solid;
     border-radius: .5rem;
     box-shadow: 2px 3px .7rem black;
 }
 
 .social-media button:hover {
-    background-color: #66FCF1;
+    background-color: var(--secondary-color);
     color: #1f2833;
     cursor: pointer;
 }
@@ -70,7 +70,7 @@
     height: 2rem;
     text-align: center;
     font-size: 1rem;
-    border: 1px #66FCF1 solid;
+    border: 1px var(--secondary-color) solid;
     border-radius: .5rem;
     box-shadow: 2px 3px .7rem black;
 }

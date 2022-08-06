@@ -30,7 +30,7 @@
 }
 
 .social-media a {
-    color: #66FCF1;
+    color: var(--secondary-color);
 }
 
 .social-media a:hover {
@@ -39,7 +39,7 @@
 
 .edit{
     margin: 0 1rem;
-    color: #66FCF1;
+    color: var(--secondary-color);
 }
 
 .edit:hover{
@@ -47,11 +47,11 @@
 }
 
 #login {
-    color: #66FCF1;
+    color: var(--secondary-color);
     padding-left: .3rem;
     padding-right: .3rem;
     background-color: #1F2833;
-    border: 2px solid #66FCF1;
+    border: 2px solid var(--secondary-color);
     border-radius: 1.5rem;
     font-size: 1.1rem;
     margin-right: 1rem;
@@ -59,6 +59,6 @@
 
 #login:hover {
     color: #1F2833;
-    background-color: #66FCF1;
+    background-color: var(--secondary-color);
     cursor: pointer;
 }

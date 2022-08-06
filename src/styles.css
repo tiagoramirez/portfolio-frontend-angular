@@ -1,4 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --background-color: #0B0C10;
+    --primary-color: #1f2833;
+    --secondary-color: #66FCF1;
+    --secondary-off-color: #45A29E;
+    --font-color: #C5C6C7;
+    --error-color: #E11D62;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,7 +16,7 @@
 
 html,
 body {
-    background-color: #1f2833;
+    background-color: var(--background-color);
     max-width: 100vw;
     min-height: 100vh;
 }
@@ -18,7 +27,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #66FCF1;
+    background: var(--secondary-color);
     border-radius: 4px;
 }
 
@@ -33,7 +42,7 @@ body {
     display: inline-block;
     position: relative;
     border: 3px solid;
-    border-color: #66FCF1 #66FCF1 transparent transparent;
+    border-color: var(--secondary-color) var(--secondary-color) transparent transparent;
     box-sizing: border-box;
     margin: .5rem;
     animation: rotation 1s linear infinite;
@@ -62,7 +71,7 @@ body {
 .loader::before {
     width: 1vh;
     height: 1vh;
-    border-color: #66FCF1 #66FCF1 transparent transparent;
+    border-color: var(--secondary-color) var(--secondary-color) transparent transparent;
     animation: rotation 1.5s linear infinite;
 }
 
@@ -86,43 +95,82 @@ body {
     }
 }
 
-.go-back {
-    position: fixed;
-    left: 1rem;
-    top: 1rem;
-    width: 7rem;
-    height: 2rem;
-    border: 1px #66FCF1 solid;
-    background-color: #1f2833;
-    border-radius: .5rem;
-    color: #66FCF1;
+.large-button,
+.circular-button {
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    font-size: 1.1rem;
-    box-shadow: 2px 3px .7rem black;
+    border: 1px var(--secondary-color) solid;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    margin: 1rem;
+    cursor: pointer;
 }
 
-.go-back:hover {
-    background-color: #66FCF1;
-    color: #1f2833;
+.large-button {
+    width: auto;
+    height: 2rem;
+    font-size: 1.25rem;
+    border-radius: .5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.large-button:disabled {
+    color: var(--secondary-off-color);
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+.circular-button {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    border-radius: 50%;
+}
+
+.large-button:hover:enabled,
+.circular-button:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    animation: button .5s ease;
+}
+
+@keyframes button {
+    0% {
+        color: var(--secondary-color);
+        background-color: var(--primary-color);
+        border-color: var(--secondary-color);
+    }
+
+    100% {
+        color: var(--primary-color);
+        background-color: var(--secondary-color);
+        border-color: var(--primary-color);
+    }
+}
+
+.error-message,
+.server-error {
+    white-space: wrap;
+    text-align: center;
+    font-weight: bold;
+    color: var(--error-color);
+    margin: .5rem;
 }
 
 .error-message {
-    color: red;
     font-size: 1.3em;
-    font-weight: bold;
-    margin: .5rem;
-    white-space: wrap;
-    text-align: center;
 }
 
 .server-error {
-    color: red;
     font-size: 2rem;
-    font-weight: bold;
-    margin: .5rem;
-    white-space: wrap;
+}
+
+.section-title {
+    color: var(--secondary-color);
+    font-size: 3rem;
+    margin: 1rem;
     text-align: center;
 }

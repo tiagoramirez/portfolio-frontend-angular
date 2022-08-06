@@ -1,4 +1,4 @@
-<h1 id="title">USUARIOS</h1>
+<h1 class="section-title">USUARIOS</h1>
 <p class="server-error" *ngIf="error">Error en el servidor. Intenta de nuevo mas tarde 🙈</p>
 <span *ngIf="loading" class="loader"></span>
 
@@ -7,7 +7,7 @@
             class="bi bi-caret-left"></i></a>
 </div>
 
-<a routerLink="/register" class="register">Crear cuenta</a>
+<button routerLink="/register" class="large-button register">Crear cuenta</button>
 
-<a *ngIf="!isLogged" routerLink="/login" class="login-logout">Login</a>
-<a *ngIf="isLogged" (click)="onLogout()" class="login-logout">Logout</a>
+<button *ngIf="!isLogged" routerLink="/login" class="large-button login-logout">Login</button>
+<button *ngIf="isLogged" (click)="onLogout()" class="large-button login-logout">Logout</button>

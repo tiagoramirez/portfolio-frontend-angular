@@ -48,7 +48,7 @@
     margin-bottom: .5rem;
     font-size: 1.8rem;
     font-weight: bold;
-    color: #66FCF1;
+    color: var(--secondary-color);
 }
 
 #description,
@@ -72,7 +72,7 @@
     font-size: 1.8rem;
     font-weight: bold;
     margin-bottom: .75rem;
-    color: #66FCF1;
+    color: var(--secondary-color);
 }
 
 .modal-content {
@@ -107,13 +107,13 @@
 
 .edit {
     margin: 0 1rem;
-    color: #66FCF1;
+    color: var(--secondary-color);
     position: absolute;
     top: 1rem;
     left: 1rem;
     font-size: 1rem;
     padding: .35rem .5rem;
-    border: 2px solid #66FCF1;
+    border: 2px solid var(--secondary-color);
     border-radius: 1.5rem;
 }
 
@@ -121,9 +121,9 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
-    color: #66FCF1;
+    color: var(--secondary-color);
     padding: .35rem .5rem;
-    border: 2px solid #66FCF1;
+    border: 2px solid var(--secondary-color);
     border-radius: 1.5rem;
     font-size: 1rem;
 }
@@ -132,5 +132,5 @@
 .edit:hover {
     color: black;
     cursor: pointer;
-    background-color: #66FCF1;
+    background-color: var(--secondary-color);
 }

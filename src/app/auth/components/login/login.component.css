@@ -3,51 +3,8 @@
     width: 70%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-h1 {
-    color: #66FCF1;
-    font-size: 3rem;
-    font-weight: 100;
-    margin-bottom: 1rem;
-}
-
-.login {
-    height: 70%;
-    width: 100%;
-    border-radius: .75rem;
-    box-shadow: 2px 3px .7rem black;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.buttons {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
     justify-content: space-evenly;
-}
-
-.buttons a {
-    margin-top: 1rem;
-    font-size: 1.5rem;
-    text-decoration: none;
-    color: #66FCF1;
-    text-align: center;
-    width: 10rem;
-    border: 2px #66FCF1 solid;
-    border-radius: .7rem;
-}
-
-.buttons a:hover {
-    color: #1f2833;
-    background-color: #66FCF1;
-    border-color: #1f2833;
+    align-items: center;
 }
 
 form {
@@ -55,51 +12,44 @@ form {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    height: 100%;
+    height: 50%;
     width: 90%;
+    box-shadow: 0 0 1rem var(--secondary-color);
+    border-radius: .75rem;
+    padding: 0 1rem;
 }
 
 form div {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 form div input {
-    width: 15rem;
-    margin-left: 1rem;
-    background-color: #66FCF1;
-    border: 1px black solid;
+    width: 70%;
+    background-color: var(--primary-color);
+    border: 1px var(--secondary-color) solid;
+    color: var(--font-color);
+    font-size: 1.1rem;
     border-radius: .5rem;
     text-align: center;
 }
 
 form label {
-    color: #66FCF1;
+    color: var(--secondary-color);
     font-size: 1rem;
+    margin-bottom: .5rem;
 }
 
-button {
-    width: 50%;
-    background-color: #1f2833;
-    border: 0;
-    color: #66FCF1;
-    border: 1px #66FCF1 solid;
-    font-size: 1rem;
-    border-radius: .5rem;
+.home{
+    position: fixed;
+    left: 1rem;
+    top: 1rem;
 }
 
-button:hover{
-    cursor: pointer;
-    background-color: #66FCF1;
-    color: #1f2833;
-}
-
-button:disabled {
-    color: #66FCF1;
-    cursor: not-allowed;
-    text-decoration: line-through;
+.register{
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
 }

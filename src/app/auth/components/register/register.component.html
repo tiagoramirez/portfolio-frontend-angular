@@ -1,37 +1,35 @@
-<h1 *ngIf="isLogged">Ya iniciaste sesion</h1>
-<h1 *ngIf="!isLogged">Crear cuenta</h1>
-<div *ngIf="!isLogged" class="register">
-    <div class="buttons">
-        <a routerLink="/login"> Iniciar sesion</a>
-        <a routerLink="/register"> Crear cuenta</a>
+<h1 class="section-title" *ngIf="isLogged">Ya iniciaste sesion</h1>
+<h1 class="section-title" *ngIf="!isLogged">Crear cuenta</h1>
+
+<form #f="ngForm" novalidate (ngSubmit)="onRegister()">
+    <div class="username-form">
+        <label for="username">Nombre de usuario</label>
+        <input type="text" name="username" id="username" [(ngModel)]="userRegister.username" required>
     </div>
-    <form #f="ngForm" novalidate (ngSubmit)="onRegister()">
-        <div class="username-form">
-            <label for="username">Nombre de usuario</label>
-            <input type="text" name="username" id="username" [(ngModel)]="userRegister.username" required>
-        </div>
-        <div class="password-form">
-            <label for="password">Contraseña</label>
-            <input type="password" name="password" id="password" [(ngModel)]="userRegister.password" required>
-        </div>
-        <div class="password2-form">
-            <label for="password2">Repite la contraseña</label>
-            <input type="password" name="password2" id="password2" [(ngModel)]="password2" required>
-        </div>
-        <div class="full-name-form">
-            <label for="full_name">Nombre completo</label>
-            <input type="text" name="full_name" id="full_name" [(ngModel)]="userRegister.full_name" required>
-        </div>
-        <div class="birthday-form">
-            <label for="birthday">Fecha de nacimiento</label>
-            <input type="date" name="birthday" id="birthday" [(ngModel)]="userRegister.birthday" required>
-        </div>
-        <div class="mail-form">
-            <label for="mail">Mail</label>
-            <input type="email" name="mail" id="mail" [(ngModel)]="userRegister.mail" required>
-        </div>
-        <button *ngIf="!loadingRegister" type="submit" [disabled]="!f.valid">Crear cuenta</button>
-        <span *ngIf="loadingRegister" class="loader"></span>
-        <p class="error-message" *ngIf="registerFailed">{{errorMessage}}</p>
-    </form>
-</div>
+    <div class="password-form">
+        <label for="password">Contraseña</label>
+        <input type="password" name="password" id="password" [(ngModel)]="userRegister.password" required>
+    </div>
+    <div class="password2-form">
+        <label for="password2">Repite la contraseña</label>
+        <input type="password" name="password2" id="password2" [(ngModel)]="password2" required>
+    </div>
+    <div class="full-name-form">
+        <label for="full_name">Nombre completo</label>
+        <input type="text" name="full_name" id="full_name" [(ngModel)]="userRegister.full_name" required>
+    </div>
+    <div class="birthday-form">
+        <label for="birthday">Fecha de nacimiento</label>
+        <input type="date" name="birthday" id="birthday" [(ngModel)]="userRegister.birthday" required>
+    </div>
+    <div class="mail-form">
+        <label for="mail">Mail</label>
+        <input type="email" name="mail" id="mail" [(ngModel)]="userRegister.mail" required>
+    </div>
+    <button class="large-button" *ngIf="!loadingRegister" type="submit" [disabled]="!f.valid">Crear cuenta</button>
+    <span *ngIf="loadingRegister" class="loader"></span>
+    <p class="error-message" *ngIf="registerFailed">{{errorMessage}}</p>
+</form>
+
+<button routerLink="/" class="home circular-button"><i class="bi bi-house"></i></button>
+<button routerLink="/login" class="large-button login">Iniciar sesion</button>
