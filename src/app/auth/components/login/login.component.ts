@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     this.isLogged = false;
                     this.loginFailed = true;
                     if (e.error.message === null || e.error.message === undefined) {
-                        this.errorMessage = "Error del servidor";
+                        this.errorMessage = "Error en el servidor. Intenta de nuevo mas tarde 🙈";
                     }
                     else {
                         this.errorMessage = e.error.message;

@@ -29,7 +29,7 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
                 },
                 error: (e) => {
                     this.loadingMySocialMedia = false;
-                    this.error = true;
+                    this.serverError = true;
                     console.error(e);
                 },
                 complete: () => {
@@ -53,7 +53,7 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
                 },
                 error: (e) => {
                     this.loadingSocialMedia = false;
-                    this.error = true;
+                    this.serverError = true;
                     console.error(e);
                 },
                 complete: () => {
@@ -71,28 +71,31 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
         this.subsContainer.unsubscribeAll();
     }
 
-    handleSubmit() {
-        this.error = false;
+    onSubmit() {
+        this.loadingSubmit = true;
+        this.submitError = false;
         const errorNumber = this.socialMediaService.check(this.user_social_media);
         if (errorNumber != 0) {
-            this.error = true;
+            this.loadingSubmit = false;
+            this.submitError = true;
             this.errorMessage = this.socialMediaService.getErrorMessage(errorNumber);
         }
         else {
             switch (this.action) {
                 case 'crear':
-
                     this.user_social_media.userId = this.tokenService.getUserId();
                     let subAdd: Subscription = this.socialMediaService.addNew(this.user_social_media).subscribe({
                         next: () => {
                             console.log("Subido correctamente");
                         },
                         error: (e) => {
-                            this.error = true;
+                            this.submitError = true;
+                            this.loadingSubmit = false;
                             this.errorMessage = "Error en la conexion. Intenta de nuevo mas tarde.";
                             console.error(e);
                         },
                         complete: () => {
+                            this.loadingSubmit = false;
                             this.subsContainer.add(subAdd);
                             this.router.navigate(['/' + this.username]);
                         }
@@ -100,17 +103,19 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
                     break;
                 case 'editar':
                     console.log(this.user_social_media);
-                    
+
                     let subEdit: Subscription = this.socialMediaService.edit(this.user_social_media).subscribe({
                         next: () => {
                             console.log("Editado correctamente");
                         },
                         error: (e) => {
-                            this.error = true;
+                            this.loadingSubmit = false;
+                            this.submitError = true;
                             this.errorMessage = "Error en la conexion. Intenta de nuevo mas tarde.";
                             console.error(e);
                         },
                         complete: () => {
+                            this.loadingSubmit = false;
                             this.subsContainer.add(subEdit);
                             this.router.navigate(['/' + this.username]);
                         }
@@ -122,11 +127,13 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
                             console.log("Eliminado correctamente");
                         },
                         error: (e) => {
-                            this.error = true;
+                            this.loadingSubmit = false;
+                            this.submitError = true;
                             this.errorMessage = "Error en la conexion. Intenta de nuevo mas tarde.";
                             console.error(e);
                         },
                         complete: () => {
+                            this.loadingSubmit = false;
                             this.subsContainer.add(subDelete);
                             this.router.navigate(['/' + this.username]);
                         }
@@ -146,6 +153,8 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
 
     loadingMySocialMedia: boolean = true;
     loadingSocialMedia: boolean = true;
-    error: boolean = false;
+    loadingSubmit: boolean = false;
+    serverError: boolean = false;
+    submitError: boolean = false;
     errorMessage: string;
 }

@@ -35,6 +35,7 @@ body {
     border: 3px solid;
     border-color: #66FCF1 #66FCF1 transparent transparent;
     box-sizing: border-box;
+    margin: .5rem;
     animation: rotation 1s linear infinite;
 }
 
@@ -85,7 +86,7 @@ body {
     }
 }
 
-.go-back{
+.go-back {
     position: fixed;
     left: 1rem;
     top: 1rem;
@@ -108,12 +109,20 @@ body {
     color: #1f2833;
 }
 
-.error-message{
+.error-message {
     color: red;
     font-size: 1.3em;
     font-weight: bold;
-    margin-top: .5rem;
-    margin-bottom: 1rem;
+    margin: .5rem;
+    white-space: wrap;
+    text-align: center;
+}
+
+.server-error {
+    color: red;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: .5rem;
     white-space: wrap;
     text-align: center;
 }

@@ -1,4 +1,4 @@
-:host{
+:host {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,14 +7,24 @@
     min-height: 100vh;
 }
 
-.users-container{
+#title {
+    color: #66FCF1;
+    font-size: 3rem;
+}
+
+.users-container {
     margin: 1rem 0;
     display: flex;
     flex-direction: column;
 }
 
-.user{
-    color: aqua;
+.user {
+    color: #66FCF1;
     font-size: 2rem;
+    text-decoration: none;
     margin: 1rem 0;
+}
+
+.user:hover {
+    color: #66fcf29c;
 }

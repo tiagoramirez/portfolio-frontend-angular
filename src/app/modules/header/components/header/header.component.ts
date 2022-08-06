@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TokenService } from 'src/app/auth/services/token.service';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
@@ -13,7 +13,7 @@ import { SocialMediaService } from 'src/app/services/social-media.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-    constructor(private route: ActivatedRoute, private tokenService: TokenService, private socialMediaService: SocialMediaService) { }
+    constructor(private route: ActivatedRoute, private tokenService: TokenService, private socialMediaService: SocialMediaService, private router: Router) { }
 
     ngOnInit(): void {
         this.username = this.route.snapshot.params['username'];
@@ -57,4 +57,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     loading: boolean = true;
     error: boolean = false;
+
+    onLogout() {
+        this.tokenService.logOut();
+        window.location.reload();
+    }
 }
