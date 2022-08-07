@@ -57,9 +57,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     saveConfig() {
         this.loadingNewConfig = true;
         let subConfig = this.configService.edit(this.config).subscribe({
-            next: (c) => {
+            next: () => {
                 console.log("Configuracion cargada correctamente");
-                console.log(c);
             },
             error: (e) => {
                 console.error(e);
@@ -73,16 +72,18 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     }
 
     saveProfile() {
+        this.loadingNewProfile = true;
         let subProfile = this.profileService.edit(this.profile).subscribe({
-            next: (p) => {
+            next: () => {
                 console.log("Datos cargados correctamente");
-                console.log(p);
             },
             error: (e) => {
                 console.error(e);
+                this.loadingNewProfile = false;
             },
             complete: () => {
                 this.subsContainer.add(subProfile);
+                this.loadingNewProfile = false;
                 this.router.navigate(['.']);
             }
         });
@@ -100,4 +101,5 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     error: boolean = false;
 
     loadingNewConfig: boolean = false;
+    loadingNewProfile: boolean = false;
 }

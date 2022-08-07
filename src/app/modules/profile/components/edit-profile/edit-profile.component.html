@@ -50,7 +50,8 @@
         <p>Fondo: </p>
         <a [routerLink]="['./fondo']" class="loadFile">Cargar nueva imagen</a>
     </div>
-    <button class="save" (click)="saveProfile()"><i class="bi bi-save"></i> Guardar</button>
+    <span *ngIf="loadingNewProfile" class="loader"></span>
+    <button *ngIf="!loadingNewProfile" class="save" (click)="saveProfile()"><i class="bi bi-save"></i> Guardar</button>
 </div>
 
 <a [routerLink]="['']" class="go-back"><i class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</a>

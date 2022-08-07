@@ -1,15 +1,15 @@
-<div class="banner" *ngIf="configuration.show_banner">
+<div class="banner" *ngIf="!loadingConfiguration && !loadingBanner && configuration.show_banner">
     <img [src]="bannerString" alt="">
 </div>
 
 <div class="photo" [ngClass]="configuration.show_banner?'photo-banner':'photo-no-banner'"
-    *ngIf="configuration.show_photo">
+    *ngIf="!loadingConfiguration && !loadingPhoto && configuration.show_photo">
     <img [src]="photoString" alt="">
 </div>
 
-<h1 id="name">{{user.full_name}}</h1>
+<h1 id="name" *ngIf="!loadingUser">{{user.full_name}}</h1>
 <h2 id="description">{{profile.description}}</h2>
-<h2 id="location" *ngIf="configuration.show_location">{{profile.location_state+" ("+profile.location_country+")"}}</h2>
+<h2 id="location" *ngIf="!loadingConfiguration && configuration.show_location">{{profile.location_state+" ("+profile.location_country+")"}}</h2>
 
 <a class="more-info" (click)="openModal()"><i class="bi bi-arrows-angle-expand"></i> Mas info</a>
 <a [routerLink]="['profile/edit/'+profile.id]" class="edit"><i class="bi bi-pencil-square"></i></a>
@@ -18,8 +18,8 @@
     <div class="modal-content animate__animated animate__fadeIn">
         <span (click)="closeModal()" class="close">&times;</span>
         <h1 id="modal-title">Mas informacion</h1>
-        <h2 id="birthday">Fecha de nacimiento: {{user.birthday}}</h2>
-        <h2 id="phone" *ngIf="configuration.show_phone">Numero de telefono: {{profile.phone}}</h2>
-        <h2 id="mail">Mail: {{user.mail}}</h2>
+        <h2 id="birthday" *ngIf="!loadingUser">Fecha de nacimiento: {{user.birthday}}</h2>
+        <h2 id="phone" *ngIf="!loadingConfiguration && configuration.show_phone">Numero de telefono: {{profile.phone}}</h2>
+        <h2 id="mail" *ngIf="!loadingUser">Mail: {{user.mail}}</h2>
     </div>
 </div>

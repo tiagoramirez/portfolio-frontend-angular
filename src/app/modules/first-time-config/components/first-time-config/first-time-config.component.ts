@@ -28,11 +28,12 @@ export class FirstTimeConfigComponent implements OnInit {
             },
             error: (e) => {
                 console.log(e);
-                this.error = true;
+                this.serverError = true;
                 this.loading = false;
             },
             complete: () => {
-                this.error = false;
+                this.loading = false;
+                this.serverError = false;
                 this.subsContainer.add(sub);
             }
         })
@@ -43,37 +44,47 @@ export class FirstTimeConfigComponent implements OnInit {
     }
 
     onSave() {
-        let subProfile: Subscription = this.profileService.addNew(this.profile).subscribe({
-            next: (data) => {
-                console.log("Perfil cargado correctamente");
-                this.configuration.profileId = data.id;
-            },
-            error: (e) => {
-                console.log(e);
-                this.error = true;
-                this.loading = false;
-            },
-            complete: () => {
-                this.error = false;
-                this.subsContainer.add(subProfile);
-                let subConfig: Subscription = this.configurationService.addNew(this.configuration).subscribe({
-                    next: () => {
-                        console.log("Configuracion cargada correctamente");
-                    },
-                    error: (e) => {
-                        console.log(e);
-                        this.error = true;
-                        this.loading = false
-                    },
-                    complete: () => {
-                        this.error = false;
-                        this.loading = false;
-                        this.subsContainer.add(subConfig);
-                        this.router.navigate(['/' + this.username])
-                    }
-                });
-            }
-        });
+        this.loadingSubmit = true;
+        const errorNumber = this.profileService.check(this.profile);
+        if (errorNumber != 0) {
+            this.submitError = true;
+            this.loadingSubmit = false;
+            this.errorMessage = this.profileService.getErrorMessage(errorNumber);
+        } else {
+            let subProfile: Subscription = this.profileService.addNew(this.profile).subscribe({
+                next: (data) => {
+                    console.log("Perfil cargado correctamente");
+                    this.configuration.profileId = data.id;
+                },
+                error: (e) => {
+                    console.log(e);
+                    this.submitError = true;
+                    this.loadingSubmit = false;
+                    this.errorMessage = "Error en el servidor";
+                },
+                complete: () => {
+                    this.submitError = false;
+                    this.subsContainer.add(subProfile);
+                    let subConfig: Subscription = this.configurationService.addNew(this.configuration).subscribe({
+                        next: () => {
+                            console.log("Configuracion cargada correctamente");
+                        },
+                        error: (e) => {
+                            console.log(e);
+                            this.submitError = true;
+                            this.loadingSubmit = false;
+                            this.errorMessage = "Error en el servidor";
+                        },
+                        complete: () => {
+                            this.submitError = false;
+                            this.loadingSubmit = false;
+                            this.subsContainer.add(subConfig);
+                            this.router.navigate(['/' + this.username])
+                        }
+                    });
+                }
+            });
+        }
     }
 
     username: string;
@@ -89,6 +100,10 @@ export class FirstTimeConfigComponent implements OnInit {
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 
-    loading: boolean = false;
-    error: boolean = false;
+    loading: boolean = true;
+    loadingSubmit: boolean = false;
+    serverError: boolean = false;
+    submitError: boolean = false;
+
+    errorMessage: string;
 }
