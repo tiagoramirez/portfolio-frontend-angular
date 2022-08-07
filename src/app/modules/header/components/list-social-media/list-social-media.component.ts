@@ -6,11 +6,11 @@ import { IUserSocialMedia } from 'src/app/models/user_social_media.interface';
 import { SocialMediaService } from 'src/app/services/social-media.service';
 
 @Component({
-    selector: 'app-edit-social-media',
-    templateUrl: './edit-social-media.component.html',
-    styleUrls: ['./edit-social-media.component.css']
+    selector: 'app-list-social-media',
+    templateUrl: './list-social-media.component.html',
+    styleUrls: ['./list-social-media.component.css']
 })
-export class EditSocialMediaComponent implements OnInit, OnDestroy {
+export class ListSocialMediaComponent implements OnInit, OnDestroy {
 
     constructor(private socialMediaService: SocialMediaService, private route: ActivatedRoute) { }
 

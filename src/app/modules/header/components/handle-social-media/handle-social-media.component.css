@@ -7,70 +7,42 @@
     justify-content: center;
 }
 
-#title {
-    margin-top: 1rem;
-    font-size: 2rem;
-    color: var(--secondary-color);
-}
-
-.social-media {
-    margin-top: 1rem;
+form {
+    background-color: var(--background-color);
+    box-shadow: 0 0 .7rem var(--secondary-color);
     min-height: 10vh;
     width: 70vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem 0;
-    background-color: #1f2833;
-    box-shadow: 2px 3px .7rem black;
-    color: #c5c6c7;
+    padding-top: .5rem;
+    color: var(--font-color);
     border-radius: .75rem;
 }
 
-.social-media #name {
+form label,
+form #name {
+    font-size: 1.5rem;
     color: var(--secondary-color);
-    margin-bottom: .75rem;
+    margin: .75rem 0;
+    text-align: center;
 }
 
-.social-media input {
-    width: 70%;
-    background-color: #1f2833;
-    color: #c5c6c7;
+form div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+form select,
+form input{
+    width: 50%;
+    background-color: var(--primary-color);
+    color: var(--font-color);
     border: 1px var(--secondary-color) solid;
     border-radius: .5rem;
     font-size: 1rem;
     text-align: center;
     height: 2rem;
-    box-shadow: 2px 3px .7rem black;
-}
-
-.social-media button {
-    margin-top: .75rem;
-    height: 1.75rem;
-    width: 7rem;
-    font-size: 1.1rem;
-    background-color: #1f2833;
-    color: var(--secondary-color);
-    border: 1px var(--secondary-color) solid;
-    border-radius: .5rem;
-    box-shadow: 2px 3px .7rem black;
-}
-
-.social-media button:hover {
-    background-color: var(--secondary-color);
-    color: #1f2833;
-    cursor: pointer;
-}
-
-.social-media select {
-    background-color: #1f2833;
-    color: #c5c6c7;
-    width: 70%;
-    margin-bottom: 1rem;
-    height: 2rem;
-    text-align: center;
-    font-size: 1rem;
-    border: 1px var(--secondary-color) solid;
-    border-radius: .5rem;
-    box-shadow: 2px 3px .7rem black;
 }

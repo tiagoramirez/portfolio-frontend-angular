@@ -175,3 +175,9 @@ body {
     margin: 1rem;
     text-align: center;
 }
+
+.go-back{
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+}

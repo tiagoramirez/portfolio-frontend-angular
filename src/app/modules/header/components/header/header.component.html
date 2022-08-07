@@ -1,17 +1,17 @@
-<img src="../../../assets/images/Logo Arg Programa.png" id="logo-argentina-programa" routerLink="/">
+<img src="../../../assets/images/Logo Arg Programa.png" id="logo" routerLink="/">
 
 <span *ngIf="loading" class="loader"></span>
 
-<div *ngIf="!loading && socialMedia.length!=0" class="social-media-container">
+<div *ngIf="!loading" class="social-media-container">
     <div *ngFor="let social of socialMedia" class="social-media">
         <a [href]="social.link" target="_blank"><i [ngClass]="social.social_media.icon_class"></i></a>
     </div>
+    <a class="edit" *ngIf="!loading && isLogged && username===loggedUsername" [routerLink]="'./social-media/edit'"><i
+            class="bi bi-pencil-square"></i></a>
 </div>
 
 <p *ngIf="error" class="error-message">Error en el servidor al cargar esta seccion. Intenta de nuevo mas tarde 🙈</p>
 
-<a class="edit" *ngIf="isLogged && username===loggedUsername" [routerLink]="'./redes-sociales/editar'"><i
-        class="bi bi-pencil-square"></i></a>
 
-<button routerLink="/login" *ngIf="!isLogged" id="login">Login <i class="bi bi-box-arrow-in-right"></i></button>
-<button *ngIf="isLogged" id="login" (click)="onLogout()">Logout <i class="bi bi-box-arrow-in-right"></i></button>
+<button routerLink="/login" *ngIf="!isLogged" class="large-button">Login&nbsp;<i class="bi bi-box-arrow-in-right"></i></button>
+<button *ngIf="isLogged" class="large-button" (click)="onLogout()">Logout&nbsp;<i class="bi bi-box-arrow-in-right"></i></button>

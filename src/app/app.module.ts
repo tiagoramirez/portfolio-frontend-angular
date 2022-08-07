@@ -8,7 +8,7 @@ import { LoginComponent } from './auth/components/login/login.component';
 import { RegisterComponent } from './auth/components/register/register.component';
 import { UserListComponent } from './auth/components/user-list/user-list.component';
 import { FirstTimeConfigComponent } from './modules/first-time-config/components/first-time-config/first-time-config.component';
-import { EditSocialMediaComponent } from './modules/header/components/edit-social-media/edit-social-media.component';
+import { ListSocialMediaComponent } from './modules/header/components/list-social-media/list-social-media.component';
 import { HandleSocialMediaComponent } from './modules/header/components/handle-social-media/handle-social-media.component';
 import { MainComponent } from './modules/main/components/main/main.component';
 import { MainModule } from './modules/main/main.module';
@@ -25,8 +25,8 @@ const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: ':username', component: MainComponent },
     { path: ':username/first-time-config', component: FirstTimeConfigComponent },
-    { path: ':username/redes-sociales/editar', component: EditSocialMediaComponent },
-    { path: ':username/redes-sociales/editar/:action/:idSm', component: HandleSocialMediaComponent },
+    { path: ':username/social-media/edit', component: ListSocialMediaComponent },
+    { path: ':username/social-media/edit/:action/:idSm', component: HandleSocialMediaComponent },
     { path: ':username/profile/edit/:profileId', component: EditProfileComponent },
     // { path: 'perfil/editar/:id/:type', component: EditPhotoComponent },
 ]
