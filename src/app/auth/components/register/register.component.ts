@@ -55,6 +55,7 @@ export class RegisterComponent implements OnInit {
         }
         else {
             this.registerFailed = false;
+            this.userRegister.username = this.userRegister.username.toLowerCase();
             let sub = this.authService.register(this.userRegister).subscribe({
                 next: () => {
                     this.loadingRegister = false;

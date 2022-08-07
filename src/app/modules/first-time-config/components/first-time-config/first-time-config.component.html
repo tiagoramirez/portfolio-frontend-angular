@@ -1,53 +1,37 @@
-<h1 id="title">CONFIGURACION PERFIL</h1>
+<h1 class="section-title">CONFIGURACION PERFIL</h1>
 
 <div class="config">
-    <div class="show_photo">
-        <p>Mostrar foto de perfil: </p>
-        <input type="checkbox" [(ngModel)]="configuration.show_photo">
-    </div>
-    <div class="show_banner">
-        <p>Mostrar banner: </p>
-        <input type="checkbox" [(ngModel)]="configuration.show_banner">
-    </div>
     <div class="show_location">
-        <p>Mostrar ubicacion: </p>
+        <p>Mostrar ubicacion</p>
         <input type="checkbox" [(ngModel)]="configuration.show_location">
     </div>
     <div class="show_phone">
-        <p>Mostrar telefono: </p>
+        <p>Mostrar telefono</p>
         <input type="checkbox" [(ngModel)]="configuration.show_phone">
     </div>
 </div>
 
-<h2 id="title">DATOS PERFIL</h2>
+<h2 class="section-title">DATOS PERFIL</h2>
 
 <div class="inputs">
-    <div class="phone" *ngIf="configuration.show_phone">
-        <p>Telefono: </p>
-        <input type="number" placeholder="Telefono" [(ngModel)]="profile.phone">
-    </div>
     <div class="description">
-        <p>Descripcion: * </p>
+        <p>Descripcion</p>
         <input type="text" placeholder="Descripcion" [(ngModel)]="profile.description">
     </div>
     <div class="location_state" *ngIf="configuration.show_location">
-        <p>Estado/Provincia: </p>
+        <p>Estado/Provincia</p>
         <input type="text" placeholder="Estado/Provincia" [(ngModel)]="profile.location_state">
     </div>
     <div class="location_country" *ngIf="configuration.show_location">
-        <p>Pais: </p>
+        <p>Pais</p>
         <input type="text" placeholder="Pais" [(ngModel)]="profile.location_country">
     </div>
-    <div class="photo" *ngIf="configuration.show_photo">
-        <p>Foto de perfil: </p>
-        <a class="loadFile">Cargar nueva imagen</a>
-    </div>
-    <div class="banner" *ngIf="configuration.show_banner">
-        <p>Fondo: </p>
-        <a class="loadFile">Cargar nueva imagen</a>
+    <div class="phone" *ngIf="configuration.show_phone">
+        <p>Telefono</p>
+        <input type="number" placeholder="Telefono" [(ngModel)]="profile.phone">
     </div>
 </div>
 
-<button *ngIf="!loading" class="save" (click)="onSave()"><i class="bi bi-save"></i> Guardar</button>
+<button *ngIf="!loading" class="large-button" (click)="onSave()"><i class="bi bi-save"></i> Guardar</button>
 
 <span *ngIf="loading" class="loader"></span>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TokenService } from 'src/app/auth/services/token.service';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
@@ -15,18 +15,34 @@ import { ProfileService } from 'src/app/services/profile.service';
 })
 export class FirstTimeConfigComponent implements OnInit {
 
-    constructor(private route: ActivatedRoute, private tokenService: TokenService, private profileService: ProfileService, private configurationService: ConfigurationService) { }
+    constructor(private route: ActivatedRoute, private tokenService: TokenService, private profileService: ProfileService, private configurationService: ConfigurationService, private router: Router) { }
 
     ngOnInit(): void {
         this.username = this.route.snapshot.params['username'];
         this.profile.userId = this.tokenService.getUserId();
+        let sub: Subscription = this.profileService.getByUsername(this.username).subscribe({
+            next: (data) => {
+                if (data.length != 0) {
+                    this.router.navigate(['/' + this.username]);
+                }
+            },
+            error: (e) => {
+                console.log(e);
+                this.error = true;
+                this.loading = false;
+            },
+            complete: () => {
+                this.error = false;
+                this.subsContainer.add(sub);
+            }
+        })
     }
 
     ngOnDestroy(): void {
         this.subsContainer.unsubscribeAll();
     }
 
-    onSave() {        
+    onSave() {
         let subProfile: Subscription = this.profileService.addNew(this.profile).subscribe({
             next: (data) => {
                 console.log("Perfil cargado correctamente");
@@ -53,6 +69,7 @@ export class FirstTimeConfigComponent implements OnInit {
                         this.error = false;
                         this.loading = false;
                         this.subsContainer.add(subConfig);
+                        this.router.navigate(['/' + this.username])
                     }
                 });
             }
