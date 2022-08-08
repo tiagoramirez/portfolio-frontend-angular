@@ -18,6 +18,7 @@ import { ConfigurationService } from './services/configuration.service';
 import { PhotoService } from './services/photo.service';
 import { ProfileService } from './services/profile.service';
 import { SocialMediaService } from './services/social-media.service';
+import { EditPhotoComponent } from './modules/profile/components/edit-photo/edit-photo.component';
 
 const routes: Routes = [
     { path: '', component: UserListComponent },
@@ -28,7 +29,7 @@ const routes: Routes = [
     { path: ':username/social-media/edit', component: ListSocialMediaComponent },
     { path: ':username/social-media/edit/:action/:idSm', component: HandleSocialMediaComponent },
     { path: ':username/profile/edit/:profileId', component: EditProfileComponent },
-    // { path: 'perfil/editar/:id/:type', component: EditPhotoComponent },
+    { path: ':username/profile/edit/img/:type', component: EditPhotoComponent },
 ]
 
 @NgModule({

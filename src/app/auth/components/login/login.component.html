@@ -1,5 +1,5 @@
-<h1 class="section-title" *ngIf="isLogged">Ya iniciaste sesion</h1>
-<h1 class="section-title" *ngIf="!isLogged">Iniciar Sesion</h1>
+<p class="section-title" *ngIf="isLogged">Ya iniciaste sesion</p>
+<p class="section-title" *ngIf="!isLogged">Iniciar Sesion</p>
 
 <form #f="ngForm" novalidate (ngSubmit)="onLogin()">
     <div class="username-form">
@@ -16,4 +16,4 @@
 </form>
 
 <button routerLink="/" class="home circular-button"><i class="bi bi-house"></i></button>
-<button routerLink="/register" class="large-button register"> Crear cuenta</button>
+<button routerLink="/register" class="large-button register">Crear cuenta</button>

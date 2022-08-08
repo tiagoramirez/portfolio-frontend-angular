@@ -1,6 +1,6 @@
 <p *ngIf="serverError" class="server-error">Error en el servidor</p>
 
-<h1 class="section-title" *ngIf="!serverError && !loading">CONFIGURACION PERFIL</h1>
+<p class="section-title" *ngIf="!serverError && !loading">CONFIGURACION PERFIL</p>
 
 <div class="config" *ngIf="!serverError && !loading">
     <div class="show_location">
@@ -14,7 +14,7 @@
 </div>
 
 
-<h2 class="section-title" *ngIf="!serverError && !loading">DATOS PERFIL</h2>
+<p class="section-title" *ngIf="!serverError && !loading">DATOS PERFIL</p>
 
 <div class="inputs" *ngIf="!serverError && !loading">
     <div class="description">

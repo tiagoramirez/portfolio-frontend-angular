@@ -1,4 +1,4 @@
-<h1 class="section-title">REDES SOCIALES</h1>
+<p class="section-title">REDES SOCIALES</p>
 
 <p class="error-message" *ngIf="socialMedia.length==0 && !error && !loading">No hay redes sociales cargadas. Agrega una
     nueva 😋</p>
@@ -6,7 +6,7 @@
 <span *ngIf="loading" class="loader"></span>
 
 <div *ngFor="let socialM of socialMedia" class="social-media">
-    <h2 id="name">{{socialM.social_media.name.toUpperCase()}}</h2>
+    <p id="name">{{socialM.social_media.name.toUpperCase()}}</p>
     <p>{{socialM.link}}</p>
     <div class="actions">
         <button class="circular-button" [routerLink]="['borrar/'+socialM.id]"><i class="bi bi-trash3"></i></button>

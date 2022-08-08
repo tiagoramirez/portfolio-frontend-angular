@@ -1,59 +1,63 @@
-<h1 id="title">CONFIGURACION PERFIL</h1>
+<p class="section-title">CONFIGURACION PERFIL</p>
 
 <div class="config" *ngIf="!loadingConfig">
     <div class="show_photo">
-        <p>Mostrar foto de perfil: </p>
+        <p>Mostrar foto de perfil</p>
         <span *ngIf="loadingNewConfig" class="loader"></span>
         <input type="checkbox" [(ngModel)]="config.show_photo" (change)="saveConfig()">
     </div>
     <div class="show_banner">
-        <p>Mostrar banner: </p>
+        <p>Mostrar banner</p>
         <span *ngIf="loadingNewConfig" class="loader"></span>
         <input type="checkbox" [(ngModel)]="config.show_banner" (change)="saveConfig()">
     </div>
     <div class="show_location">
-        <p>Mostrar ubicacion: </p>
+        <p>Mostrar ubicacion</p>
         <span *ngIf="loadingNewConfig" class="loader"></span>
         <input type="checkbox" [(ngModel)]="config.show_location" (change)="saveConfig()">
     </div>
     <div class="show_phone">
-        <p>Mostrar telefono: </p>
+        <p>Mostrar telefono</p>
         <span *ngIf="loadingNewConfig" class="loader"></span>
         <input type="checkbox" [(ngModel)]="config.show_phone" (change)="saveConfig()">
     </div>
 </div>
 
-<h2 id="title">DATOS PERFIL</h2>
+<p class="section-title">DATOS PERFIL</p>
 
-<div class="inputs" *ngIf="!loadingProfile && !loadingConfig">
+<form #f="ngForm" novalidate *ngIf="!loadingProfile && !loadingConfig" (ngSubmit)="saveProfile()">
     <div class="phone" *ngIf="config.show_phone">
-        <p>Telefono: </p>
-        <input type="number" placeholder="Telefono" [(ngModel)]="profile.phone">
+        <label for="phone">Telefono</label>
+        <input name="phone" type="text" placeholder="Telefono" [(ngModel)]="profile.phone" required>
     </div>
     <div class="description">
-        <p>Descripcion: * </p>
-        <input type="text" placeholder="Descripcion" [(ngModel)]="profile.description">
+        <label for="description">Descripcion</label>
+        <input type="text" name="description" placeholder="Descripcion" [(ngModel)]="profile.description" required>
     </div>
     <div class="location_state" *ngIf="config.show_location">
-        <p>Estado/Provincia: </p>
-        <input type="text" placeholder="Estado/Provincia" [(ngModel)]="profile.location_state">
+        <label for="location_state">Estado/Provincia</label>
+        <input type="text" name="location_state" placeholder="Estado/Provincia" [(ngModel)]="profile.location_state"
+            required>
     </div>
     <div class="location_country" *ngIf="config.show_location">
-        <p>Pais: </p>
-        <input type="text" placeholder="Pais" [(ngModel)]="profile.location_country">
+        <label for="location_country">Pais</label>
+        <input type="text" name="location_country" placeholder="Pais" [(ngModel)]="profile.location_country" required>
     </div>
     <div class="photo" *ngIf="config.show_photo">
-        <p>Foto de perfil: </p>
-        <a [routerLink]="['./foto']" class="loadFile">Cargar nueva imagen</a>
+        <label>Foto de perfil</label>
+        <button type="button" routerLink="../img/photo" class="large-button">Cargar nueva imagen</button>
     </div>
     <div class="banner" *ngIf="config.show_banner">
-        <p>Fondo: </p>
-        <a [routerLink]="['./fondo']" class="loadFile">Cargar nueva imagen</a>
+        <label>Fondo</label>
+        <button type="button" routerLink="../img/banner" class="large-button">Cargar nueva imagen</button>
     </div>
-    <span *ngIf="loadingNewProfile" class="loader"></span>
-    <button *ngIf="!loadingNewProfile" class="save" (click)="saveProfile()"><i class="bi bi-save"></i> Guardar</button>
-</div>
 
-<a [routerLink]="['']" class="go-back"><i class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</a>
+    <span *ngIf="loadingNewProfile" class="loader"></span>
+    <button type="submit" *ngIf="!loadingNewProfile" class="large-button" [disabled]="!f.valid"><i
+            class="bi bi-save"></i>&nbsp;Guardar</button>
+</form>
+
+<button [routerLink]="['/'+username]" class="large-button go-back"><i
+        class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</button>
 
 <span *ngIf="loadingProfile || loadingConfig" class="loader"></span>

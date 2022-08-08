@@ -1,10 +1,12 @@
 :host {
+    box-shadow: 0 0 .7rem var(--secondary-color);
+    margin-top: 1rem;
     width: 70vw;
     min-height: 20vh;
-    border-radius: 1rem;
+    border-radius: 1.5rem;
     overflow: hidden;
-    box-shadow: 2px 3px .7rem #000;
-    color: #c5c6c7;
+    color: var(--font-color);
+    background-color: var(--background-color);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,20 +23,23 @@
     height: 100%;
 }
 
-.photo-banner {
-    margin-top: -15vh;
+.photo-banner,
+.photo-no-banner {
     border-radius: 50%;
     overflow: hidden;
     width: 20vh;
     height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo-banner {
+    margin-top: -15vh;
 }
 
 .photo-no-banner {
     margin-top: 1vh;
-    border-radius: 50%;
-    overflow: hidden;
-    width: 20vh;
-    height: 20vh;
 }
 
 .photo-banner img,
@@ -43,20 +48,12 @@
     height: 20vh;
 }
 
-#name {
-    margin-top: .5rem;
-    margin-bottom: .5rem;
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: var(--secondary-color);
-}
-
 #description,
 #location,
 #birthday,
 #phone,
 #mail {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin-bottom: 1rem;
 }
 
@@ -91,7 +88,7 @@
 }
 
 .close {
-    color: #aaa;
+    color: var(--font-color);
     position: absolute;
     top: 1rem;
     right: 1rem;
@@ -106,31 +103,18 @@
 }
 
 .edit {
-    margin: 0 1rem;
-    color: var(--secondary-color);
     position: absolute;
-    top: 1rem;
-    left: 1rem;
+    top: 1px;
+    left: 1px;
     font-size: 1rem;
-    padding: .35rem .5rem;
-    border: 2px solid var(--secondary-color);
-    border-radius: 1.5rem;
+    width: 2rem;
+    height: 2rem;
 }
 
 .more-info {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    color: var(--secondary-color);
-    padding: .35rem .5rem;
-    border: 2px solid var(--secondary-color);
-    border-radius: 1.5rem;
+    top: 1px;
+    right: 1px;
     font-size: 1rem;
-}
-
-.more-info:hover,
-.edit:hover {
-    color: black;
-    cursor: pointer;
-    background-color: var(--secondary-color);
+    border-radius: 1rem;
 }

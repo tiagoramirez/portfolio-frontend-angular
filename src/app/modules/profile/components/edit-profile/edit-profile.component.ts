@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TokenService } from 'src/app/auth/services/token.service';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IConfiguration } from 'src/app/models/configuration.interface';
 import { IProfile } from 'src/app/models/profile.interface';
@@ -13,7 +14,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 })
 export class EditProfileComponent implements OnInit, OnDestroy {
 
-    constructor(private route: ActivatedRoute, private router: Router, private profileService: ProfileService, private configService: ConfigurationService) { }
+    constructor(private route: ActivatedRoute, private router: Router, private tokenService: TokenService, private profileService: ProfileService, private configService: ConfigurationService) { }
 
     ngOnInit(): void {
         this.username = this.route.snapshot.params['username'];
@@ -73,20 +74,27 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     saveProfile() {
         this.loadingNewProfile = true;
-        let subProfile = this.profileService.edit(this.profile).subscribe({
-            next: () => {
-                console.log("Datos cargados correctamente");
-            },
-            error: (e) => {
-                console.error(e);
-                this.loadingNewProfile = false;
-            },
-            complete: () => {
-                this.subsContainer.add(subProfile);
-                this.loadingNewProfile = false;
-                this.router.navigate(['.']);
-            }
-        });
+        const errorNumber = this.profileService.check(this.profile);
+        if (errorNumber !== 0) {
+            this.errorMessage = this.profileService.getErrorMessage(errorNumber);
+        }
+        else {
+            this.profile.userId = this.tokenService.getUserId();
+            let subProfile = this.profileService.edit(this.profile).subscribe({
+                next: () => {
+                    console.log("Datos cargados correctamente");
+                },
+                error: (e) => {
+                    console.error(e);
+                    this.loadingNewProfile = false;
+                },
+                complete: () => {
+                    this.subsContainer.add(subProfile);
+                    this.loadingNewProfile = false;
+                    this.router.navigate(['/' + this.username]);
+                }
+            });
+        }
     }
 
     username: string;
@@ -99,6 +107,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     loadingProfile: boolean = true;
     loadingConfig: boolean = true;
     error: boolean = false;
+    errorMessage: string;
 
     loadingNewConfig: boolean = false;
     loadingNewProfile: boolean = false;

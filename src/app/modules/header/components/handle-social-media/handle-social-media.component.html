@@ -1,6 +1,6 @@
-<h1 class="section-title" *ngIf="action==='crear'">Crear</h1>
-<h1 class="section-title" *ngIf="action==='editar'">Editar</h1>
-<h1 class="section-title" *ngIf="action==='borrar'">Borrar</h1>
+<p class="section-title" *ngIf="action==='crear'">Crear</p>
+<p class="section-title" *ngIf="action==='editar'">Editar</p>
+<p class="section-title" *ngIf="action==='borrar'">Borrar</p>
 
 <form #f="ngForm" (ngSubmit)="onSubmit()" *ngIf="!serverError && !loadingMySocialMedia && !loadingSocialMedia">
     <p id="name" *ngIf="action==='borrar'">{{user_social_media.social_media.name.toUpperCase()}}</p>

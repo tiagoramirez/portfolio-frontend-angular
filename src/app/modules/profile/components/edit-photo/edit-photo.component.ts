@@ -1,12 +1,11 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { TokenService } from 'src/app/auth/services/token.service';
 import { getBase64 } from 'src/app/helpers/getBase64';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { BannerService } from 'src/app/services/banner.service';
 import { PhotoService } from 'src/app/services/photo.service';
-import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
     selector: 'app-edit-photo',
@@ -15,138 +14,156 @@ import { ProfileService } from 'src/app/services/profile.service';
 })
 export class EditPhotoComponent implements OnInit, OnDestroy {
 
-    constructor(private route: ActivatedRoute, private router: Router, private profileService: ProfileService, private photoService: PhotoService, private bannerService: BannerService) { }
+    constructor(private route: ActivatedRoute, private photoService: PhotoService, private router: Router, private bannerService: BannerService, private tokenService: TokenService) { }
 
     ngOnInit(): void {
-        this.personId = this.route.snapshot.params['id'];
+        this.username = this.route.snapshot.params['username'];
         this.type = this.route.snapshot.params['type'];
-        let subPerson: Subscription = this.profileService.getById(this.personId).subscribe({
-            next: (p) => {
-                this.person = p;
-                if (p.id_photo !== null && p.id_photo !== undefined) {
-                    if (this.type === 'foto') {
-                        let subPhoto: Subscription = this.photoService.getById(p.id_photo).subscribe({
-                            next: (ph) => {
-                                this.photoString = 'data:image/jpeg;base64,' + ph.photo;
-                                this.photoLoaded = true;
-                                this.loading = false;
-                            },
-                            error: (e) => {
-                                console.error(e);
-                                this.loading = false;
-                            },
-                            complete: () => {
-                                this.subsContainer.add(subPhoto);
-                            }
-                        });
+        if (this.type === 'photo') {
+            let subPhoto: Subscription = this.photoService.getByUsername(this.username).subscribe({
+                next: (data) => {
+                    if (data === null || data === undefined) {
+                        this.photoLoaded = false;
+                        this.isFirstPhoto = true;
                     }
-                    if (this.type === 'fondo') {
-                        let subBanner: Subscription = this.bannerService.getById(p.id_banner).subscribe({
-                            next: (ph) => {
-                                this.photoString = 'data:image/jpeg;base64,' + ph.banner;
-                                this.photoLoaded = true;
-                                this.loading = false;
-                            },
-                            error: (e) => {
-                                console.error(e);
-                                this.loading = false;
-                            },
-                            complete: () => {
-                                this.subsContainer.add(subBanner);
-                            }
-                        });
+                    else {
+                        this.photoId = data.id;
+                        this.userId = data.userId;
+                        this.isFirstPhoto = false;
+                        this.photoLoaded = true;
+                        this.photoString = 'data:image/jpeg;base64,' + data.photo;
                     }
+                },
+                error: (e) => {
+                    this.error = true;
+                    this.loading = false;
+                    console.error(e);
+                },
+                complete: () => {
+                    this.error = false;
+                    this.loading = false;
+                    this.subsContainer.add(subPhoto);
                 }
-                this.loading = false;
-            },
-            error: (e) => {
-                console.error(e);
-                this.loading = false;
-            },
-            complete: () => {
-                this.subsContainer.add(subPerson);
-            }
-        });
+            });
+        }
+        else if (this.type === 'banner') {
+            let subBanner: Subscription = this.bannerService.getByUsername(this.username).subscribe({
+                next: (data) => {
+                    if (data === null || data === undefined) {
+                        this.photoLoaded = false;
+                        this.isFirstPhoto = true;
+                    }
+                    else {
+                        this.photoId = data.id;
+                        this.userId = data.userId;
+                        this.isFirstPhoto = false;
+                        this.photoLoaded = true;
+                        this.photoString = 'data:image/jpeg;base64,' + data.banner;
+                    }
+                },
+                error: (e) => {
+                    this.error = true;
+                    this.loading = false;
+                    console.error(e);
+                },
+                complete: () => {
+                    this.error = false;
+                    this.loading = false;
+                    this.subsContainer.add(subBanner);
+                }
+            });
+        }
     }
 
     ngOnDestroy(): void {
         this.subsContainer.unsubscribeAll();
     }
 
-    type: string;
-    personId: number;
-    person: IPerson;
-
-    photoString: string;
-    photoFile: File;
-
-    loading: boolean = true;
-    photoLoaded: boolean = false;
-
-    subsContainer: SubscriptionContainer = new SubscriptionContainer();
-
     loadImg(event: any) {
         this.photoFile = <File>event.target.files[0];
         getBase64(this.photoFile).then((res: any) => this.photoString = res.base);
         this.photoLoaded = true;
+        this.isPhotoSelected = true;
     }
 
     saveImg() {
-        if (this.photoFile !== undefined) {
-            if (this.type === 'foto') {
-                let subPhoto: Subscription = this.photoService.addNew(this.photoFile).subscribe({
-                    next: (p) => {
+        if (this.photoFile !== undefined && this.photoFile !== null) {
+            if (this.type === 'photo' && this.isFirstPhoto) {
+                let subPhoto: Subscription = this.photoService.addNew(this.photoFile, this.tokenService.getUserId()).subscribe({
+                    next: () => {
                         console.log("Nueva foto cargada exitosamente");
-                        this.person.id_photo = p.id;
-                        let subPerson: Subscription = this.profileService.edit(this.person).subscribe({
-                            next: (person) => {
-                                console.log("Imagen de la persona cargada exitosamente");
-                                console.log(person);
-                            },
-                            error: (e) => {
-                                console.error(e);
-                            },
-                            complete: () => {
-                                this.subsContainer.add(subPerson);
-                                this.router.navigate(['']);
-                            }
-                        })
                     },
                     error: (e) => {
                         console.error(e);
                     },
                     complete: () => {
                         this.subsContainer.add(subPhoto);
+                        this.router.navigate(['/' + this.username]);
                     }
                 });
             }
-            if (this.type === 'fondo') {
-                let subBanner: Subscription = this.bannerService.addNew(this.photoFile).subscribe({
-                    next: (p) => {
+            else if (this.type === 'banner' && this.isFirstPhoto) {
+                let subBanner: Subscription = this.bannerService.addNew(this.photoFile, this.tokenService.getUserId()).subscribe({
+                    next: () => {
                         console.log("Nueva foto cargada exitosamente");
-                        this.person.id_banner = p.id;
-                        let subPerson: Subscription = this.profileService.edit(this.person).subscribe({
-                            next: (person) => {
-                                console.log("Imagen de la persona cargada exitosamente");
-                                console.log(person);
-                            },
-                            error: (e) => {
-                                console.error(e);
-                            },
-                            complete: () => {
-                                this.subsContainer.add(subPerson);
-                                this.router.navigate(['']);
-                            }
-                        })
                     },
                     error: (e) => {
                         console.error(e);
                     },
                     complete: () => {
                         this.subsContainer.add(subBanner);
+                        this.router.navigate(['/' + this.username]);
+                    }
+                });
+            }
+            else if (this.type === 'photo' && !this.isFirstPhoto) {
+                let subPhoto: Subscription = this.photoService.edit(this.photoFile, this.tokenService.getUserId(), this.photoId).subscribe({
+                    next: () => {
+                        console.log("Nueva foto cargada exitosamente");
+                    },
+                    error: (e) => {
+                        console.error(e);
+                    },
+                    complete: () => {
+                        this.subsContainer.add(subPhoto);
+                        this.router.navigate(['/' + this.username]);
+                    }
+                });
+            }
+            else if (this.type === 'banner' && !this.isFirstPhoto) {
+                let subBanner: Subscription = this.bannerService.edit(this.photoFile, this.tokenService.getUserId(), this.photoId).subscribe({
+                    next: () => {
+                        console.log("Nueva foto cargada exitosamente");
+                    },
+                    error: (e) => {
+                        console.error(e);
+                    },
+                    complete: () => {
+                        this.subsContainer.add(subBanner);
+                        this.router.navigate(['/' + this.username]);
                     }
                 });
             }
         }
+        else {
+            this.error = true;
+            this.errorMessage = "No se selecciono ninguna imagen nueva";
+        }
     }
+
+    type: string;
+    username: string;
+    photoString: string;
+    photoFile: File;
+    photoId: number;
+    userId: number;
+
+    subsContainer: SubscriptionContainer = new SubscriptionContainer();
+
+    isFirstPhoto: boolean;
+    loading: boolean = true;
+    photoLoaded: boolean = false;
+    isPhotoSelected: boolean = false;
+    error: boolean = false;
+    errorMessage: string;
 }

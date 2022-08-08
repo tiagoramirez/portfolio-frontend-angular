@@ -1,12 +1,17 @@
-<h1>Subir nueva imagen:</h1>
-<input type="file" (change)="loadImg($event)" accept="image/*">
+<p class="section-title">Subir nueva imagen:</p>
+<button class="custom-input-file large-button">
+    <input class="input-file" type="file" (change)="loadImg($event)" accept="image/*">
+    <p>Subir Imagen</p>
+</button>
 
-<h2 *ngIf="!loading && photoLoaded">Previsualizacion de la imagen:</h2>
+<p class="section-title" *ngIf="!loading && photoLoaded">Previsualizacion de la imagen:</p>
 
-<div *ngIf=" !loading && photoLoaded" [ngClass]="type==='foto'?'photo':'banner'">
+<div *ngIf=" !loading && photoLoaded" [ngClass]="type==='photo'?'photo':'banner'">
     <img [src]="photoString">
 </div>
 
+<button *ngIf="isPhotoSelected" (click)="saveImg()" class="large-button">Guardar imagen</button>
 
+<p *ngIf="error" class="error-message">{{errorMessage}}</p>
 
-<button (click)="saveImg()">hola</button>
+<button class="large-button go-back" [routerLink]="['/'+username]">Volver</button>

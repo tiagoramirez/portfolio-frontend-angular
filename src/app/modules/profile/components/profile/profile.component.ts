@@ -3,8 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IUser } from 'src/app/auth/models/user.interface';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { TokenService } from 'src/app/auth/services/token.service';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
+import { IBanner } from 'src/app/models/banner.interface';
 import { IConfiguration } from 'src/app/models/configuration.interface';
+import { IPhoto } from 'src/app/models/photo.interface';
 import { IProfile } from 'src/app/models/profile.interface';
 import { BannerService } from 'src/app/services/banner.service';
 import { ConfigurationService } from 'src/app/services/configuration.service';
@@ -17,11 +20,19 @@ import { PhotoService } from 'src/app/services/photo.service';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 
-    constructor(private route: ActivatedRoute, private authService: AuthService, private configurationService: ConfigurationService, private photoService: PhotoService, private bannerService: BannerService) { }
+    constructor(private route: ActivatedRoute, private authService: AuthService, private tokenService: TokenService, private configurationService: ConfigurationService, private photoService: PhotoService, private bannerService: BannerService) { }
 
     ngOnInit(): void {
         this.username = this.route.snapshot.params['username'];
         this.profile = this.profiles[0];
+
+        if (this.tokenService.getToken()) {
+            this.loggedUsername = this.tokenService.getUsername();
+            this.isLogged = true;
+        }
+        else {
+            this.isLogged = false;
+        }
 
         let subUser: Subscription = this.authService.getUserByUsername(this.username).subscribe({
             next: (data) => {
@@ -54,8 +65,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
                 this.subsContainer.add(subConfiguration);
                 if (this.configuration.show_photo) {
                     let subPhoto: Subscription = this.photoService.getByUsername(this.username).subscribe({
-                        next: (p) => {
-                            this.photoString = 'data:image/jpeg;base64,' + p.photo;
+                        next: (data) => {
+                            if (data === null || data === undefined) {
+                                this.isPhotoNull = true;
+                            }
+                            else {
+                                this.isPhotoNull = false;
+                                this.photoString = 'data:image/jpeg;base64,' + data.photo;
+                            }
                         },
                         error: (e) => {
                             this.error = true;
@@ -70,8 +87,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
                 }
                 if (this.configuration.show_banner) {
                     let subBanner: Subscription = this.bannerService.getByUsername(this.username).subscribe({
-                        next: (b) => {
-                            this.bannerString = 'data:image/jpeg;base64,' + b.banner;
+                        next: (data) => {
+                            if (data === null || data === undefined) {
+                                this.isBannerNull = true;
+                            }
+                            else {
+                                this.isBannerNull = false;
+                                this.bannerString = 'data:image/jpeg;base64,' + data.banner;
+                            }
                         },
                         error: (e) => {
                             this.error = true;
@@ -111,15 +134,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
     showModal = false;
     photoString: string;
     bannerString: string;
+    loggedUsername: string = "";
 
     @Input() profiles: IProfile[];
 
-    loadingPhoto: boolean = true;
-    loadingBanner: boolean = true;
-    loadingConfiguration: boolean = true;
-    loadingUser: boolean = true;
-
-    error: boolean = false;
-
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
+
+    loadingConfiguration: boolean = true;
+    loadingPhoto: boolean = true;
+    isPhotoNull: boolean = true;
+    loadingBanner: boolean = true;
+    isBannerNull: boolean = true;
+    loadingUser: boolean = true;
+    error: boolean = false;
+    isLogged: boolean = false;
 }
