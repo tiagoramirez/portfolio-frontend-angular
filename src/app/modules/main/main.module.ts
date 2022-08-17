@@ -4,6 +4,7 @@ import { MainComponent } from './components/main/main.component';
 import { HeaderModule } from '../header/header.module';
 import { ProfileModule } from '../profile/profile.module';
 import { FirstTimeConfigModule } from '../first-time-config/first-time-config.module';
+import { AboutMeModule } from '../about-me/about-me.module';
 
 @NgModule({
     declarations: [
@@ -13,7 +14,8 @@ import { FirstTimeConfigModule } from '../first-time-config/first-time-config.mo
         CommonModule,
         HeaderModule,
         ProfileModule,
-        FirstTimeConfigModule
+        FirstTimeConfigModule,
+        AboutMeModule
     ]
 })
 export class MainModule { }

@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { TokenService } from 'src/app/auth/services/token.service';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { ISocialMedia } from 'src/app/models/social_media.interface';
-import { IUserSocialMedia } from 'src/app/models/user_social_media.interface';
+import { IUserSocialMedia } from 'src/app/models/social_media.interface';
 import { SocialMediaService } from 'src/app/services/social-media.service';
 
 @Component({

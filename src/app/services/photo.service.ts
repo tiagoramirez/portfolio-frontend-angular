@@ -21,9 +21,9 @@ export class PhotoService {
         return this.http.post<IPhoto>(environment.API_URL + '/photo/add/' + userId, uploadData);
     }
 
-    edit(image: File, userId: number, photoId: number) {
+    edit(image: File, userId: number, photoId: number): Observable<IPhoto> {
         const uploadData = new FormData();
         uploadData.append('photo', image, image.name);
-        return this.http.put<IPhoto>(environment.API_URL + 'photo/edit/' + userId + '/' + photoId, uploadData);
+        return this.http.put<IPhoto>(environment.API_URL + '/photo/edit/' + userId + '/' + photoId, uploadData);
     }
 }

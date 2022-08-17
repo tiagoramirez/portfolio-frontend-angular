@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { checkURL } from 'src/app/helpers/checkURL';
-import { ISocialMedia } from 'src/app/models/social_media.interface';
 import { environment } from 'src/environments/environment';
-import { IUserSocialMedia } from '../models/user_social_media.interface';
+import { ISocialMedia, IUserSocialMedia } from '../models/social_media.interface';
 
 @Injectable({
     providedIn: 'root'
