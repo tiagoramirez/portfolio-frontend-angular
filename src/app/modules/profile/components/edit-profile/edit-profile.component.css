@@ -51,6 +51,7 @@ form label{
     color: var(--secondary-color);
     white-space: nowrap;
     margin-bottom: .5rem;
+    font-size: var(--font-size-p);
 }
 
 form input {

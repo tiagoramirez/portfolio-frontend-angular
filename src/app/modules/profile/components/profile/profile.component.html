@@ -10,8 +10,8 @@
 </div>
 
 <p class="section-title" *ngIf="!loadingUser">{{user.full_name}}</p>
-<p id="description">{{profile.description}}</p>
-<p id="location" *ngIf="!loadingConfiguration && configuration.show_location">{{profile.location_state+"
+<p>{{profile.description}}</p>
+<p *ngIf="!loadingConfiguration && configuration.show_location">{{profile.location_state+"
     ("+profile.location_country+")"}}</p>
 
 <button class="large-button more-info" (click)="openModal()"><i class="bi bi-arrows-angle-expand"></i>&nbsp;Mas

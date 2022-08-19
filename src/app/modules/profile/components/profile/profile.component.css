@@ -11,6 +11,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    padding-bottom: 1rem;
 }
 
 .banner {
@@ -48,8 +49,6 @@
     height: 20vh;
 }
 
-#description,
-#location,
 #birthday,
 #phone,
 #mail {
