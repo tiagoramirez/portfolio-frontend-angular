@@ -21,6 +21,7 @@ import { SocialMediaService } from './services/social-media.service';
 import { EditPhotoComponent } from './modules/profile/components/edit-photo/edit-photo.component';
 import { AboutMeService } from './services/about-me.service';
 import { ExperienceService } from './services/experience.service';
+import { DescriptionService } from './services/description.service';
 
 const routes: Routes = [
     { path: '', component: UserListComponent },
@@ -48,6 +49,7 @@ const routes: Routes = [
         AboutMeService,
         BannerService,
         ConfigurationService,
+        DescriptionService,
         ExperienceService,
         PhotoService,
         ProfileService,
