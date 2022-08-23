@@ -2,7 +2,7 @@ export interface IDescription {
     id?: number;
     profileId: number;
     experienceId: number;
-    educationId: null;
-    projectId: null;
+    educationId: number;
+    projectId: number;
     description: string;
 }

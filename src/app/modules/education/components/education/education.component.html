@@ -1,0 +1,8 @@
+<p class="section-title">Educacion</p>
+<div *ngFor="let education of educations" class="education-container">
+    <p class="education-institute">{{education.institute_name}}</p>
+    <p class="education-name">{{education.title_name}}</p>
+    <p>{{education.type}}</p>
+    <p>{{education.description}}</p>
+    <p class="education-time">{{education.start_date}} - {{education.isActual?'Actualidad':education.end_date}}</p>
+</div>

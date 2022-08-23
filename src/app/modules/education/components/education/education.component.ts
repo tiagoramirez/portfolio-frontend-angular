@@ -1,30 +1,30 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
-import { IExperience } from 'src/app/models/experience.interface';
+import { IEducation } from 'src/app/models/education.interface';
 import { IProfile } from 'src/app/models/profile.interface';
 import { DescriptionService } from 'src/app/services/description.service';
-import { ExperienceService } from 'src/app/services/experience.service';
+import { EducationService } from 'src/app/services/education.service';
 
 @Component({
-    selector: 'app-experience',
-    templateUrl: './experience.component.html',
-    styleUrls: ['./experience.component.css']
+    selector: 'app-education',
+    templateUrl: './education.component.html',
+    styleUrls: ['./education.component.css']
 })
-export class ExperienceComponent implements OnInit, OnDestroy {
+export class EducationComponent implements OnInit {
 
-    constructor(private experienceService: ExperienceService, private descriptionService: DescriptionService, private route: ActivatedRoute) { }
+    constructor(private educationService: EducationService, private descriptionService: DescriptionService, private route: ActivatedRoute) { }
 
     ngOnInit() {
         this.username = this.route.snapshot.params['username'];
-        let sub = this.experienceService.getByUsername(this.username).subscribe({
+        let sub = this.educationService.getByUsername(this.username).subscribe({
             next: (data) => {
-                this.experiences = data;
-                this.experiences.map((exp) => {
-                    let subDesc: Subscription = this.descriptionService.getByProfileAndExperienceId(this.profiles[0].id, exp.id).subscribe({
-                        next: (desc) => {
-                            exp.description = desc.description;
+                this.educations = data;
+                this.educations.map((educ) => {
+                    let subDesc: Subscription = this.descriptionService.getByProfileAndEducationId(this.profiles[0].id, educ.id).subscribe({
+                        next: (desc) => {                            
+                            educ.description = desc.description;
                         },
                         error: (error) => {
                             console.error(error);
@@ -50,7 +50,7 @@ export class ExperienceComponent implements OnInit, OnDestroy {
 
     username: string;
     @Input() profiles: IProfile[];
-    experiences: IExperience[];
+    educations: IEducation[];
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 }

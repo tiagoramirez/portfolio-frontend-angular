@@ -1,9 +1,12 @@
 <app-header *ngIf="!loading && !error" class="animate__animated animate__fadeIn"></app-header>
 <app-profile *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profiles]="profiles">
 </app-profile>
-<app-about-me *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profiles]="profiles"></app-about-me>
-<app-experience *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profiles]="profiles"></app-experience>
-<!-- <app-education *ngIf="!loading && !error && configLoaded" class="animate__animated animate__zoomInDown"></app-education> -->
+<app-about-me *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profiles]="profiles">
+</app-about-me>
+<app-experience *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profiles]="profiles">
+</app-experience>
+<app-education *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profiles]="profiles">
+</app-education>
 <!-- <app-skills *ngIf="!loading && !error && configLoaded" class="animate__animated animate__zoomInDown"></app-skills> -->
 <!-- <app-my-projects *ngIf="!loading && !error && configLoaded" class="animate__animated animate__zoomInDown"></app-my-projects> -->
 

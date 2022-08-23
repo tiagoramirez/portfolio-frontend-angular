@@ -1,0 +1,33 @@
+:host {
+    box-shadow: 0 0 .7rem var(--secondary-color);
+    margin-top: 2rem;
+    width: 70vw;
+    min-height: 20vh;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    color: var(--font-color);
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding-bottom: 1rem;
+}
+
+.education-container {
+    margin: .5rem 3rem 1rem 3rem;
+}
+
+.education-institute {
+    color: var(--secondary-off-color);
+    margin-bottom: .3rem;
+    font-weight: bold;
+}
+
+.education-name {
+    margin-bottom: .5rem;
+}
+
+.education-time {
+    color: #858585;
+}
