@@ -1,7 +1,7 @@
 <p class="section-title" *ngIf="isLogged">Ya iniciaste sesion</p>
 <p class="section-title" *ngIf="!isLogged">Crear cuenta</p>
 
-<form #f="ngForm" novalidate (ngSubmit)="onRegister()">
+<form #f="ngForm" *ngIf="!isLogged" novalidate (ngSubmit)="onRegister()">
     <div class="username-form">
         <label for="username">Nombre de usuario</label>
         <input type="text" name="username" id="username" [(ngModel)]="userRegister.username" required>
@@ -32,4 +32,4 @@
 </form>
 
 <button routerLink="/" class="home circular-button"><i class="bi bi-house"></i></button>
-<button routerLink="/login" class="large-button login">Iniciar sesion</button>
+<button routerLink="/login" *ngIf="!isLogged" class="large-button login">Iniciar sesion</button>

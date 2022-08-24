@@ -24,7 +24,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.username = this.route.snapshot.params['username'];
-        this.profile = this.profiles[0];
 
         if (this.tokenService.getToken()) {
             this.loggedUsername = this.tokenService.getUsername();
@@ -130,13 +129,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     username: string;
     user: IUser;
     configuration: IConfiguration;
-    profile: IProfile;
+    @Input() profile: IProfile;
     showModal = false;
     photoString: string;
     bannerString: string;
     loggedUsername: string = "";
-
-    @Input() profiles: IProfile[];
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 

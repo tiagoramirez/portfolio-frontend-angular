@@ -14,10 +14,10 @@
 <p *ngIf="!loadingConfiguration && configuration.show_location">{{profile.location_state+"
     ("+profile.location_country+")"}}</p>
 
-<button class="large-button more-info" (click)="openModal()"><i class="bi bi-arrows-angle-expand"></i>&nbsp;Mas
+<button class="large-button" (click)="openModal()"><i class="bi bi-arrows-angle-expand"></i>&nbsp;Mas
     info</button>
 <button [routerLink]="['profile/edit/'+profile.id]" *ngIf="isLogged && username===loggedUsername"
-    class="circular-button edit"><i class="bi bi-pencil-square"></i></button>
+    class="circular-button"><i class="bi bi-pencil-square"></i></button>
 
 <div *ngIf="showModal" class="modal">
     <div class="modal-content animate__animated animate__fadeIn">

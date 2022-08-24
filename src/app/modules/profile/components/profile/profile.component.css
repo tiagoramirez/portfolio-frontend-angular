@@ -101,16 +101,16 @@
     cursor: pointer;
 }
 
-.edit {
+.circular-button {
     position: absolute;
-    bottom: 1rem;
-    right: 1rem;
+    bottom: .5rem;
+    right: .5rem;
     font-size: 1rem;
     width: 2rem;
     height: 2rem;
 }
 
-.more-info {
+.large-button {
     position: absolute;
     bottom: .5rem;
     left: .5rem;

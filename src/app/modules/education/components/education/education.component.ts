@@ -22,7 +22,7 @@ export class EducationComponent implements OnInit, OnDestroy {
             next: (data) => {
                 this.educations = data;
                 this.educations.map((educ) => {
-                    let subDesc: Subscription = this.descriptionService.getByProfileAndEducationId(this.profiles[0].id, educ.id).subscribe({
+                    let subDesc: Subscription = this.descriptionService.getByProfileAndEducationId(this.profile.id, educ.id).subscribe({
                         next: (desc) => {
                             educ.description = desc.description;
                         },
@@ -49,7 +49,7 @@ export class EducationComponent implements OnInit, OnDestroy {
     }
 
     username: string;
-    @Input() profiles: IProfile[];
+    @Input() profile: IProfile;
     educations: IEducation[];
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();

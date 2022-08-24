@@ -33,14 +33,6 @@ export class MainComponent implements OnInit, OnDestroy {
                 this.loading = false;
                 this.error = false;
                 this.subsContainer.add(sub);
-                if (this.profiles.length == 0) {
-                    if (this.tokenService.getUsername() === this.username) {
-                        this.router.navigate(['/' + this.username + '/first-time-config'])
-                    }
-                    else {
-                        this.router.navigate(['./'])
-                    }
-                }
             }
         });
     }

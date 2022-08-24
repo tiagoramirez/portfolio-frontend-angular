@@ -7,7 +7,6 @@ import { AuthModule } from './auth/auth.module';
 import { LoginComponent } from './auth/components/login/login.component';
 import { RegisterComponent } from './auth/components/register/register.component';
 import { UserListComponent } from './auth/components/user-list/user-list.component';
-import { FirstTimeConfigComponent } from './modules/first-time-config/components/first-time-config/first-time-config.component';
 import { ListSocialMediaComponent } from './modules/header/components/list-social-media/list-social-media.component';
 import { HandleSocialMediaComponent } from './modules/header/components/handle-social-media/handle-social-media.component';
 import { MainComponent } from './modules/main/components/main/main.component';
@@ -23,13 +22,14 @@ import { AboutMeService } from './services/about-me.service';
 import { ExperienceService } from './services/experience.service';
 import { DescriptionService } from './services/description.service';
 import { ProjectService } from './services/project.service';
+import { TechnologieService } from './services/technologie.service';
+import { EducationService } from './services/education.service';
 
 const routes: Routes = [
     { path: '', component: UserListComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: ':username', component: MainComponent },
-    { path: ':username/first-time-config', component: FirstTimeConfigComponent },
     { path: ':username/social-media/edit', component: ListSocialMediaComponent },
     { path: ':username/social-media/edit/:action/:idSm', component: HandleSocialMediaComponent },
     { path: ':username/profile/edit/:profileId', component: EditProfileComponent },
@@ -51,11 +51,13 @@ const routes: Routes = [
         BannerService,
         ConfigurationService,
         DescriptionService,
+        EducationService,
         ExperienceService,
         PhotoService,
         ProfileService,
         ProjectService,
-        SocialMediaService
+        SocialMediaService,
+        TechnologieService
     ],
     bootstrap: [AppComponent]
 })

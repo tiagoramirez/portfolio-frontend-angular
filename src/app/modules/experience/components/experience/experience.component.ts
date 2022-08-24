@@ -22,7 +22,7 @@ export class ExperienceComponent implements OnInit, OnDestroy {
             next: (data) => {
                 this.experiences = data;
                 this.experiences.map((exp) => {
-                    let subDesc: Subscription = this.descriptionService.getByProfileAndExperienceId(this.profiles[0].id, exp.id).subscribe({
+                    let subDesc: Subscription = this.descriptionService.getByProfileAndExperienceId(this.profile.id, exp.id).subscribe({
                         next: (desc) => {
                             exp.description = desc.description;
                         },
@@ -49,7 +49,7 @@ export class ExperienceComponent implements OnInit, OnDestroy {
     }
 
     username: string;
-    @Input() profiles: IProfile[];
+    @Input() profile: IProfile;
     experiences: IExperience[];
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();

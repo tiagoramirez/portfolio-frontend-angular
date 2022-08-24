@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { checkEmail } from 'src/app/helpers/checkEmail';
 import { checkPassword } from 'src/app/helpers/checkPassword';
+import { IResponseMessage } from 'src/app/models/response_message.interface';
 import { environment } from 'src/environments/environment';
 import { IJwtDTO } from '../models/jwt_dto.interface';
 import { ILogin } from '../models/login.interface';
@@ -16,8 +17,8 @@ export class AuthService {
 
     constructor(private http: HttpClient) { }
 
-    public register(registerUser: IRegister): Observable<IRegister> {
-        return this.http.post<IRegister>(environment.API_URL + '/auth/register', registerUser);
+    public register(registerUser: IRegister): Observable<IResponseMessage> {
+        return this.http.post<IResponseMessage>(environment.API_URL + '/auth/register', registerUser);
     }
 
     public login(loginUser: ILogin): Observable<IJwtDTO> {

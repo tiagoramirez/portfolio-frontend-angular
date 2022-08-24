@@ -8,7 +8,7 @@
             class="bi bi-caret-left"></i></a>
 </div>
 
-<button routerLink="/register" class="large-button register">Crear cuenta</button>
+<button routerLink="/register" *ngIf="!isLogged" class="large-button register">Crear cuenta</button>
 
 <button *ngIf="!isLogged" routerLink="/login" class="large-button login-logout">Login</button>
 <button *ngIf="isLogged" (click)="onLogout()" class="large-button login-logout">Logout</button>

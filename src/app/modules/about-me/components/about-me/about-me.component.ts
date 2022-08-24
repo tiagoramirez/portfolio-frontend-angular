@@ -15,8 +15,6 @@ export class AboutMeComponent implements OnInit, OnDestroy {
     constructor(private aboutMeService: AboutMeService) { }
 
     ngOnInit(): void {
-        this.profile = this.profiles[0];
-
         let sub: Subscription = this.aboutMeService.getByProfileId(this.profile.id).subscribe({
             next: (data) => {
                 this.aboutMe = data;
@@ -36,8 +34,7 @@ export class AboutMeComponent implements OnInit, OnDestroy {
         this.subsContainer.unsubscribeAll();
     }
 
-    profile: IProfile;
-    @Input() profiles: IProfile[];
+    @Input() profile: IProfile;
     aboutMe: IAboutMe;
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();

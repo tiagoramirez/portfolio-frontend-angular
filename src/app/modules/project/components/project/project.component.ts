@@ -22,7 +22,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
             next: (data) => {
                 this.projects = data;
                 this.projects.map((proj) => {
-                    let subDesc: Subscription = this.descriptionService.getByProfileAndProjectId(this.profiles[0].id, proj.id).subscribe({
+                    let subDesc: Subscription = this.descriptionService.getByProfileAndProjectId(this.profile.id, proj.id).subscribe({
                         next: (desc) => {
                             proj.description = desc.description;
                         },
@@ -49,7 +49,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
     }
 
     username: string;
-    @Input() profiles: IProfile[];
+    @Input() profile: IProfile;
     projects: IProject[];
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();

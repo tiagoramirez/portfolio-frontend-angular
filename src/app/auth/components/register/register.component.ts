@@ -1,6 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
+import { IConfiguration } from 'src/app/models/configuration.interface';
+import { IProfile } from 'src/app/models/profile.interface';
+import { AboutMeService } from 'src/app/services/about-me.service';
+import { ConfigurationService } from 'src/app/services/configuration.service';
+import { ProfileService } from 'src/app/services/profile.service';
 import { IRegister } from '../../models/register.interface';
 import { AuthService } from '../../services/auth.service';
 import { TokenService } from '../../services/token.service';
@@ -37,7 +42,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         if (this.tokenService.getToken()) {
             this.isLogged = true;
-            this.roles = this.tokenService.getAuthorities();
         }
     }
 
@@ -57,10 +61,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
             this.registerFailed = false;
             this.userRegister.username = this.userRegister.username.toLowerCase();
             let sub = this.authService.register(this.userRegister).subscribe({
-                next: () => {
+                next: (data) => {
+                    console.log(data.message);
                     this.loadingRegister = false;
-                    console.log("Registrado con exito");
-                    this.router.navigate(['/login']);
                 },
                 error: (e) => {
                     this.loadingRegister = false;
@@ -74,6 +77,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
                 },
                 complete: () => {
                     this.subsContainer.add(sub);
+                    this.router.navigate(['/login']);
                 }
             });
         }
