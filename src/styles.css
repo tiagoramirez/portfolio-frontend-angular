@@ -178,7 +178,7 @@ p {
 .section-title {
     color: var(--secondary-color);
     font-size: 2.5rem;
-    margin: 1rem;
+    margin: .5rem;
     text-align: center;
 }
 
@@ -186,4 +186,12 @@ p {
     position: fixed;
     top: 1rem;
     left: 1rem;
+}
+
+.section-data-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    width: 100%;
 }
