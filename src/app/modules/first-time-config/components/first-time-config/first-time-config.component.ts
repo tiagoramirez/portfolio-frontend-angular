@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TokenService } from 'src/app/auth/services/token.service';
@@ -13,7 +13,7 @@ import { ProfileService } from 'src/app/services/profile.service';
     templateUrl: './first-time-config.component.html',
     styleUrls: ['./first-time-config.component.css']
 })
-export class FirstTimeConfigComponent implements OnInit {
+export class FirstTimeConfigComponent implements OnInit, OnDestroy {
 
     constructor(private route: ActivatedRoute, private tokenService: TokenService, private profileService: ProfileService, private configurationService: ConfigurationService, private router: Router) { }
 

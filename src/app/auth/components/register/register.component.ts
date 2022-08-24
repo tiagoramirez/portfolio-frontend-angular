@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IRegister } from '../../models/register.interface';
@@ -10,7 +10,7 @@ import { TokenService } from '../../services/token.service';
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 

@@ -3,7 +3,8 @@
 <span *ngIf="loading" class="loader"></span>
 
 <div *ngFor="let user of users" class="users-container">
-    <a class="user" [routerLink]="'/'+user.username"><i class="bi bi-caret-right"></i> {{user.full_name}} <i
+    <a [style.color]="user.username==='tiagoramirez'?'var(--error-color)':null" class="user"
+        [routerLink]="'/'+user.username"><i class="bi bi-caret-right"></i> {{user.full_name}}<i
             class="bi bi-caret-left"></i></a>
 </div>
 

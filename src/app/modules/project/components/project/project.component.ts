@@ -2,29 +2,29 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
-import { IEducation } from 'src/app/models/education.interface';
 import { IProfile } from 'src/app/models/profile.interface';
+import { IProject } from 'src/app/models/project.interface';
 import { DescriptionService } from 'src/app/services/description.service';
-import { EducationService } from 'src/app/services/education.service';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
-    selector: 'app-education',
-    templateUrl: './education.component.html',
-    styleUrls: ['./education.component.css']
+    selector: 'app-project',
+    templateUrl: './project.component.html',
+    styleUrls: ['./project.component.css']
 })
-export class EducationComponent implements OnInit, OnDestroy {
+export class ProjectComponent implements OnInit, OnDestroy {
 
-    constructor(private educationService: EducationService, private descriptionService: DescriptionService, private route: ActivatedRoute) { }
+    constructor(private projectService: ProjectService, private descriptionService: DescriptionService, private route: ActivatedRoute) { }
 
     ngOnInit() {
         this.username = this.route.snapshot.params['username'];
-        let sub = this.educationService.getByUsername(this.username).subscribe({
+        let sub = this.projectService.getByUsername(this.username).subscribe({
             next: (data) => {
-                this.educations = data;
-                this.educations.map((educ) => {
-                    let subDesc: Subscription = this.descriptionService.getByProfileAndEducationId(this.profiles[0].id, educ.id).subscribe({
+                this.projects = data;
+                this.projects.map((proj) => {
+                    let subDesc: Subscription = this.descriptionService.getByProfileAndProjectId(this.profiles[0].id, proj.id).subscribe({
                         next: (desc) => {
-                            educ.description = desc.description;
+                            proj.description = desc.description;
                         },
                         error: (error) => {
                             console.error(error);
@@ -50,7 +50,8 @@ export class EducationComponent implements OnInit, OnDestroy {
 
     username: string;
     @Input() profiles: IProfile[];
-    educations: IEducation[];
+    projects: IProject[];
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
+
 }

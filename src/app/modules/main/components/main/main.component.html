@@ -7,7 +7,8 @@
 </app-experience>
 <app-education *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profiles]="profiles">
 </app-education>
+<app-project *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profiles]="profiles">
+</app-project>
 <!-- <app-skills *ngIf="!loading && !error && configLoaded" class="animate__animated animate__zoomInDown"></app-skills> -->
-<!-- <app-my-projects *ngIf="!loading && !error && configLoaded" class="animate__animated animate__zoomInDown"></app-my-projects> -->
 
 <span *ngIf="loading" class="loader"></span>
