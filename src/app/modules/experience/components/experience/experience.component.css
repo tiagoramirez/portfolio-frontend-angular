@@ -3,6 +3,7 @@
     margin-top: 2rem;
     width: 70vw;
     min-height: 10vh;
+    border: 1px var(--secondary-color) solid;
     border-radius: 1.5rem;
     display: flex;
     flex-direction: column;

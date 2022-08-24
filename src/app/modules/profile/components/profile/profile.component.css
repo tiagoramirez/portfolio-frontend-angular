@@ -3,6 +3,7 @@
     margin-top: 1rem;
     width: 70vw;
     min-height: 20vh;
+    border: 1px var(--secondary-color) solid;
     border-radius: 1.5rem;
     overflow: hidden;
     color: var(--font-color);
@@ -11,7 +12,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    padding-bottom: 1rem;
 }
 
 .banner {
@@ -103,8 +103,8 @@
 
 .edit {
     position: absolute;
-    top: 1px;
-    left: 1px;
+    bottom: 1rem;
+    right: 1rem;
     font-size: 1rem;
     width: 2rem;
     height: 2rem;
@@ -112,8 +112,8 @@
 
 .more-info {
     position: absolute;
-    top: 1px;
-    right: 1px;
+    bottom: .5rem;
+    left: .5rem;
     font-size: 1rem;
     border-radius: 1rem;
 }
