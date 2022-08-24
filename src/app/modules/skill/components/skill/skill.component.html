@@ -1,0 +1,5 @@
+<p class="section-title">Hard Skills & Soft Skills</p>
+<div class="skill-container">
+    <circle-progress *ngFor="let technologie of technologies" [percent]="technologie.percentage"
+        [title]="technologie.technologie.name" [subtitle]="technologie.technologie.type"></circle-progress>
+</div>
