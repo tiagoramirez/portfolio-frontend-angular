@@ -24,6 +24,7 @@ import { DescriptionService } from './services/description.service';
 import { ProjectService } from './services/project.service';
 import { TechnologieService } from './services/technologie.service';
 import { EducationService } from './services/education.service';
+import { EditAboutMeComponent } from './modules/about-me/components/edit-about-me/edit-about-me.component';
 
 const routes: Routes = [
     { path: '', component: UserListComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
     { path: ':username/social-media/edit/:action/:idSm', component: HandleSocialMediaComponent },
     { path: ':username/profile/edit/:profileId', component: EditProfileComponent },
     { path: ':username/profile/edit/img/:type', component: EditPhotoComponent },
+    { path: ':username/about-me/edit/:profileId', component: EditAboutMeComponent },
 ]
 
 @NgModule({

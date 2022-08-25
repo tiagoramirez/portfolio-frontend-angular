@@ -11,11 +11,22 @@
     justify-content: space-around;
 }
 
-#about-me-info{
+#about-me-info {
     text-align: justify;
     margin: 0 2rem;
 }
 
-.section-data-container{
+.section-data-container {
     align-items: center;
+}
+
+.circular-button {
+
+    position: absolute;
+    top: .5rem;
+    left: .5rem;
+    font-size: 1rem;
+    width: 2rem;
+    height: 2rem;
+
 }

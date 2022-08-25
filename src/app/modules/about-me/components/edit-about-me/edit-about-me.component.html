@@ -1,0 +1,16 @@
+<p class="section-title">Sobre Mi - Editar</p>
+
+<form #f="ngForm" *ngIf="!loading" (ngSubmit)="save()">
+    <textarea wrap="hard" name="about-me" type="textarea" placeholder="Sobre mi..." [(ngModel)]="about_me.about_me"
+        required [maxLength]="255"></textarea>
+    <span *ngIf="loadingNewData" class="loader"></span>
+    <p *ngIf="about_me.about_me.length>200">{{about_me.about_me.length}}/255</p>
+    <button type="submit" *ngIf="!loadingNewData" class="large-button" [disabled]="!f.valid"><i
+            class="bi bi-save"></i>&nbsp;Guardar</button>
+</form>
+
+
+<button [routerLink]="['/'+username]" class="large-button go-back"><i
+        class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</button>
+
+<span *ngIf="loading" class="loader"></span>
