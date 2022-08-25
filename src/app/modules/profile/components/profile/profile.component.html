@@ -11,20 +11,21 @@
 
 <p class="section-title" *ngIf="!loadingUser">{{user.full_name}}</p>
 <p>{{profile.description}}</p>
-<p *ngIf="!loadingConfiguration && configuration.show_location">{{profile.location_state+"
+<p *ngIf="!loadingConfiguration && configuration.show_location">{{profile.location_country ===null ||
+    profile.location_state===null?'': profile.location_state+"
     ("+profile.location_country+")"}}</p>
 
-<button class="large-button" (click)="openModal()"><i class="bi bi-arrows-angle-expand"></i>&nbsp;Mas
-    info</button>
+<button class="large-button more-info" (click)="openModal()"><i class="bi bi-arrows-angle-expand"></i>&nbsp;</button>
 <button [routerLink]="['profile/edit/'+profile.id]" *ngIf="isLogged && username===loggedUsername"
-    class="circular-button"><i class="bi bi-pencil-square"></i></button>
+    class="circular-button edit"><i class="bi bi-pencil-square"></i></button>
 
 <div *ngIf="showModal" class="modal">
     <div class="modal-content animate__animated animate__fadeIn">
         <span (click)="closeModal()" class="close">&times;</span>
         <p id="modal-title">Mas informacion</p>
         <p id="birthday" *ngIf="!loadingUser">Fecha de nacimiento: {{user.birthday}}</p>
-        <p id="phone" *ngIf="!loadingConfiguration && configuration.show_phone">Numero de telefono: {{profile.phone}}
+        <p id="phone" *ngIf="!loadingConfiguration && configuration.show_phone">Numero de telefono:
+            {{profile.phone===null?'':profile.phone}}
         </p>
         <p id="mail" *ngIf="!loadingUser">Mail: {{user.mail}}</p>
     </div>

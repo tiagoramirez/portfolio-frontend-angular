@@ -12,6 +12,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    padding-bottom: 1rem;
 }
 
 .banner {
@@ -101,19 +102,21 @@
     cursor: pointer;
 }
 
-.circular-button {
+.edit {
     position: absolute;
-    bottom: .5rem;
-    right: .5rem;
+    top: .5rem;
+    left: .5rem;
     font-size: 1rem;
     width: 2rem;
     height: 2rem;
 }
 
-.large-button {
+.more-info {
     position: absolute;
-    bottom: .5rem;
-    left: .5rem;
+    top: .5rem;
+    right: .5rem;
     font-size: 1rem;
     border-radius: 1rem;
+    width: 2rem;
+    height: 2rem;
 }

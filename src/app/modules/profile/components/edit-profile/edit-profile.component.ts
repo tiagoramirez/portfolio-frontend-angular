@@ -35,6 +35,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
                 let subConfig = this.configService.getByProfileId(this.profile.id).subscribe({
                     next: (c) => {
                         this.config = c;
+                        this.config.profileId = this.profile.id;
                     },
                     error: (e) => {
                         console.log(e);
