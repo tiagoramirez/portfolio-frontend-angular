@@ -1,6 +1,7 @@
 <p class="section-title">Sobre Mi - Editar</p>
 
 <form #f="ngForm" *ngIf="!loading" (ngSubmit)="save()">
+    <label for="about-me"></label>
     <textarea name="about-me" placeholder="Sobre mi..." [(ngModel)]="about_me.about_me" required
         [maxLength]="255"></textarea>
     <span *ngIf="loadingNewData" class="loader"></span>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IEducation } from '../models/education.interface';
+import { IResponseMessage } from '../models/response_message.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -15,15 +16,19 @@ export class EducationService {
         return this.http.get<IEducation[]>(environment.API_URL + '/education/' + username);
     }
 
-    addNew(education: IEducation): Observable<IEducation> {
-        return this.http.post<IEducation>(environment.API_URL + '/education/add', education);
+    getById(educationId: number): Observable<IEducation> {
+        return this.http.get<IEducation>(environment.API_URL + '/education?id=' + educationId);
     }
 
-    edit(education: IEducation): Observable<IEducation> {
-        return this.http.put<IEducation>(environment.API_URL + '/education/edit', education);
+    addNew(education: IEducation): Observable<IResponseMessage> {
+        return this.http.post<IResponseMessage>(environment.API_URL + '/education/add', education);
     }
 
-    delete(educationId: number): any {
-        return this.http.delete<any>(environment.API_URL + '/education/delete/' + educationId);
+    edit(education: IEducation): Observable<IResponseMessage> {
+        return this.http.put<IResponseMessage>(environment.API_URL + '/education/edit', education);
+    }
+
+    delete(educationId: number): Observable<IResponseMessage> {
+        return this.http.delete<IResponseMessage>(environment.API_URL + '/education/delete/' + educationId);
     }
 }

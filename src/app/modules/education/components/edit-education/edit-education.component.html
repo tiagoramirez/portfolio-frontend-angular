@@ -1,0 +1,44 @@
+<p class="section-title">Educacion - Crear</p>
+
+<form #f="ngForm" (ngSubmit)="save()" *ngIf="!loadingEducation && !loadingDescription">
+    <div>
+        <label for="type">Tipo</label>
+        <select name="type" [(ngModel)]="education.type" required>
+            <option value="Secundario">Secundario</option>
+            <option value="Terciario">Terciario</option>
+            <option value="Universitario">Universitario</option>
+            <option value="Postgrado">Postgrado</option>
+        </select>
+    </div>
+    <div>
+        <label for="title_name">Titulo</label>
+        <input name="title_name" type="text" placeholder="Titulo" [(ngModel)]="education.title_name" required>
+    </div>
+    <div>
+        <label for="institute_name">Nombre del instituto</label>
+        <input name="institute_name" type="text" placeholder="Nombre del instituto" [(ngModel)]="education.institute_name" required>
+    </div>
+    <div>
+        <label for="isActual">Actual</label>
+        <input name="isActual" type="checkbox" [(ngModel)]="education.isActual">
+    </div>
+    <div>
+        <label for="start_date">Fecha de Inicio</label>
+        <input name="start_date" type="date" placeholder="Fecha de Inicio" [(ngModel)]="education.start_date" required>
+    </div>
+    <div *ngIf="!education.isActual">
+        <label for="end_date">Fecha de Fin</label>
+        <input name="end_date" type="date" placeholder="Fecha de Fin" [(ngModel)]="education.end_date" required>
+    </div>
+    <div>
+        <label for="description">Descripcion</label>
+        <textarea name="description" type="text" placeholder="Descripcion" [(ngModel)]="description.description"></textarea>
+    </div>
+
+    <button class="large-button" type="submit" [disabled]="!f.valid"><i class="bi bi-save"></i>&nbsp;Guardar</button>
+
+    <span *ngIf="loadingSubmit" class="loader"></span>
+</form>
+
+<button type="button" [routerLink]="['/'+username]" class="large-button go-back"><i
+        class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</button>

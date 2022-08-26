@@ -28,6 +28,9 @@ import { EditAboutMeComponent } from './modules/about-me/components/edit-about-m
 import { NewExperienceComponent } from './modules/experience/components/new-experience/new-experience.component';
 import { EditExperienceComponent } from './modules/experience/components/edit-experience/edit-experience.component';
 import { DeleteExperienceComponent } from './modules/experience/components/delete-experience/delete-experience.component';
+import { NewEducationComponent } from './modules/education/components/new-education/new-education.component';
+import { EditEducationComponent } from './modules/education/components/edit-education/edit-education.component';
+import { DeleteEducationComponent } from './modules/education/components/delete-education/delete-education.component';
 
 const routes: Routes = [
     { path: '', component: UserListComponent },
@@ -42,6 +45,9 @@ const routes: Routes = [
     { path: ':username/experience/add/:profileId', component: NewExperienceComponent },
     { path: ':username/experience/edit/:experienceId/:profileId', component: EditExperienceComponent },
     { path: ':username/experience/delete/:experienceId', component: DeleteExperienceComponent },
+    { path: ':username/education/add/:profileId', component: NewEducationComponent },
+    { path: ':username/education/edit/:educationId/:profileId', component: EditEducationComponent },
+    { path: ':username/education/delete/:educationId', component: DeleteEducationComponent },
 ]
 
 @NgModule({

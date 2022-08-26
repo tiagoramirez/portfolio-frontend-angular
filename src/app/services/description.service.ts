@@ -35,4 +35,12 @@ export class DescriptionService {
     deleteExperienceDescription(experienceId:number):Observable<IResponseMessage>{
         return this.http.delete<IResponseMessage>(environment.API_URL + '/description/delete/experience/'+ experienceId);
     }
+
+    deleteEducationDescription(educationId:number):Observable<IResponseMessage>{
+        return this.http.delete<IResponseMessage>(environment.API_URL + '/description/delete/education/'+ educationId);
+    }
+
+    deleteProjectDescription(projectId:number):Observable<IResponseMessage>{
+        return this.http.delete<IResponseMessage>(environment.API_URL + '/description/delete/project/'+ projectId);
+    }
 }

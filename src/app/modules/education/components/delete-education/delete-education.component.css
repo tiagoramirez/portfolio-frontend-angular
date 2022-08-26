@@ -1,12 +1,13 @@
-:host {
-    width: 70vw;
-    min-height: 100vh;
+:host{
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-form{
-    box-shadow: none;
+.actions{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IProject } from '../models/project.interface';
+import { IResponseMessage } from '../models/response_message.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -15,16 +16,20 @@ export class ProjectService {
         return this.http.get<IProject[]>(environment.API_URL + '/project/' + username);
     }
 
-    addNew(project: IProject): Observable<IProject> {
-        return this.http.post<IProject>(environment.API_URL + '/project/add', project);
+    getById(projectId: number): Observable<IProject> {
+        return this.http.get<IProject>(environment.API_URL + '/project?id=' + projectId);
     }
 
-    edit(project: IProject): Observable<IProject> {
-        return this.http.put<IProject>(environment.API_URL + '/project/edit', project);
+    addNew(project: IProject): Observable<IResponseMessage> {
+        return this.http.post<IResponseMessage>(environment.API_URL + '/project/add', project);
     }
 
-    delete(projectId: number): any {
-        return this.http.delete<any>(environment.API_URL + '/project/delete/' + projectId);
+    edit(project: IProject): Observable<IResponseMessage> {
+        return this.http.put<IResponseMessage>(environment.API_URL + '/project/edit', project);
+    }
+
+    delete(projectId: number): Observable<IResponseMessage> {
+        return this.http.delete<IResponseMessage>(environment.API_URL + '/project/delete/' + projectId);
     }
 
 }

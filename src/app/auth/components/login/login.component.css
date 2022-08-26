@@ -7,35 +7,6 @@
     align-items: center;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    height: 50%;
-    width: 90%;
-    box-shadow: 0 0 1rem var(--secondary-color);
-    border-radius: .75rem;
-    padding: 0 1rem;
-}
-
-form div {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-form div input {
-    width: 70%;
-    background-color: var(--primary-color);
-    border: 1px var(--secondary-color) solid;
-    color: var(--font-color);
-    font-size: 1.1rem;
-    border-radius: .5rem;
-    text-align: center;
-}
-
 .home{
     position: fixed;
     left: 1rem;

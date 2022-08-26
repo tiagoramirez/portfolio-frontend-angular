@@ -1,60 +1,7 @@
 :host {
-    width: 80vw;
+    width: 70vw;
     min-height: 10vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.config,
-form {
-    border-radius: .75rem;
-    min-width: 70%;
-    padding: 1rem;
-    box-shadow: 0 0 .7rem var(--secondary-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.config p {
-    color: var(--secondary-color);
-    margin-right: 1rem;
-    text-align: left;
-    white-space: nowrap;
-}
-
-.config div {
-    width: 70%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 0 .7rem var(--secondary-color);
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: 1rem;
-}
-
-form div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: .5rem 0;
-    padding: .5rem 0;
-    border-radius: 1rem;
-    width: 100%;
-}
-
-form input {
-    background-color: #1f2833;
-    border: 1px var(--secondary-color) solid;
-    border-radius: .75rem;
-    height: 1.5rem;
-    text-align: center;
-    color: var(--secondary-color);
-    width: 50%;
-    font-size: 1rem;
-    padding: .5rem 1rem;
 }

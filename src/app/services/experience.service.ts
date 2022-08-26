@@ -24,8 +24,8 @@ export class ExperienceService {
         return this.http.post<IResponseMessage>(environment.API_URL + '/experience/add', experience);
     }
 
-    edit(experience: IExperience): Observable<IExperience> {
-        return this.http.put<IExperience>(environment.API_URL + '/experience/edit', experience);
+    edit(experience: IExperience): Observable<IResponseMessage> {
+        return this.http.put<IResponseMessage>(environment.API_URL + '/experience/edit', experience);
     }
 
     delete(experienceId: number): Observable<IResponseMessage> {

@@ -1,27 +1,27 @@
 <p class="section-title">CONFIGURACION PERFIL</p>
 
-<div class="config" *ngIf="!loadingConfig">
+<form *ngIf="!loadingProfile && !loadingConfig">
     <div class="show_photo">
-        <p>Mostrar foto de perfil</p>
+        <label for="show_photo">Mostrar foto de perfil</label>
         <span *ngIf="loadingNewConfig" class="loader"></span>
-        <input type="checkbox" [(ngModel)]="config.show_photo" (change)="saveConfig()">
+        <input type="checkbox" name="show_photo" [(ngModel)]="config.show_photo" (change)="saveConfig()">
     </div>
     <div class="show_banner">
-        <p>Mostrar banner</p>
+        <label for="show_banner">Mostrar banner</label>
         <span *ngIf="loadingNewConfig" class="loader"></span>
-        <input type="checkbox" [(ngModel)]="config.show_banner" (change)="saveConfig()">
+        <input type="checkbox" name="show_banner" [(ngModel)]="config.show_banner" (change)="saveConfig()">
     </div>
     <div class="show_location">
-        <p>Mostrar ubicacion</p>
+        <label for="show_location">Mostrar ubicacion</label>
         <span *ngIf="loadingNewConfig" class="loader"></span>
-        <input type="checkbox" [(ngModel)]="config.show_location" (change)="saveConfig()">
+        <input type="checkbox" name="show_location" [(ngModel)]="config.show_location" (change)="saveConfig()">
     </div>
     <div class="show_phone">
-        <p>Mostrar telefono</p>
+        <label for="show_phone">Mostrar telefono</label>
         <span *ngIf="loadingNewConfig" class="loader"></span>
-        <input type="checkbox" [(ngModel)]="config.show_phone" (change)="saveConfig()">
+        <input type="checkbox" name="show_phone" [(ngModel)]="config.show_phone" (change)="saveConfig()">
     </div>
-</div>
+</form>
 
 <p class="section-title">DATOS PERFIL</p>
 

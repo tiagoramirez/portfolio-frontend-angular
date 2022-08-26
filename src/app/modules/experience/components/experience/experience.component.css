@@ -11,10 +11,6 @@
     justify-content: space-around;
 }
 
-.section-data-container{
-    border-top: 1px solid var(--secondary-color);
-}
-
 .job-position {
     color: var(--secondary-off-color);
 }
