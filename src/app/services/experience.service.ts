@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IExperience } from '../models/experience.interface';
+import { IResponseMessage } from '../models/response_message.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -15,15 +16,19 @@ export class ExperienceService {
         return this.http.get<IExperience[]>(environment.API_URL + '/experience/' + username);
     }
 
-    addNew(experience: IExperience): Observable<IExperience> {
-        return this.http.post<IExperience>(environment.API_URL + '/experience/add', experience);
+    getById(experienceId: number): Observable<IExperience> {
+        return this.http.get<IExperience>(environment.API_URL + '/experience?id=' + experienceId);
+    }
+
+    addNew(experience: IExperience): Observable<IResponseMessage> {
+        return this.http.post<IResponseMessage>(environment.API_URL + '/experience/add', experience);
     }
 
     edit(experience: IExperience): Observable<IExperience> {
         return this.http.put<IExperience>(environment.API_URL + '/experience/edit', experience);
     }
 
-    delete(experienceId: number): any {
-        return this.http.delete<any>(environment.API_URL + '/experience/delete/' + experienceId);
+    delete(experienceId: number): Observable<IResponseMessage> {
+        return this.http.delete<IResponseMessage>(environment.API_URL + '/experience/delete/' + experienceId);
     }
 }

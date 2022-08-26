@@ -195,3 +195,70 @@ p {
     margin-bottom: 1.5rem;
     width: 100%;
 }
+
+input[type="checkbox"] {
+    appearance: none;
+    height: 2rem;
+    width: 2rem;
+    border: 2px #808080 solid;
+    border-radius: .5rem;
+    cursor: pointer;
+    animation-name: unchecked;
+    animation-duration: .2s;
+}
+
+input[type="checkbox"]:checked {
+    transform: rotate(45deg);
+    border-color: var(--secondary-color);
+    border-radius: 0;
+    border-left: 0;
+    border-top: 0;
+    width: 1rem;
+    margin-right: .5rem;
+    animation-name: check;
+    animation-duration: .2s;
+}
+
+@keyframes check {
+    0% {
+        border-color: #808080;
+        transform: rotate(0deg);
+    }
+
+    100% {
+        border-color: var(--secondary-color);
+        transform: rotate(45deg);
+    }
+}
+
+@keyframes unchecked {
+    0% {
+        border-color: var(--secondary-color);
+        transform: rotate(45deg);
+    }
+
+    100% {
+        border-color: #808080;
+        transform: rotate(0deg);
+    }
+}
+
+textarea {
+    background-color: var(--primary-color);
+    border: 1px var(--secondary-color) solid;
+    border-radius: .75rem;
+    height: 6rem;
+    text-align: justify;
+    color: var(--secondary-color);
+    width: 50%;
+    font-size: 1rem;
+    padding: .5rem 1rem;
+    resize: none;
+}
+
+label {
+    color: var(--secondary-color);
+    white-space: nowrap;
+    margin-bottom: .5rem;
+    font-size: var(--font-size-p);
+}

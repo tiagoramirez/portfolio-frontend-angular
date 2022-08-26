@@ -1,0 +1,47 @@
+<p class="section-title">Experiencia - Crear</p>
+
+<form #f="ngForm" (ngSubmit)="save()">
+    <div>
+        <label for="position">Posicion</label>
+        <input name="position" type="text" placeholder="Posicion" [(ngModel)]="experience.position" required>
+    </div>
+    <div>
+        <label for="type">Tipo</label>
+        <select name="type" [(ngModel)]="experience.type" required>
+            <option value="Full-Time">Full-Time</option>
+            <option value="Part-Time">Part-Time</option>
+        </select>
+    </div>
+    <div>
+        <label for="company_name">Empresa</label>
+        <input name="company_name" type="text" placeholder="Empresa" [(ngModel)]="experience.company_name" required>
+    </div>
+    <div>
+        <label for="location">Ciudad de trabajo</label>
+        <input name="location" type="text" placeholder="Ciudad de trabajo" [(ngModel)]="experience.location" required>
+    </div>
+    <div>
+        <label for="isActual">Actual</label>
+        <input name="isActual" type="checkbox" placeholder="Actual" [(ngModel)]="experience.isActual">
+    </div>
+    <div>
+        <label for="start_date">Fecha de Inicio</label>
+        <input name="start_date" type="date" placeholder="Fecha de Inicio" [(ngModel)]="experience.start_date" required>
+    </div>
+    <div *ngIf="!experience.isActual">
+        <label for="end_date">Fecha de Fin</label>
+        <input name="end_date" type="date" placeholder="Fecha de Fin" [(ngModel)]="experience.end_date" required>
+    </div>
+
+    <div>
+        <label for="description">Descripcion</label>
+        <textarea name="description" type="text" placeholder="Descripcion" [(ngModel)]="description.description"></textarea>
+    </div>
+
+    <button class="large-button" type="submit" [disabled]="!f.valid"><i class="bi bi-save"></i>&nbsp;Guardar</button>
+
+    <span *ngIf="loadingSubmit" class="loader"></span>
+</form>
+
+<button type="button" [routerLink]="['/'+username]" class="large-button go-back"><i
+        class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</button>

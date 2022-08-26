@@ -8,7 +8,6 @@
 }
 
 form {
-    background-color: var(--background-color);
     box-shadow: 0 0 .7rem var(--secondary-color);
     min-height: 10vh;
     width: 70vw;
@@ -16,15 +15,7 @@ form {
     flex-direction: column;
     align-items: center;
     padding-top: .5rem;
-    color: var(--font-color);
     border-radius: .75rem;
-}
-
-form #name {
-    font-size: var(--font-size-p);
-    color: var(--secondary-color);
-    margin: .75rem 0;
-    text-align: center;
 }
 
 form div{
@@ -35,7 +26,8 @@ form div{
 }
 
 form select,
-form input{
+form input[type="text"],
+form input[type="date"]{
     width: 50%;
     background-color: var(--primary-color);
     color: var(--font-color);

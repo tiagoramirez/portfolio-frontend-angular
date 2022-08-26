@@ -6,7 +6,7 @@ export interface IExperience {
     company_name: string;
     location: string;
     isActual: boolean;
-    description:string;
     start_date: Date;
     end_date?: Date;
+    description:string;
 }

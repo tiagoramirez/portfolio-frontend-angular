@@ -23,23 +23,3 @@ form{
     border-radius: 1rem;
     width: 100%;
 }
-
-form textarea {
-    background-color: #1f2833;
-    border: 1px var(--secondary-color) solid;
-    border-radius: .75rem;
-    height: 6rem;
-    text-align: justify;
-    color: var(--secondary-color);
-    width: 50%;
-    font-size: 1rem;
-    padding: .5rem 1rem;
-    resize: none;
-}
-
-form label {
-    color: var(--secondary-color);
-    white-space: nowrap;
-    margin-bottom: .5rem;
-    font-size: var(--font-size-p);
-}

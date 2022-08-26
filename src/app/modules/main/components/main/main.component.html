@@ -1,13 +1,13 @@
 <app-header *ngIf="!loading && !error" class="animate__animated animate__fadeIn"></app-header>
-<app-profile *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profile]="profiles[0]">
+<app-profile *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profile]="selectedProfile">
 </app-profile>
-<app-about-me *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profile]="profiles[0]">
+<app-about-me *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profile]="selectedProfile">
 </app-about-me>
-<app-experience *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profile]="profiles[0]">
+<app-experience *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profile]="selectedProfile">
 </app-experience>
-<app-education *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profile]="profiles[0]">
+<app-education *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profile]="selectedProfile">
 </app-education>
-<app-project *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profile]="profiles[0]">
+<app-project *ngIf="!loading && !error" class="animate__animated animate__zoomInDown" [profile]="selectedProfile">
 </app-project>
 <app-skill *ngIf="!loading && !error" class="animate__animated animate__zoomInDown"></app-skill>
 

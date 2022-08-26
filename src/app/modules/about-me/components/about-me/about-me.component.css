@@ -21,12 +21,10 @@
 }
 
 .circular-button {
-
     position: absolute;
     top: .5rem;
     left: .5rem;
     font-size: 1rem;
     width: 2rem;
     height: 2rem;
-
 }

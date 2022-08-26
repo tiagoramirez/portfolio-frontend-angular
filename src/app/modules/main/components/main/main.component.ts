@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { TokenService } from 'src/app/auth/services/token.service';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IProfile } from 'src/app/models/profile.interface';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -13,7 +12,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 })
 export class MainComponent implements OnInit, OnDestroy {
 
-    constructor(private route: ActivatedRoute, private tokenService: TokenService, private router: Router, private profileService: ProfileService) { }
+    constructor(private route: ActivatedRoute, private profileService: ProfileService) { }
 
     ngOnInit(): void {
 
@@ -23,6 +22,7 @@ export class MainComponent implements OnInit, OnDestroy {
         let sub: Subscription = this.profileService.getByUsername(this.username).subscribe({
             next: (data) => {
                 this.profiles = data;
+                this.selectedProfile = data[0];
             },
             error: (e) => {
                 this.loading = false;
@@ -42,6 +42,7 @@ export class MainComponent implements OnInit, OnDestroy {
     }
 
     username: string;
+    selectedProfile: IProfile;
     profiles: IProfile[] = [];
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();

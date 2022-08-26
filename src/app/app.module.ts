@@ -25,6 +25,9 @@ import { ProjectService } from './services/project.service';
 import { TechnologieService } from './services/technologie.service';
 import { EducationService } from './services/education.service';
 import { EditAboutMeComponent } from './modules/about-me/components/edit-about-me/edit-about-me.component';
+import { NewExperienceComponent } from './modules/experience/components/new-experience/new-experience.component';
+import { EditExperienceComponent } from './modules/experience/components/edit-experience/edit-experience.component';
+import { DeleteExperienceComponent } from './modules/experience/components/delete-experience/delete-experience.component';
 
 const routes: Routes = [
     { path: '', component: UserListComponent },
@@ -36,6 +39,9 @@ const routes: Routes = [
     { path: ':username/profile/edit/:profileId', component: EditProfileComponent },
     { path: ':username/profile/edit/img/:type', component: EditPhotoComponent },
     { path: ':username/about-me/edit/:profileId', component: EditAboutMeComponent },
+    { path: ':username/experience/add/:profileId', component: NewExperienceComponent },
+    { path: ':username/experience/edit/:experienceId/:profileId', component: EditExperienceComponent },
+    { path: ':username/experience/delete/:experienceId', component: DeleteExperienceComponent },
 ]
 
 @NgModule({

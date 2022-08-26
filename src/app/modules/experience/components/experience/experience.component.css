@@ -11,6 +11,10 @@
     justify-content: space-around;
 }
 
+.section-data-container{
+    border-top: 1px solid var(--secondary-color);
+}
+
 .job-position {
     color: var(--secondary-off-color);
 }
@@ -27,4 +31,27 @@
 .job-location {
     margin: 1rem 2rem 0 2rem;
     text-align: justify;
+}
+
+.actions{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.add{
+    position: absolute;
+    top: .5rem;
+    left: .5rem;
+}
+
+.edit,
+.delete,
+.add{
+    font-size: 1rem;
+    width: 2rem;
+    height: 2rem;
 }

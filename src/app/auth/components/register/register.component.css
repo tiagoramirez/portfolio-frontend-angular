@@ -36,12 +36,6 @@ form div input {
     text-align: center;
 }
 
-form label {
-    color: var(--secondary-color);
-    font-size: 1.2rem;
-    margin-bottom: .5rem;
-}
-
 .home{
     position: fixed;
     left: 1rem;
