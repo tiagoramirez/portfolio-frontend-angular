@@ -22,7 +22,6 @@ import { AboutMeService } from './services/about-me.service';
 import { ExperienceService } from './services/experience.service';
 import { DescriptionService } from './services/description.service';
 import { ProjectService } from './services/project.service';
-import { TechnologieService } from './services/technologie.service';
 import { EducationService } from './services/education.service';
 import { EditAboutMeComponent } from './modules/about-me/components/edit-about-me/edit-about-me.component';
 import { NewExperienceComponent } from './modules/experience/components/new-experience/new-experience.component';
@@ -34,13 +33,17 @@ import { DeleteEducationComponent } from './modules/education/components/delete-
 import { NewProjectComponent } from './modules/project/components/new-project/new-project.component';
 import { EditProjectComponent } from './modules/project/components/edit-project/edit-project.component';
 import { DeleteProjectComponent } from './modules/project/components/delete-project/delete-project.component';
+import { ListSkillComponent } from './modules/skill/components/list-skill/list-skill.component';
+import { SkillService } from './services/skill.service';
+import { NewSkillComponent } from './modules/skill/components/new-skill/new-skill.component';
+import { DeleteSkillComponent } from './modules/skill/components/delete-skill/delete-skill.component';
 
 const routes: Routes = [
     { path: '', component: UserListComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: ':username', component: MainComponent },
-    { path: ':username/social-media/edit', component: ListSocialMediaComponent },
+    { path: ':username/social-media/list', component: ListSocialMediaComponent },
     { path: ':username/social-media/edit/:action/:idSm', component: HandleSocialMediaComponent },
     { path: ':username/profile/edit/:profileId', component: EditProfileComponent },
     { path: ':username/profile/edit/img/:type', component: EditPhotoComponent },
@@ -54,6 +57,9 @@ const routes: Routes = [
     { path: ':username/project/add/:profileId', component: NewProjectComponent },
     { path: ':username/project/edit/:projectId/:profileId', component: EditProjectComponent },
     { path: ':username/project/delete/:projectId', component: DeleteProjectComponent },
+    { path: ':username/skill/list', component: ListSkillComponent },
+    { path: ':username/skill/add', component: NewSkillComponent },
+    { path: ':username/skill/delete/:userSkillsId', component: DeleteSkillComponent },
 ]
 
 @NgModule({
@@ -77,7 +83,7 @@ const routes: Routes = [
         ProfileService,
         ProjectService,
         SocialMediaService,
-        TechnologieService
+        SkillService
     ],
     bootstrap: [AppComponent]
 })

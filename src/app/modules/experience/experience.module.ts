@@ -22,7 +22,10 @@ import { DeleteExperienceComponent } from './components/delete-experience/delete
         FormsModule
     ],
     exports: [
-        ExperienceComponent
+        ExperienceComponent,
+        NewExperienceComponent,
+        EditExperienceComponent,
+        DeleteExperienceComponent
     ]
 })
 export class ExperienceModule { }

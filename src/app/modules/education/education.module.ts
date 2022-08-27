@@ -20,7 +20,10 @@ import { RouterModule } from '@angular/router';
         RouterModule
     ],
     exports: [
-        EducationComponent
+        EducationComponent,
+        NewEducationComponent,
+        EditEducationComponent,
+        DeleteEducationComponent
     ]
 })
 export class EducationModule { }

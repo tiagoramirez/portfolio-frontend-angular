@@ -6,7 +6,7 @@
     <div *ngFor="let social of socialMedia" class="social-media">
         <a [href]="social.link" target="_blank"><i [ngClass]="social.social_media.icon_class"></i></a>
     </div>
-    <a class="edit" *ngIf="!loading && isLogged && username===loggedUsername" [routerLink]="'./social-media/edit'"><i
+    <a class="edit" *ngIf="!loading && isLogged && username===loggedUsername" [routerLink]="'./social-media/list'"><i
             class="bi bi-pencil-square"></i></a>
 </div>
 

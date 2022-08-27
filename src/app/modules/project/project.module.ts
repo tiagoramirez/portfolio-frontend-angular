@@ -20,7 +20,10 @@ import { FormsModule } from '@angular/forms';
         FormsModule
     ],
     exports: [
-        ProjectComponent
+        ProjectComponent,
+        NewProjectComponent,
+        EditProjectComponent,
+        DeleteProjectComponent
     ]
 })
 export class ProjectModule { }

@@ -52,6 +52,4 @@ export class DeleteProjectComponent implements OnInit {
     projectId: number;
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
-
-
 }

@@ -22,7 +22,7 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
         this.action = this.route.snapshot.params['action'];
         this.idSmToModify = this.route.snapshot.params['idSm'];
 
-        if (this.action !== 'crear') {
+        if (this.action !== 'add') {
             let subMySocialMedia: Subscription = this.socialMediaService.getById(this.idSmToModify).subscribe({
                 next: (data) => {
                     this.user_social_media = data;
@@ -46,7 +46,7 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
                 link: "",
             }
         }
-        if (this.action !== 'borrar') {
+        if (this.action !== 'delete') {
             let subSocialMedia: Subscription = this.socialMediaService.getAll().subscribe({
                 next: (data) => {
                     this.all_social_media = data;
@@ -82,7 +82,7 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
         }
         else {
             switch (this.action) {
-                case 'crear':
+                case 'add':
                     this.user_social_media.userId = this.tokenService.getUserId();
                     let subAdd: Subscription = this.socialMediaService.addNew(this.user_social_media).subscribe({
                         next: () => {
@@ -101,7 +101,7 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
                         }
                     })
                     break;
-                case 'editar':
+                case 'edit':
                     console.log(this.user_social_media);
 
                     let subEdit: Subscription = this.socialMediaService.edit(this.user_social_media).subscribe({
@@ -121,7 +121,7 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
                         }
                     })
                     break;
-                case 'borrar':
+                case 'delete':
                     let subDelete: Subscription = this.socialMediaService.delete(this.idSmToModify).subscribe({
                         next: () => {
                             console.log("Eliminado correctamente");

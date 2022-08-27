@@ -2,10 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { SkillComponent } from './components/skill/skill.component';
+import { ListSkillComponent } from './components/list-skill/list-skill.component';
+import { RouterModule } from '@angular/router';
+import { NewSkillComponent } from './components/new-skill/new-skill.component';
+import { DeleteSkillComponent } from './components/delete-skill/delete-skill.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
-        SkillComponent
+        SkillComponent,
+        ListSkillComponent,
+        NewSkillComponent,
+        DeleteSkillComponent
     ],
     imports: [
         CommonModule,
@@ -24,9 +32,14 @@ import { SkillComponent } from './components/skill/skill.component';
             showUnits: false,
             lazy: true,
         }),
+        RouterModule,
+        FormsModule
     ],
     exports: [
-        SkillComponent
+        SkillComponent,
+        ListSkillComponent,
+        NewSkillComponent,
+        DeleteSkillComponent
     ]
 })
 export class SkillModule { }

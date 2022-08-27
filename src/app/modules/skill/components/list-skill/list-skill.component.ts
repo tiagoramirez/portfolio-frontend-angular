@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
@@ -6,13 +6,13 @@ import { IUserSkills } from 'src/app/models/skill.interface';
 import { SkillService } from 'src/app/services/skill.service';
 
 @Component({
-    selector: 'app-skill',
-    templateUrl: './skill.component.html',
-    styleUrls: ['./skill.component.css']
+    selector: 'app-list-skill',
+    templateUrl: './list-skill.component.html',
+    styleUrls: ['./list-skill.component.css']
 })
-export class SkillComponent implements OnInit, OnDestroy {
+export class ListSkillComponent implements OnInit {
 
-    constructor(private route: ActivatedRoute, private skillService:SkillService) { }
+    constructor(private skillService: SkillService, private route: ActivatedRoute) { }
 
     ngOnInit(): void {
         this.username = this.route.snapshot.params['username'];
@@ -22,12 +22,16 @@ export class SkillComponent implements OnInit, OnDestroy {
                 this.skills = data;
             },
             error: (e) => {
-                console.log(e);
+                this.loading = false;
+                this.error = true;
+                console.error(e);
             },
             complete: () => {
+                this.loading = false;
+                this.error = false;
                 this.subsContainer.add(sub);
             }
-        });
+        })
     }
 
     ngOnDestroy(): void {
@@ -38,4 +42,8 @@ export class SkillComponent implements OnInit, OnDestroy {
     skills: IUserSkills[] = [];
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
+
+    loading: boolean = true;
+    error: boolean = false;
+
 }

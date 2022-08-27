@@ -1,27 +1,27 @@
-<p class="section-title" *ngIf="action==='crear'">Crear</p>
-<p class="section-title" *ngIf="action==='editar'">Editar</p>
-<p class="section-title" *ngIf="action==='borrar'">Borrar</p>
+<p class="section-title" *ngIf="action==='add'">Crear</p>
+<p class="section-title" *ngIf="action==='edit'">Editar</p>
+<p class="section-title" *ngIf="action==='delete'">Borrar</p>
 
 <form #f="ngForm" (ngSubmit)="onSubmit()" *ngIf="!serverError && !loadingMySocialMedia && !loadingSocialMedia">
-    <p id="name" *ngIf="action==='borrar'">{{user_social_media.social_media.name.toUpperCase()}}</p>
-    <p *ngIf="action==='borrar'">{{user_social_media.link}}</p>
+    <p id="name" *ngIf="action==='delete'">{{user_social_media.social_media.name.toUpperCase()}}</p>
+    <p *ngIf="action==='delete'">{{user_social_media.link}}</p>
 
-    <button class="large-button" type="submit" *ngIf="action==='borrar' && !loadingSubmit"><i
+    <button class="large-button" type="submit" *ngIf="action==='delete' && !loadingSubmit"><i
             class="bi bi-trash3"></i>&nbsp;Borrar</button>
 
-    <div class="social-media-form" *ngIf="action==='editar' || action==='crear'">
+    <div class="social-media-form" *ngIf="action==='edit' || action==='add'">
         <label for="social-media">Red social</label>
         <select name="social-media" [(ngModel)]="user_social_media.id_social_media" required>
             <option *ngFor="let sm of all_social_media" [value]="sm.id">{{sm.name}}</option>
         </select>
     </div>
 
-    <div class="link-form" *ngIf="action==='crear' || action==='editar'">
+    <div class="link-form" *ngIf="action==='add' || action==='edit'">
         <label for="link">Link</label>
         <input name="link" type="text" [(ngModel)]="user_social_media.link" required>
     </div>
 
-    <button class="large-button" type="submit" *ngIf="(action==='crear' || action==='editar') && !loadingSubmit"
+    <button class="large-button" type="submit" *ngIf="(action==='add' || action==='edit') && !loadingSubmit"
         [disabled]="!f.valid"><i class="bi bi-save"></i>&nbsp;Guardar</button>
 
     <p *ngIf="submitError" class="error-message">{{errorMessage}}</p>
@@ -33,5 +33,5 @@
 
 <p class="server-error" *ngIf="serverError">Error en el servidor. Intenta de nuevo mas tarde 🙈</p>
 
-<button type="button" [routerLink]="['/'+username+'/social-media/edit']" class="large-button go-back"><i
+<button type="button" [routerLink]="['/'+username+'/social-media/list']" class="large-button go-back"><i
         class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</button>
