@@ -62,8 +62,7 @@ export class NewExperienceComponent implements OnInit, OnDestroy {
         location: '',
         isActual: false,
         start_date: undefined,
-        end_date: undefined,
-        description: ''
+        end_date: undefined
     }
     description: IDescription = {
         profileId: 0,

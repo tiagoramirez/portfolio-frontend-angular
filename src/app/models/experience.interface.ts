@@ -8,5 +8,5 @@ export interface IExperience {
     isActual: boolean;
     start_date: Date;
     end_date?: Date;
-    description:string;
+    description?:string;
 }

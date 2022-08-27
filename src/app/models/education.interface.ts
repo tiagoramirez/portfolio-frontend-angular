@@ -7,5 +7,5 @@ export interface IEducation {
     isActual: boolean;
     start_date: Date;
     end_date: Date;
-    description:string;
+    description?:string;
 }

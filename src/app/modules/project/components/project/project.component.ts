@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { TokenService } from 'src/app/auth/services/token.service';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IProfile } from 'src/app/models/profile.interface';
 import { IProject } from 'src/app/models/project.interface';
@@ -14,10 +15,17 @@ import { ProjectService } from 'src/app/services/project.service';
 })
 export class ProjectComponent implements OnInit, OnDestroy {
 
-    constructor(private projectService: ProjectService, private descriptionService: DescriptionService, private route: ActivatedRoute) { }
+    constructor(private tokenService: TokenService, private projectService: ProjectService, private descriptionService: DescriptionService, private route: ActivatedRoute) { }
 
     ngOnInit() {
         this.username = this.route.snapshot.params['username'];
+        if (this.tokenService.getToken()) {
+            this.loggedUsername = this.tokenService.getUsername();
+            this.isLogged = true;
+        }
+        else {
+            this.isLogged = false;
+        }
         let sub = this.projectService.getByUsername(this.username).subscribe({
             next: (data) => {
                 this.projects = data;
@@ -49,9 +57,11 @@ export class ProjectComponent implements OnInit, OnDestroy {
     }
 
     username: string;
+    loggedUsername: string;
     @Input() profile: IProfile;
     projects: IProject[];
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 
+    isLogged: boolean;
 }

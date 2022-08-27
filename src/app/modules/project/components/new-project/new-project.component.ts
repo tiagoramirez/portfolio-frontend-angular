@@ -3,18 +3,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from 'src/app/auth/services/token.service';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IDescription } from 'src/app/models/description.interface';
-import { IEducation } from 'src/app/models/education.interface';
+import { IProject } from 'src/app/models/project.interface';
 import { DescriptionService } from 'src/app/services/description.service';
-import { EducationService } from 'src/app/services/education.service';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
-    selector: 'app-new-education',
-    templateUrl: './new-education.component.html',
-    styleUrls: ['./new-education.component.css']
+    selector: 'app-new-project',
+    templateUrl: './new-project.component.html',
+    styleUrls: ['./new-project.component.css']
 })
-export class NewEducationComponent implements OnInit {
+export class NewProjectComponent implements OnInit {
 
-    constructor(private route: ActivatedRoute, private tokenService: TokenService, private educationService: EducationService, private descriptionService: DescriptionService, private router: Router) { }
+    constructor(private route: ActivatedRoute, private tokenService: TokenService, private projectService: ProjectService, private descriptionService: DescriptionService, private router: Router) { }
 
     ngOnInit(): void {
         this.username = this.route.snapshot.params['username'];
@@ -26,10 +26,12 @@ export class NewEducationComponent implements OnInit {
     }
 
     save() {
-        let subExperience = this.educationService.addNew(this.education).subscribe({
+        let subProj = this.projectService.addNew(this.project).subscribe({
             next: (data) => {
+                console.log(data);
+                
                 this.description.profileId = this.profileId;
-                this.description.educationId = data.id;
+                this.description.projectId = data.id;
                 let subDescription = this.descriptionService.addNew(this.description).subscribe({
                     next(value) {
                         console.log(value);
@@ -46,7 +48,7 @@ export class NewEducationComponent implements OnInit {
                 console.error(err);
             },
             complete: () => {
-                this.subsContainer.add(subExperience);
+                this.subsContainer.add(subProj);
                 this.router.navigate(['/' + this.username]);
             }
         });
@@ -54,19 +56,14 @@ export class NewEducationComponent implements OnInit {
 
     username: string;
     profileId: number;
-    education: IEducation = {
+    project:IProject={
         userId: this.tokenService.getUserId(),
-        type: '',
-        title_name: '',
-        institute_name: '',
-        isActual: false,
-        start_date: undefined,
-        end_date: undefined
+        name: '',
+        link: ''
     }
-        
     description: IDescription = {
         profileId: 0,
-        educationId: 0,
+        projectId: 0,
         description: ''
     }
 

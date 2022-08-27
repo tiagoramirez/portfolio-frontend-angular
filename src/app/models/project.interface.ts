@@ -3,5 +3,5 @@ export interface IProject {
     userId?: number;
     name: string;
     link: string;
-    description: string;
+    description?: string;
 }

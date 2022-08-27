@@ -1,0 +1,23 @@
+<p class="section-title">Proyecto - Editar</p>
+
+<form #f="ngForm" (ngSubmit)="save()" *ngIf="!loadingProject && !loadingDescription">
+    <div>
+        <label for="name">Nombre del proyecto</label>
+        <input name="name" type="text" placeholder="Nombre del proyecto" [(ngModel)]="project.name" required>
+    </div>
+    <div>
+        <label for="link">Link</label>
+        <input name="link" type="text" placeholder="Link" [(ngModel)]="project.link" required>
+    </div>
+    <div>
+        <label for="description">Descripcion</label>
+        <textarea name="description" type="text" placeholder="Descripcion" [(ngModel)]="description.description"></textarea>
+    </div>
+
+    <button class="large-button" type="submit" [disabled]="!f.valid"><i class="bi bi-save"></i>&nbsp;Guardar</button>
+
+    <span *ngIf="loadingSubmit" class="loader"></span>
+</form>
+
+<button type="button" [routerLink]="['/'+username]" class="large-button go-back"><i
+        class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</button>

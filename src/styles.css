@@ -197,6 +197,18 @@ p {
     border-top: 1px solid var(--secondary-color);
 }
 
+select,
+input{
+    width: 50%;
+    background-color: var(--primary-color);
+    color: var(--font-color);
+    border: 1px var(--secondary-color) solid;
+    border-radius: .5rem;
+    font-size: 1rem;
+    text-align: center;
+    height: 2rem;
+}
+
 input[type="checkbox"] {
     appearance: none;
     height: 2rem;
@@ -218,6 +230,7 @@ input[type="checkbox"]:checked {
     margin-right: .5rem;
     animation-name: check;
     animation-duration: .2s;
+    background-color: var(--background-color);
 }
 
 @keyframes check {
@@ -242,19 +255,6 @@ input[type="checkbox"]:checked {
         border-color: #808080;
         transform: rotate(0deg);
     }
-}
-
-select,
-input[type="text"],
-input[type="date"]{
-    width: 50%;
-    background-color: var(--primary-color);
-    color: var(--font-color);
-    border: 1px var(--secondary-color) solid;
-    border-radius: .5rem;
-    font-size: 1rem;
-    text-align: center;
-    height: 2rem;
 }
 
 textarea {

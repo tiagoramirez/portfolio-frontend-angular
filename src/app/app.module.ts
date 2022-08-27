@@ -31,6 +31,9 @@ import { DeleteExperienceComponent } from './modules/experience/components/delet
 import { NewEducationComponent } from './modules/education/components/new-education/new-education.component';
 import { EditEducationComponent } from './modules/education/components/edit-education/edit-education.component';
 import { DeleteEducationComponent } from './modules/education/components/delete-education/delete-education.component';
+import { NewProjectComponent } from './modules/project/components/new-project/new-project.component';
+import { EditProjectComponent } from './modules/project/components/edit-project/edit-project.component';
+import { DeleteProjectComponent } from './modules/project/components/delete-project/delete-project.component';
 
 const routes: Routes = [
     { path: '', component: UserListComponent },
@@ -48,6 +51,9 @@ const routes: Routes = [
     { path: ':username/education/add/:profileId', component: NewEducationComponent },
     { path: ':username/education/edit/:educationId/:profileId', component: EditEducationComponent },
     { path: ':username/education/delete/:educationId', component: DeleteEducationComponent },
+    { path: ':username/project/add/:profileId', component: NewProjectComponent },
+    { path: ':username/project/edit/:projectId/:profileId', component: EditProjectComponent },
+    { path: ':username/project/delete/:projectId', component: DeleteProjectComponent },
 ]
 
 @NgModule({
