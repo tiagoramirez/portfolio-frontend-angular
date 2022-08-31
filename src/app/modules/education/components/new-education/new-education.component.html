@@ -35,9 +35,11 @@
         <textarea name="description" type="text" placeholder="Descripcion" [(ngModel)]="description.description"></textarea>
     </div>
 
-    <button class="large-button" type="submit" [disabled]="!f.valid"><i class="bi bi-save"></i>&nbsp;Guardar</button>
+    <button *ngIf="!loadingNewData" class="large-button" type="submit" [disabled]="!f.valid"><i class="bi bi-save"></i>&nbsp;Guardar</button>
 
-    <span *ngIf="loadingSubmit" class="loader"></span>
+    <span *ngIf="loadingNewData" class="loader"></span>
+
+    <p *ngIf="!loadingNewData && isErrorLoadingNewData" class="server-error">{{errorMessageLoadingNewData}}</p>
 </form>
 
 <button type="button" [routerLink]="['/'+username]" class="large-button go-back"><i

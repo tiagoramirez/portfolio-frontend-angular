@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppSettings } from 'src/app/helpers/appSettings';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { DescriptionService } from 'src/app/services/description.service';
 import { EducationService } from 'src/app/services/education.service';
@@ -9,7 +10,7 @@ import { EducationService } from 'src/app/services/education.service';
     templateUrl: './delete-education.component.html',
     styleUrls: ['./delete-education.component.css']
 })
-export class DeleteEducationComponent implements OnInit,OnDestroy {
+export class DeleteEducationComponent implements OnInit, OnDestroy {
 
     constructor(private route: ActivatedRoute, private educationService: EducationService, private descriptionService: DescriptionService, private router: Router) { }
 
@@ -23,24 +24,37 @@ export class DeleteEducationComponent implements OnInit,OnDestroy {
     }
 
     delete() {
+        this.isErrorLoadingNewData = false;
+        this.loadingNewData = true;
         let subDes = this.descriptionService.deleteEducationDescription(this.educationId).subscribe({
-            next: (value) => {
-                console.log(value);
+            next: () => {
                 let subExp = this.educationService.delete(this.educationId).subscribe({
-                    next(value) {
-                        console.log(value);
-                    },
-                    error(err) {
-                        console.error(err);
+                    error: (err) => {
+                        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                            this.errorMessageLoadingNewData = err.error.message;
+                        }
+                        else {
+                            this.errorMessageLoadingNewData = AppSettings.serverErrorMessage;
+                        }
+                        this.isErrorLoadingNewData = true;
+                        this.loadingNewData = false;
                     },
                     complete: () => {
+                        this.loadingNewData = false;
                         this.subsContainer.add(subExp);
                         this.router.navigate([this.username]);
                     }
                 });
             },
-            error(err) {
-                console.error(err);
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                    this.errorMessageLoadingNewData = err.error.message;
+                }
+                else {
+                    this.errorMessageLoadingNewData = AppSettings.serverErrorMessage;
+                }
+                this.isErrorLoadingNewData = true;
+                this.loadingNewData = false;
             },
             complete: () => {
                 this.subsContainer.add(subDes);
@@ -53,4 +67,7 @@ export class DeleteEducationComponent implements OnInit,OnDestroy {
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 
+    loadingNewData: boolean = false;
+    errorMessageLoadingNewData: string = '';
+    isErrorLoadingNewData: boolean = false;
 }

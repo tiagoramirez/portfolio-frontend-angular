@@ -197,6 +197,10 @@ p {
     border-top: 1px solid var(--secondary-color);
 }
 
+.section-if-container{
+    width: 100%;
+}
+
 select,
 input{
     width: 50%;

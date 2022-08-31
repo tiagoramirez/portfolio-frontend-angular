@@ -1,18 +1,23 @@
 <p class="section-title">Educacion</p>
-<div *ngFor="let education of educations" class="section-data-container">
-    <p class="education-institute">{{education.institute_name}}</p>
-    <p class="education-name">{{education.title_name}}</p>
-    <p class="education-type">{{education.type}}</p>
-    <p class="education-description">{{education.description}}</p>
-    <p class="education-time">{{education.start_date}} - {{education.isActual?'Actualidad':education.end_date}}</p>
-    <div class="actions" *ngIf="isLogged && username===loggedUsername">
-        <button [routerLink]="['education/delete/'+education.id]" class="circular-button delete"><i
-                class="bi bi-trash3"></i></button>
 
-        <button [routerLink]="['education/edit/'+education.id+'/'+profile.id]" class="circular-button edit"><i
-                class="bi bi-pencil-square"></i></button>
+<div *ngIf="!loading && !isError" class="section-if-container">
+    <div *ngFor="let education of educations" class="section-data-container">
+        <p class="education-institute">{{education.institute_name}}</p>
+        <p class="education-name">{{education.title_name}}</p>
+        <p class="education-type">{{education.type}}</p>
+        <p class="education-description">{{education.description}}</p>
+        <p class="education-time">{{education.start_date}} - {{education.isActual?'Actualidad':education.end_date}}</p>
+        <div class="actions" *ngIf="isLogged && username===loggedUsername">
+            <button [routerLink]="['education/delete/'+education.id]" class="circular-button delete"><i
+                    class="bi bi-trash3"></i></button>
+
+            <button [routerLink]="['education/edit/'+education.id+'/'+profile.id]" class="circular-button edit"><i
+                    class="bi bi-pencil-square"></i></button>
+        </div>
     </div>
 </div>
+
+<p *ngIf="!loading && isError" class="server-error">{{errorMessage}}</p>
 
 <button [routerLink]="['education/add/'+profile.id]" *ngIf="isLogged && username===loggedUsername"
     class="circular-button add"><i class="bi bi-plus-circle"></i></button>
