@@ -91,7 +91,6 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
                         error: (e) => {
                             this.submitError = true;
                             this.loadingSubmit = false;
-                            this.errorMessage = "Error en la conexion. Intenta de nuevo mas tarde.";
                             console.error(e);
                         },
                         complete: () => {
@@ -111,7 +110,6 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
                         error: (e) => {
                             this.loadingSubmit = false;
                             this.submitError = true;
-                            this.errorMessage = "Error en la conexion. Intenta de nuevo mas tarde.";
                             console.error(e);
                         },
                         complete: () => {
@@ -129,7 +127,6 @@ export class HandleSocialMediaComponent implements OnInit, OnDestroy {
                         error: (e) => {
                             this.loadingSubmit = false;
                             this.submitError = true;
-                            this.errorMessage = "Error en la conexion. Intenta de nuevo mas tarde.";
                             console.error(e);
                         },
                         complete: () => {

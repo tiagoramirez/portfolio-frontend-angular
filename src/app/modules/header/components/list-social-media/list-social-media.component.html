@@ -1,8 +1,6 @@
 <p class="section-title">REDES SOCIALES</p>
-
-<p class="error-message" *ngIf="socialMedia.length==0 && !error && !loading">No hay redes sociales cargadas. Agrega una
-    nueva 😋</p>
-<p class="server-error" *ngIf="error">Error en la conexion. Intenta de nuevo mas tarde 😊</p>
+<!-- TODO agregar error lista vacia -->
+<p class="error-message" *ngIf="socialMedia.length==0 && !error && !loading"></p>
 <span *ngIf="loading" class="loader"></span>
 
 <div *ngFor="let socialM of socialMedia" class="social-media">

@@ -1,7 +1,9 @@
 <p class="section-title">Sobre mi</p>
-<div class="section-data-container">
-    <p *ngIf="!loading" id="about-me-info">{{aboutMe.about_me}}</p>
+<div *ngIf="!loading && !isError" class="section-data-container">
+    <p id="about-me-info">{{aboutMe.about_me}}</p>
 </div>
+
+<p *ngIf="!loading && isError" class="server-error">{{errorMessage}}</p>
 
 <button [routerLink]="['about-me/edit/'+profile.id]" *ngIf="isLogged && username===loggedUsername"
     class="circular-button"><i class="bi bi-pencil-square"></i></button>

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppSettings } from 'src/app/helpers/appSettings';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IAboutMe } from 'src/app/models/about_me.interface';
 import { AboutMeService } from 'src/app/services/about-me.service';
@@ -21,9 +22,15 @@ export class EditAboutMeComponent implements OnInit, OnDestroy {
                 this.about_me = data;
                 this.about_me.profileId = this.profileId;
             },
-            error: (e) => {
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                    this.errorMessage = err.error.message;
+                }
+                else {
+                    this.errorMessage = AppSettings.serverErrorMessage;
+                }
+                this.isError = true;
                 this.loading = false;
-                console.error(e);
             },
             complete: () => {
                 this.loading = false;
@@ -35,14 +42,20 @@ export class EditAboutMeComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.subsContainer.unsubscribeAll();
     }
-
-
+    
     save() {
+        this.isErrorLoadingNewData = false;
         this.loadingNewData = true;
         let sub = this.aboutMeService.edit(this.about_me).subscribe({
-            error: (e) => {
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                    this.errorMessageLoadingNewData = err.error.message;
+                }
+                else {
+                    this.errorMessageLoadingNewData = AppSettings.serverErrorMessage;
+                }
+                this.isErrorLoadingNewData = true;
                 this.loadingNewData = false;
-                console.error(e);
             },
             complete: () => {
                 this.loadingNewData = false;
@@ -59,5 +72,10 @@ export class EditAboutMeComponent implements OnInit, OnDestroy {
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 
     loading: boolean = true;
+    errorMessage: string = '';
+    isError: boolean = false;
+
     loadingNewData: boolean = false;
+    errorMessageLoadingNewData: string = '';
+    isErrorLoadingNewData: boolean = false;
 }

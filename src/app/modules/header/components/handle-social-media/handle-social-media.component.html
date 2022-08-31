@@ -31,7 +31,5 @@
 
 <span *ngIf="loadingMySocialMedia || loadingSocialMedia" class="loader"></span>
 
-<p class="server-error" *ngIf="serverError">Error en el servidor. Intenta de nuevo mas tarde 🙈</p>
-
 <button type="button" [routerLink]="['/'+username+'/social-media/list']" class="large-button go-back"><i
         class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</button>

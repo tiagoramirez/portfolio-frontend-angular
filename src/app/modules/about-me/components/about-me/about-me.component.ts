@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TokenService } from 'src/app/auth/services/token.service';
+import { AppSettings } from 'src/app/helpers/appSettings';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IAboutMe } from 'src/app/models/about_me.interface';
 import { IProfile } from 'src/app/models/profile.interface';
@@ -30,8 +31,14 @@ export class AboutMeComponent implements OnInit, OnDestroy {
                 this.aboutMe = data;
             },
             error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                    this.errorMessage = err.error.message;
+                }
+                else {
+                    this.errorMessage = AppSettings.serverErrorMessageSection;
+                }
+                this.isError = true;
                 this.loading = false;
-                console.error(err);
             },
             complete: () => {
                 this.loading = false;
@@ -48,9 +55,11 @@ export class AboutMeComponent implements OnInit, OnDestroy {
     aboutMe: IAboutMe;
     username: string;
     loggedUsername: string = "";
+    isLogged: boolean = false;
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 
     loading: boolean = true;
-    isLogged: boolean = false;
+    errorMessage: string = '';
+    isError: boolean = false;
 }

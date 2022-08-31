@@ -10,8 +10,5 @@
             class="bi bi-pencil-square"></i></a>
 </div>
 
-<p *ngIf="error" class="error-message">Error en el servidor al cargar esta seccion. Intenta de nuevo mas tarde 🙈</p>
-
-
 <button routerLink="/login" *ngIf="!isLogged" class="large-button">Login&nbsp;<i class="bi bi-box-arrow-in-right"></i></button>
 <button *ngIf="isLogged" class="large-button" (click)="onLogout()">Logout&nbsp;<i class="bi bi-box-arrow-in-right"></i></button>
