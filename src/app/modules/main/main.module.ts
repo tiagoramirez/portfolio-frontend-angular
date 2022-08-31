@@ -8,6 +8,7 @@ import { ExperienceModule } from '../experience/experience.module';
 import { EducationModule } from '../education/education.module';
 import { ProjectModule } from '../project/project.module';
 import { SkillModule } from '../skill/skill.module';
+import { SocialMediaModule } from '../social-media/social-media.module';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { SkillModule } from '../skill/skill.module';
         HeaderModule,
         ProfileModule,
         ProjectModule,
-        SkillModule
+        SkillModule,
+        SocialMediaModule
     ]
 })
 export class MainModule { }

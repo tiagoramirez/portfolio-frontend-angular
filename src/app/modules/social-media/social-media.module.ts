@@ -8,8 +8,6 @@ import { DeleteSocialMediaComponent } from './components/delete-social-media/del
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-
-
 @NgModule({
     declarations: [
         ListSocialMediaComponent,
