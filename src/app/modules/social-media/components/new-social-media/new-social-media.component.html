@@ -1,1 +1,27 @@
-<p>new-social-media works!</p>
+<p class="section-title">Crear</p>
+
+<form #f="ngForm" (ngSubmit)="onSave()" *ngIf="!isError && !loading">
+
+    <div>
+        <label for="social-media">Red social</label>
+        <select name="social-media" [(ngModel)]="user_social_media.id_social_media" required>
+            <option *ngFor="let sm of all_social_media" [value]="sm.id">{{sm.name}}</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="link">Link</label>
+        <input name="link" type="text" [(ngModel)]="user_social_media.link" required>
+    </div>
+
+    <button class="large-button" type="submit" [disabled]="!f.valid"><i class="bi bi-save"></i>&nbsp;Guardar</button>
+
+    <p *ngIf="isErrorLoadingNewData" class="error-message">{{errorMessageLoadingNewData}}</p>
+
+    <span *ngIf="loadingNewData" class="loader"></span>
+</form>
+
+<span *ngIf="loading" class="loader"></span>
+
+<button type="button" [routerLink]="['/'+username+'/social-media/list']" class="large-button go-back"><i
+        class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</button>
