@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from 'src/app/auth/services/token.service';
+import { AppSettings } from 'src/app/helpers/appSettings';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IDescription } from 'src/app/models/description.interface';
 import { IExperience } from 'src/app/models/experience.interface';
@@ -23,10 +24,17 @@ export class EditExperienceComponent implements OnInit {
         let subExp = this.experienceService.getById(this.experienceId).subscribe({
             next: (data) => {
                 this.experience = data;
+                this.experience.userId = this.tokenService.getUserId();
             },
             error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                    this.errorMessage = err.error.message;
+                }
+                else {
+                    this.errorMessage = AppSettings.serverErrorMessage;
+                }
+                this.isError = true;
                 this.loadingExperience = false;
-                console.error(err);
             },
             complete: () => {
                 this.loadingExperience = false;
@@ -36,10 +44,17 @@ export class EditExperienceComponent implements OnInit {
         let subDesc = this.descriptionService.getByProfileAndExperienceId(this.profileId, this.experienceId).subscribe({
             next: (data) => {
                 this.description = data;
+                this.description.profileId = this.profileId;
             },
             error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                    this.errorMessage = err.error.message;
+                }
+                else {
+                    this.errorMessage = AppSettings.serverErrorMessage;
+                }
+                this.isError = true;
                 this.loadingDescription = false;
-                console.error(err);
             },
             complete: () => {
                 this.loadingDescription = false;
@@ -53,28 +68,40 @@ export class EditExperienceComponent implements OnInit {
     }
 
     save() {
-        this.experience.userId = this.tokenService.getUserId();
-        this.description.profileId = this.profileId;
+        this.isErrorLoadingNewData = false;
+        this.loadingNewData = true;
         let subExperience = this.experienceService.edit(this.experience).subscribe({
             next: () => {
                 let subDescription = this.descriptionService.edit(this.description).subscribe({
-                    next(value) {
-                        console.log(value);
-                    },
                     error(err) {
-                        console.error(err);
+                        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                            this.errorMessageLoadingNewData = err.error.message;
+                        }
+                        else {
+                            this.errorMessageLoadingNewData = AppSettings.serverErrorMessage;
+                        }
+                        this.isErrorLoadingNewData = true;
+                        this.loadingNewData = false;
                     },
                     complete: () => {
+                        this.loadingNewData = false;
                         this.subsContainer.add(subDescription);
+                        this.router.navigate(['/' + this.username]);
                     }
                 });
             },
-            error(err) {
-                console.error(err);
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                    this.errorMessageLoadingNewData = err.error.message;
+                }
+                else {
+                    this.errorMessageLoadingNewData = AppSettings.serverErrorMessage;
+                }
+                this.isErrorLoadingNewData = true;
+                this.loadingNewData = false;
             },
             complete: () => {
                 this.subsContainer.add(subExperience);
-                this.router.navigate(['/' + this.username]);
             }
         });
     }
@@ -88,7 +115,12 @@ export class EditExperienceComponent implements OnInit {
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 
-    loadingSubmit: boolean = false;
-    loadingExperience: boolean = true;
     loadingDescription: boolean = true;
+    loadingExperience: boolean = true;
+    errorMessage: string = '';
+    isError: boolean = false;
+
+    loadingNewData: boolean = false;
+    errorMessageLoadingNewData: string = '';
+    isErrorLoadingNewData: boolean = false;
 }

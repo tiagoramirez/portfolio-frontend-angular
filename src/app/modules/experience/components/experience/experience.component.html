@@ -1,19 +1,23 @@
 <p class="section-title">Experiencia</p>
 
-<div *ngFor="let experience of experiences" class="section-data-container">
-    <p class="job-position">{{experience.position}}</p>
-    <p class="job-type">{{experience.company_name}} - {{experience.type}}</p>
-    <p class="job-description">{{experience.description}}</p>
-    <p class="job-time">{{experience.start_date}} - {{experience.isActual?"Actualidad":experience.end_date}}</p>
-    <p class="job-location">{{experience.location}}</p>
-    <div class="actions" *ngIf="isLogged && username===loggedUsername">
-        <button [routerLink]="['experience/delete/'+experience.id]" class="circular-button delete"><i
-                class="bi bi-trash3"></i></button>
+<div *ngIf="!loading && !isError" class="section-if-container">
+    <div *ngFor="let experience of experiences" class="section-data-container">
+        <p class="job-position">{{experience.position}}</p>
+        <p class="job-type">{{experience.company_name}} - {{experience.type}}</p>
+        <p class="job-description">{{experience.description}}</p>
+        <p class="job-time">{{experience.start_date}} - {{experience.isActual?"Actualidad":experience.end_date}}</p>
+        <p class="job-location">{{experience.location}}</p>
+        <div class="actions" *ngIf="isLogged && username===loggedUsername">
+            <button [routerLink]="['experience/delete/'+experience.id]" class="circular-button delete"><i
+                    class="bi bi-trash3"></i></button>
 
-        <button [routerLink]="['experience/edit/'+experience.id+'/'+profile.id]" class="circular-button edit"><i
-                class="bi bi-pencil-square"></i></button>
+            <button [routerLink]="['experience/edit/'+experience.id+'/'+profile.id]" class="circular-button edit"><i
+                    class="bi bi-pencil-square"></i></button>
+        </div>
     </div>
 </div>
+
+<p *ngIf="!loading && isError" class="server-error">{{errorMessage}}</p>
 
 <button [routerLink]="['experience/add/'+profile.id]" *ngIf="isLogged && username===loggedUsername"
     class="circular-button add"><i class="bi bi-plus-circle"></i></button>

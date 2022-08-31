@@ -42,7 +42,7 @@ export class EducationComponent implements OnInit, OnDestroy {
                             }
                             else {
                                 this.errorMessage = AppSettings.serverErrorMessage;
-                            }                            
+                            }
                             this.isError = true;
                             this.loading = false;
                         },
@@ -62,7 +62,6 @@ export class EducationComponent implements OnInit, OnDestroy {
                 }
                 this.isError = true;
                 this.loading = false;
-                
             },
             complete: () => {
                 this.subsContainer.add(sub);
