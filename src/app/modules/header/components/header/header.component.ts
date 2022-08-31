@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TokenService } from 'src/app/auth/services/token.service';
+import { AppSettings } from 'src/app/helpers/appSettings';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IUserSocialMedia } from 'src/app/models/social_media.interface';
 import { SocialMediaService } from 'src/app/services/social-media.service';
@@ -17,7 +18,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.username = this.route.snapshot.params['username'];
-
         if (this.tokenService.getToken()) {
             this.loggedUsername = this.tokenService.getUsername();
             this.isLogged = true;
@@ -30,14 +30,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
             next: (data) => {
                 this.socialMedia = data;
             },
-            error: (e) => {
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                    this.errorMessage = err.error.message;
+                }
+                else {
+                    this.errorMessage = AppSettings.serverErrorMessageSection;
+                }
+                this.isError = true;
                 this.loading = false;
-                this.error = true;
-                console.log(e);
             },
             complete: () => {
                 this.loading = false;
-                this.error = false;
                 this.subsContainer.add(sub);
             }
         });
@@ -61,5 +65,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 
     loading: boolean = true;
-    error: boolean = false;
+    errorMessage: string = '';
+    isError: boolean = false;
 }

@@ -7,8 +7,6 @@ import { AuthModule } from './auth/auth.module';
 import { LoginComponent } from './auth/components/login/login.component';
 import { RegisterComponent } from './auth/components/register/register.component';
 import { UserListComponent } from './auth/components/user-list/user-list.component';
-import { ListSocialMediaComponent } from './modules/header/components/list-social-media/list-social-media.component';
-import { HandleSocialMediaComponent } from './modules/header/components/handle-social-media/handle-social-media.component';
 import { MainComponent } from './modules/main/components/main/main.component';
 import { MainModule } from './modules/main/main.module';
 import { EditProfileComponent } from './modules/profile/components/edit-profile/edit-profile.component';
@@ -37,6 +35,10 @@ import { ListSkillComponent } from './modules/skill/components/list-skill/list-s
 import { SkillService } from './services/skill.service';
 import { NewSkillComponent } from './modules/skill/components/new-skill/new-skill.component';
 import { DeleteSkillComponent } from './modules/skill/components/delete-skill/delete-skill.component';
+import { NewSocialMediaComponent } from './modules/social-media/components/new-social-media/new-social-media.component';
+import { EditSocialMediaComponent } from './modules/social-media/components/edit-social-media/edit-social-media.component';
+import { DeleteSocialMediaComponent } from './modules/social-media/components/delete-social-media/delete-social-media.component';
+import { ListSocialMediaComponent } from './modules/social-media/components/list-social-media/list-social-media.component';
 
 const routes: Routes = [
     { path: '', component: UserListComponent },
@@ -44,7 +46,9 @@ const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: ':username', component: MainComponent },
     { path: ':username/social-media/list', component: ListSocialMediaComponent },
-    { path: ':username/social-media/edit/:action/:idSm', component: HandleSocialMediaComponent },
+    { path: ':username/social-media/add', component: NewSocialMediaComponent },
+    { path: ':username/social-media/edit/:idSm', component: EditSocialMediaComponent },
+    { path: ':username/social-media/delete/:idSm', component: DeleteSocialMediaComponent },
     { path: ':username/profile/edit/:profileId', component: EditProfileComponent },
     { path: ':username/profile/edit/img/:type', component: EditPhotoComponent },
     { path: ':username/about-me/edit/:profileId', component: EditAboutMeComponent },

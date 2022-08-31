@@ -1,7 +1,10 @@
 <p class="section-title">REDES SOCIALES</p>
-<!-- TODO agregar error lista vacia -->
-<p class="error-message" *ngIf="socialMedia.length==0 && !error && !loading"></p>
+
 <span *ngIf="loading" class="loader"></span>
+
+<p class="error-message" *ngIf="!loading && !isError && isEmpty">{{emptyMessage}}</p>
+
+<p class="error-message" *ngIf="isError && !loading">{{errorMessage}}</p>
 
 <div *ngFor="let socialM of socialMedia" class="social-media">
     <p id="name">{{socialM.social_media.name.toUpperCase()}}</p>

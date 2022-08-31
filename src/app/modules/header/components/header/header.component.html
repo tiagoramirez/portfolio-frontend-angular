@@ -2,13 +2,15 @@
 
 <span *ngIf="loading" class="loader"></span>
 
-<div *ngIf="!loading" class="social-media-container">
+<div *ngIf="!loading && !isError" class="social-media-container">
     <div *ngFor="let social of socialMedia" class="social-media">
         <a [href]="social.link" target="_blank"><i [ngClass]="social.social_media.icon_class"></i></a>
     </div>
-    <a class="edit" *ngIf="!loading && isLogged && username===loggedUsername" [routerLink]="'./social-media/list'"><i
+    <a class="edit" *ngIf="isLogged && username===loggedUsername" [routerLink]="'./social-media/list'"><i
             class="bi bi-pencil-square"></i></a>
 </div>
+
+<p *ngIf="!loading && isError" class="server-error">{{errorMessage}}</p>
 
 <button routerLink="/login" *ngIf="!isLogged" class="large-button">Login&nbsp;<i class="bi bi-box-arrow-in-right"></i></button>
 <button *ngIf="isLogged" class="large-button" (click)="onLogout()">Logout&nbsp;<i class="bi bi-box-arrow-in-right"></i></button>

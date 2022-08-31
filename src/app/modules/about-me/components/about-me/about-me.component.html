@@ -1,4 +1,7 @@
 <p class="section-title">Sobre mi</p>
+
+<span *ngIf="loading" class="loader"></span>
+
 <div *ngIf="!loading && !isError" class="section-data-container">
     <p id="about-me-info">{{aboutMe.about_me}}</p>
 </div>
