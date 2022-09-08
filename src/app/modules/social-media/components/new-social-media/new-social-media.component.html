@@ -21,6 +21,8 @@
     <span *ngIf="loadingNewData" class="loader"></span>
 </form>
 
+<p *ngIf="isError" class="error-message">{{errorMessage}}</p>
+
 <span *ngIf="loading" class="loader"></span>
 
 <button type="button" [routerLink]="['/'+username+'/social-media/list']" class="large-button go-back"><i
