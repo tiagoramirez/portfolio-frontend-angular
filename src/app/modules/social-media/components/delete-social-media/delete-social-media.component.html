@@ -1,1 +1,9 @@
-<p>delete-social-media works!</p>
+<p class="section-title">Esta seguro que quiere borrar el registro?</p>\
+<div class="actions" *ngIf="!loadingNewData">
+    <button (click)="delete()" class="large-button">Si</button>
+    <button [routerLink]="'/'+username" class="large-button">No</button>
+</div>
+
+<span *ngIf="loadingNewData" class="loader"></span>
+
+<p *ngIf="!loadingNewData && isErrorLoadingNewData" class="server-error">{{errorMessageLoadingNewData}}</p>
