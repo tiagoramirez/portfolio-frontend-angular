@@ -14,7 +14,7 @@
         <input name="link" type="text" [(ngModel)]="user_social_media.link" required>
     </div>
 
-    <button class="large-button" type="submit" [disabled]="!f.valid"><i class="bi bi-save"></i>&nbsp;Guardar</button>
+    <button *ngIf="!loadingNewData" class="large-button" type="submit" [disabled]="!f.valid"><i class="bi bi-save"></i>&nbsp;Guardar</button>
 
     <p *ngIf="isErrorLoadingNewData" class="error-message">{{errorMessageLoadingNewData}}</p>
 
