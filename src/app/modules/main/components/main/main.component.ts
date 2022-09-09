@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AppSettings } from 'src/app/helpers/appSettings';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IProfile } from 'src/app/models/profile.interface';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -15,23 +16,25 @@ export class MainComponent implements OnInit, OnDestroy {
     constructor(private route: ActivatedRoute, private profileService: ProfileService) { }
 
     ngOnInit(): void {
-
         this.username = this.route.snapshot.params['username'];
-
 
         let sub: Subscription = this.profileService.getByUsername(this.username).subscribe({
             next: (data) => {
                 this.profiles = data;
                 this.selectedProfile = data[0];
             },
-            error: (e) => {
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                    this.errorMessage = err.error.message;
+                }
+                else {
+                    this.errorMessage = AppSettings.serverErrorMessageSection;
+                }
+                this.isError = true;
                 this.loading = false;
-                this.error = true;
-                console.log(e);
             },
             complete: () => {
                 this.loading = false;
-                this.error = false;
                 this.subsContainer.add(sub);
             }
         });
@@ -48,5 +51,6 @@ export class MainComponent implements OnInit, OnDestroy {
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 
     loading: boolean = true;
-    error: boolean = false;
+    isError: boolean = false;
+    errorMessage: string = '';
 }
