@@ -1,31 +1,34 @@
 <p class="section-title">CONFIGURACION PERFIL</p>
 
-<form *ngIf="!loadingProfile && !loadingConfig">
+<form *ngIf="!loadingProfile && !loadingConfig && !isError">
     <div class="show_photo">
         <label for="show_photo">Mostrar foto de perfil</label>
         <span *ngIf="loadingNewConfig" class="loader"></span>
-        <input type="checkbox" name="show_photo" [(ngModel)]="config.show_photo" (change)="saveConfig()">
+        <input *ngIf="!loadingNewConfig" type="checkbox" name="show_photo" [(ngModel)]="config.show_photo" (change)="saveConfig()">
     </div>
     <div class="show_banner">
         <label for="show_banner">Mostrar banner</label>
         <span *ngIf="loadingNewConfig" class="loader"></span>
-        <input type="checkbox" name="show_banner" [(ngModel)]="config.show_banner" (change)="saveConfig()">
+        <input *ngIf="!loadingNewConfig" type="checkbox" name="show_banner" [(ngModel)]="config.show_banner" (change)="saveConfig()">
     </div>
     <div class="show_location">
         <label for="show_location">Mostrar ubicacion</label>
         <span *ngIf="loadingNewConfig" class="loader"></span>
-        <input type="checkbox" name="show_location" [(ngModel)]="config.show_location" (change)="saveConfig()">
+        <input *ngIf="!loadingNewConfig" type="checkbox" name="show_location" [(ngModel)]="config.show_location" (change)="saveConfig()">
     </div>
     <div class="show_phone">
         <label for="show_phone">Mostrar telefono</label>
         <span *ngIf="loadingNewConfig" class="loader"></span>
-        <input type="checkbox" name="show_phone" [(ngModel)]="config.show_phone" (change)="saveConfig()">
+        <input *ngIf="!loadingNewConfig" type="checkbox" name="show_phone" [(ngModel)]="config.show_phone" (change)="saveConfig()">
     </div>
+
+    <p class="error-message" *ngIf="!loadingNewConfig && isErrorLoadingNewConfig">{{errorMessageLoadingNewConfig}}</p>
+
 </form>
 
 <p class="section-title">DATOS PERFIL</p>
 
-<form #f="ngForm" novalidate *ngIf="!loadingProfile && !loadingConfig" (ngSubmit)="saveProfile()">
+<form #f="ngForm" novalidate *ngIf="!loadingProfile && !loadingConfig && !isError" (ngSubmit)="saveProfile()">
     <div class="phone" *ngIf="config.show_phone">
         <label for="phone">Telefono</label>
         <input name="phone" type="text" placeholder="Telefono" [(ngModel)]="profile.phone" required>
@@ -51,13 +54,17 @@
         <label>Fondo</label>
         <button type="button" routerLink="../img/banner" class="large-button">Cargar nueva imagen</button>
     </div>
-
+    
+    <button *ngIf="!loadingNewProfile" class="large-button" type="submit" [disabled]="!f.valid"><i class="bi bi-save"></i>&nbsp;Guardar</button>
+    
+    <p class="error-message" *ngIf="!loadingNewProfile && isErrorLoadingNewProfile">{{errorMessageLoadingNewProfile}}</p>
+    
     <span *ngIf="loadingNewProfile" class="loader"></span>
-    <button type="submit" *ngIf="!loadingNewProfile" class="large-button" [disabled]="!f.valid"><i
-            class="bi bi-save"></i>&nbsp;Guardar</button>
 </form>
 
 <button [routerLink]="['/'+username]" class="large-button go-back"><i
         class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</button>
 
 <span *ngIf="loadingProfile || loadingConfig" class="loader"></span>
+
+<p class="error-message" *ngIf="isError">{{errorMessage}}</p>

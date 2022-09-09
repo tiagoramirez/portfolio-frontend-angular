@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from 'src/app/auth/services/token.service';
+import { AppSettings } from 'src/app/helpers/appSettings';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
 import { IConfiguration } from 'src/app/models/configuration.interface';
 import { IProfile } from 'src/app/models/profile.interface';
@@ -20,34 +21,42 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         this.username = this.route.snapshot.params['username'];
         this.profileId = this.route.snapshot.params['profileId'];
         let subPerson = this.profileService.getById(this.profileId).subscribe({
-            next: (p) => {
-                this.profile = p;
+            next: (data) => {
+                this.profile = data;
             },
-            error: (e) => {
-                this.error = true;
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                    this.errorMessage = err.error.message;
+                }
+                else {
+                    this.errorMessage = AppSettings.serverErrorMessage;
+                }
+                this.isError = true;
                 this.loadingProfile = false;
-                console.error(e);
             },
             complete: () => {
-                this.error = false;
                 this.loadingProfile = false;
                 this.subsContainer.add(subPerson);
-                let subConfig = this.configService.getByProfileId(this.profile.id).subscribe({
-                    next: (c) => {
-                        this.config = c;
-                        this.config.profileId = this.profile.id;
-                    },
-                    error: (e) => {
-                        console.log(e);
-                        this.error = true;
-                        this.loadingConfig = false;
-                    },
-                    complete: () => {
-                        this.error = false;
-                        this.loadingConfig = false;
-                        this.subsContainer.add(subConfig);
-                    }
-                });
+            }
+        });
+        let subConfig = this.configService.getByProfileId(this.profileId).subscribe({
+            next: (data) => {
+                this.config = data;
+                this.config.profileId = this.profileId;
+            },
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                    this.errorMessage = err.error.message;
+                }
+                else {
+                    this.errorMessage = AppSettings.serverErrorMessage;
+                }
+                this.isError = true;
+                this.loadingConfig = false;
+            },
+            complete: () => {
+                this.loadingConfig = false;
+                this.subsContainer.add(subConfig);
             }
         });
     }
@@ -57,13 +66,17 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     }
 
     saveConfig() {
+        this.isErrorLoadingNewConfig = false;
         this.loadingNewConfig = true;
         let subConfig = this.configService.edit(this.config).subscribe({
-            next: () => {
-                console.log("Configuracion cargada correctamente");
-            },
-            error: (e) => {
-                console.error(e);
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                    this.errorMessageLoadingNewConfig = err.error.message;
+                }
+                else {
+                    this.errorMessageLoadingNewConfig = AppSettings.serverErrorMessage;
+                }
+                this.isErrorLoadingNewConfig = true;
                 this.loadingNewConfig = false;
             },
             complete: () => {
@@ -74,6 +87,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     }
 
     saveProfile() {
+        this.isErrorLoadingNewProfile = false;
         this.loadingNewProfile = true;
         const errorNumber = this.profileService.check(this.profile);
         if (errorNumber !== 0) {
@@ -82,16 +96,19 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         else {
             this.profile.userId = this.tokenService.getUserId();
             let subProfile = this.profileService.edit(this.profile).subscribe({
-                next: () => {
-                    console.log("Datos cargados correctamente");
-                },
-                error: (e) => {
-                    console.error(e);
+                error: (err) => {
+                    if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                        this.errorMessageLoadingNewProfile = err.error.message;
+                    }
+                    else {
+                        this.errorMessageLoadingNewProfile = AppSettings.serverErrorMessage;
+                    }
+                    this.isErrorLoadingNewProfile = true;
                     this.loadingNewProfile = false;
                 },
                 complete: () => {
                     this.subsContainer.add(subProfile);
-                    this.loadingNewProfile = false;
+                    this.loadingNewProfile = false;                    
                     this.router.navigate(['/' + this.username]);
                 }
             });
@@ -107,9 +124,14 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     loadingProfile: boolean = true;
     loadingConfig: boolean = true;
-    error: boolean = false;
-    errorMessage: string;
+    errorMessage: string = '';
+    isError: boolean = false;
+
+    loadingNewProfile: boolean = false;
+    errorMessageLoadingNewProfile: string = '';
+    isErrorLoadingNewProfile: boolean = false;
 
     loadingNewConfig: boolean = false;
-    loadingNewProfile: boolean = false;
+    errorMessageLoadingNewConfig: string = '';
+    isErrorLoadingNewConfig: boolean = false;
 }

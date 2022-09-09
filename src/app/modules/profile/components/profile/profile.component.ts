@@ -4,10 +4,9 @@ import { Subscription } from 'rxjs';
 import { IUser } from 'src/app/auth/models/user.interface';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { TokenService } from 'src/app/auth/services/token.service';
+import { AppSettings } from 'src/app/helpers/appSettings';
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer';
-import { IBanner } from 'src/app/models/banner.interface';
 import { IConfiguration } from 'src/app/models/configuration.interface';
-import { IPhoto } from 'src/app/models/photo.interface';
 import { IProfile } from 'src/app/models/profile.interface';
 import { BannerService } from 'src/app/services/banner.service';
 import { ConfigurationService } from 'src/app/services/configuration.service';
@@ -37,14 +36,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
             next: (data) => {
                 this.user = data;
             },
-            error: (e) => {
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                    this.errorMessage = err.error.message;
+                }
+                else {
+                    this.errorMessage = AppSettings.serverErrorMessage;
+                }
+                this.isError = true;
                 this.loadingUser = false;
-                this.error = true;
-                console.log(e);
             },
             complete: () => {
                 this.loadingUser = false;
-                this.error = false;
                 this.subsContainer.add(subUser);
             }
         });
@@ -53,14 +56,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
             next: (data) => {
                 this.configuration = data;
             },
-            error: (e) => {
-                this.loadingConfiguration = false;
-                this.error = true;
-                console.log(e);
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                    this.errorMessage = err.error.message;
+                }
+                else {
+                    this.errorMessage = AppSettings.serverErrorMessage;
+                }
+                this.isError = true;
+                this.loadingConfig = false;
             },
             complete: () => {
-                this.loadingConfiguration = false;
-                this.error = false;
+                this.loadingConfig = false;
+                this.isError = false;
                 this.subsContainer.add(subConfiguration);
                 if (this.configuration.show_photo) {
                     let subPhoto: Subscription = this.photoService.getByUsername(this.username).subscribe({
@@ -73,10 +81,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
                                 this.photoString = 'data:image/jpeg;base64,' + data.photo;
                             }
                         },
-                        error: (e) => {
-                            this.error = true;
+                        error: (err) => {
+                            if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                                this.errorMessage = err.error.message;
+                            }
+                            else {
+                                this.errorMessage = AppSettings.serverErrorMessage;
+                            }
+                            this.isError = true;
                             this.loadingPhoto = false;
-                            console.error(e);
                         },
                         complete: () => {
                             this.loadingPhoto = false;
@@ -95,10 +108,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
                                 this.bannerString = 'data:image/jpeg;base64,' + data.banner;
                             }
                         },
-                        error: (e) => {
-                            this.error = true;
+                        error: (err) => {
+                            if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+                                this.errorMessage = err.error.message;
+                            }
+                            else {
+                                this.errorMessage = AppSettings.serverErrorMessage;
+                            }
+                            this.isError = true;
                             this.loadingBanner = false;
-                            console.error(e);
                         },
                         complete: () => {
                             this.loadingBanner = false;
@@ -127,22 +145,24 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
 
     username: string;
+    loggedUsername: string = "";
+    isLogged: boolean;
     user: IUser;
     configuration: IConfiguration;
     @Input() profile: IProfile;
     showModal = false;
+    isPhotoNull = false;
     photoString: string;
+    isBannerNull = false;
     bannerString: string;
-    loggedUsername: string = "";
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer();
 
-    loadingConfiguration: boolean = true;
-    loadingPhoto: boolean = true;
-    isPhotoNull: boolean = true;
-    loadingBanner: boolean = true;
-    isBannerNull: boolean = true;
+    loading: boolean = true;
     loadingUser: boolean = true;
-    error: boolean = false;
-    isLogged: boolean = false;
+    loadingConfig: boolean = true;
+    loadingPhoto: boolean = true;
+    loadingBanner: boolean = true;
+    errorMessage: string = '';
+    isError: boolean = false;
 }

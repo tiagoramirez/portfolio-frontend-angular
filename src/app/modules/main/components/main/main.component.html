@@ -15,4 +15,4 @@
 
 <p class="error-message" *ngIf="isError">{{errorMessage}}</p>
 
-<p class="error-message" *ngIf="!isError && profiles.length==0">No se encontro al usuario "{{username}}"</p>
+<p class="error-message" *ngIf="!isError && !loading && profiles.length==0">No se encontro al usuario "{{username}}"</p>

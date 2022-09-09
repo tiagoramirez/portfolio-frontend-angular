@@ -1,17 +1,17 @@
-<div class="banner" *ngIf="!loadingConfiguration && !loadingBanner && configuration.show_banner">
+<div class="banner" *ngIf="!loadingConfig && !loadingBanner && configuration.show_banner">
     <img *ngIf="!isBannerNull" [src]="bannerString" alt="">
     <p *ngIf="isBannerNull" class="error-message">Ninguna imagen de fondo fue cargada.</p>
 </div>
 
 <div [ngClass]="configuration.show_banner?'photo-banner':'photo-no-banner'"
-    *ngIf="!loadingConfiguration && !loadingPhoto && configuration.show_photo">
+    *ngIf="!loadingConfig && !loadingPhoto && configuration.show_photo">
     <img *ngIf="!isPhotoNull" [src]="photoString" alt="">
     <p *ngIf="isPhotoNull" class="error-message">Ninguna imagen de perfil fue cargada.</p>
 </div>
 
 <p class="section-title" *ngIf="!loadingUser">{{user.full_name}}</p>
 <p>{{profile.description}}</p>
-<p *ngIf="!loadingConfiguration && configuration.show_location">{{profile.location_country ===null ||
+<p *ngIf="!loadingConfig && configuration.show_location">{{profile.location_country ===null ||
     profile.location_state===null?'': profile.location_state+"
     ("+profile.location_country+")"}}</p>
 
@@ -24,7 +24,7 @@
         <span (click)="closeModal()" class="close">&times;</span>
         <p id="modal-title">Mas informacion</p>
         <p id="birthday" *ngIf="!loadingUser">Fecha de nacimiento: {{user.birthday}}</p>
-        <p id="phone" *ngIf="!loadingConfiguration && configuration.show_phone">Numero de telefono:
+        <p id="phone" *ngIf="!loadingConfig && configuration.show_phone">Numero de telefono:
             {{profile.phone===null?'':profile.phone}}
         </p>
         <p id="mail" *ngIf="!loadingUser">Mail: {{user.mail}}</p>
