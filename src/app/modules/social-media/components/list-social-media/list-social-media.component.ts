@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Subscription } from 'rxjs'
 import { AppSettings } from 'src/app/helpers/appSettings'
@@ -19,10 +19,10 @@ export class ListSocialMediaComponent implements OnInit, OnDestroy {
     const sub: Subscription = this.socialMediaService.getAllByUsername(this.username).subscribe({
       next: (data) => {
         this.socialMedia = data
-        this.isEmpty = this.socialMedia.length == 0
+        this.isEmpty = this.socialMedia.length === 0
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessageSection
@@ -32,7 +32,7 @@ export class ListSocialMediaComponent implements OnInit, OnDestroy {
       },
       complete: () => {
         this.loading = false
-        this.subsContainer.add({ subscription: sub })
+        this.subsContainer.add(sub)
       }
     })
   }

@@ -21,7 +21,7 @@ export class DeleteProjectComponent implements OnInit {
     this.subsContainer.unsubscribeAll()
   }
 
-  delete () {
+  delete (): void {
     const subDes = this.descriptionService.deleteProjectDescription(this.projectId).subscribe({
       next: (value) => {
         console.log(value)
@@ -33,8 +33,8 @@ export class DeleteProjectComponent implements OnInit {
             console.error(err)
           },
           complete: () => {
-            this.subsContainer.add({ subscription: subProj })
-            this.router.navigate([this.username])
+            this.subsContainer.add(subProj)
+            void this.router.navigate([this.username])
           }
         })
       },
@@ -42,7 +42,7 @@ export class DeleteProjectComponent implements OnInit {
         console.error(err)
       },
       complete: () => {
-        this.subsContainer.add({ subscription: subDes })
+        this.subsContainer.add(subDes)
       }
     })
   }

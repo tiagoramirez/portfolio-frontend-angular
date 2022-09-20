@@ -28,7 +28,7 @@ export class ListSkillComponent implements OnInit {
       complete: () => {
         this.loading = false
         this.error = false
-        this.subsContainer.add({ subscription: sub })
+        this.subsContainer.add(sub)
       }
     })
   }

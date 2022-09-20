@@ -21,7 +21,7 @@ export class NewSocialMediaComponent implements OnInit {
         this.all_social_media = data
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessage
@@ -31,17 +31,17 @@ export class NewSocialMediaComponent implements OnInit {
       },
       complete: () => {
         this.loading = false
-        this.subsContainer.add({ subscription: subSocialMedia })
+        this.subsContainer.add(subSocialMedia)
       }
     })
   }
 
-  onSave () {
+  onSave (): void {
     this.isErrorLoadingNewData = false
     this.loadingNewData = true
     const sub = this.socialMediaService.addNew(this.user_social_media).subscribe({
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessageLoadingNewData = err.error.message
         } else {
           this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
@@ -51,8 +51,8 @@ export class NewSocialMediaComponent implements OnInit {
       },
       complete: () => {
         this.loadingNewData = false
-        this.subsContainer.add({ subscription: sub })
-        this.router.navigate(['/' + this.username])
+        this.subsContainer.add(sub)
+        void this.router.navigate(['/' + this.username])
       }
     })
   }

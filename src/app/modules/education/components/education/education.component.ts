@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { map, Subscription } from 'rxjs'
+import { Subscription } from 'rxjs'
 import { TokenService } from 'src/app/auth/services/token.service'
 import { AppSettings } from 'src/app/helpers/appSettings'
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer'
@@ -17,10 +17,10 @@ import { EducationService } from 'src/app/services/education.service'
 export class EducationComponent implements OnInit, OnDestroy {
   constructor (private readonly educationService: EducationService, private readonly tokenService: TokenService, private readonly descriptionService: DescriptionService, private readonly route: ActivatedRoute) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.username = this.route.snapshot.params['username']
-    if (this.tokenService.getToken()) {
-      this.loggedUsername = this.tokenService.getUsername()
+    if (this.tokenService.getToken() != null) {
+      this.loggedUsername = this.tokenService.getUsername() ?? ''
       this.isLogged = true
     } else {
       this.isLogged = false
@@ -28,14 +28,15 @@ export class EducationComponent implements OnInit, OnDestroy {
     const sub = this.educationService.getByUsername(this.username).subscribe({
       next: (data) => {
         this.educations = data
+        // eslint-disable-next-line array-callback-return
         this.educations.map((educ) => {
-          const subDesc: Subscription = this.descriptionService.getByProfileAndEducationId(this.profile.id, educ.id).subscribe({
+          const subDesc: Subscription = this.descriptionService.getByProfileAndEducationId(this.profile.id ?? -1, educ.id ?? -1).subscribe({
             next: (desc) => {
               this.loading = true
               educ.description = desc.description
             },
             error: (err) => {
-              if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+              if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
                 this.errorMessage = err.error.message
               } else {
                 this.errorMessage = AppSettings.serverErrorMessage
@@ -45,13 +46,13 @@ export class EducationComponent implements OnInit, OnDestroy {
             },
             complete: () => {
               this.loading = false
-              this.subsContainer.add({ subscription: subDesc })
+              this.subsContainer.add(subDesc)
             }
           })
         })
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessage
@@ -60,7 +61,7 @@ export class EducationComponent implements OnInit, OnDestroy {
         this.loading = false
       },
       complete: () => {
-        this.subsContainer.add({ subscription: sub })
+        this.subsContainer.add(sub)
       }
     })
   }

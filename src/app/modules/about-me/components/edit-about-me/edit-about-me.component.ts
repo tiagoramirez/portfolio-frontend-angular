@@ -22,7 +22,7 @@ export class EditAboutMeComponent implements OnInit, OnDestroy {
         this.about_me.profileId = this.profileId
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessage
@@ -32,7 +32,7 @@ export class EditAboutMeComponent implements OnInit, OnDestroy {
       },
       complete: () => {
         this.loading = false
-        this.subsContainer.add({ subscription: sub })
+        this.subsContainer.add(sub)
       }
     })
   }
@@ -41,12 +41,12 @@ export class EditAboutMeComponent implements OnInit, OnDestroy {
     this.subsContainer.unsubscribeAll()
   }
 
-  save () {
+  save (): void {
     this.isErrorLoadingNewData = false
     this.loadingNewData = true
     const sub = this.aboutMeService.edit(this.about_me).subscribe({
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessageLoadingNewData = err.error.message
         } else {
           this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
@@ -56,8 +56,8 @@ export class EditAboutMeComponent implements OnInit, OnDestroy {
       },
       complete: () => {
         this.loadingNewData = false
-        this.subsContainer.add({ subscription: sub })
-        this.router.navigate(['/' + this.username])
+        this.subsContainer.add(sub)
+        void this.router.navigate(['/' + this.username])
       }
     })
   }

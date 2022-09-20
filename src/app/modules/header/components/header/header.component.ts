@@ -17,8 +17,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit (): void {
     this.username = this.route.snapshot.params['username']
-    if (this.tokenService.getToken()) {
-      this.loggedUsername = this.tokenService.getUsername()
+    if (this.tokenService.getToken() != null) {
+      this.loggedUsername = this.tokenService.getUsername() ?? ''
       this.isLogged = true
     } else {
       this.isLogged = false
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.socialMedia = data
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessageSection
@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       },
       complete: () => {
         this.loading = false
-        this.subsContainer.add({ subscription: sub })
+        this.subsContainer.add(sub)
       }
     })
   }
@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subsContainer.unsubscribeAll()
   }
 
-  onLogout () {
+  onLogout (): void {
     this.tokenService.logOut()
     window.location.reload()
   }

@@ -16,10 +16,10 @@ import { ProjectService } from 'src/app/services/project.service'
 export class ProjectComponent implements OnInit, OnDestroy {
   constructor (private readonly tokenService: TokenService, private readonly projectService: ProjectService, private readonly descriptionService: DescriptionService, private readonly route: ActivatedRoute) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.username = this.route.snapshot.params['username']
-    if (this.tokenService.getToken()) {
-      this.loggedUsername = this.tokenService.getUsername()
+    if (this.tokenService.getToken() != null) {
+      this.loggedUsername = this.tokenService.getUsername() ?? ''
       this.isLogged = true
     } else {
       this.isLogged = false
@@ -27,8 +27,9 @@ export class ProjectComponent implements OnInit, OnDestroy {
     const sub = this.projectService.getByUsername(this.username).subscribe({
       next: (data) => {
         this.projects = data
+        // eslint-disable-next-line array-callback-return
         this.projects.map((proj) => {
-          const subDesc: Subscription = this.descriptionService.getByProfileAndProjectId(this.profile.id, proj.id).subscribe({
+          const subDesc: Subscription = this.descriptionService.getByProfileAndProjectId(this.profile.id ?? -1, proj.id ?? -1).subscribe({
             next: (desc) => {
               proj.description = desc.description
             },
@@ -36,7 +37,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
               console.error(error)
             },
             complete: () => {
-              this.subsContainer.add({ subscription: subDesc })
+              this.subsContainer.add(subDesc)
             }
           })
         })
@@ -45,7 +46,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
         console.log(error)
       },
       complete: () => {
-        this.subsContainer.add({ subscription: sub })
+        this.subsContainer.add(sub)
       }
     })
   }

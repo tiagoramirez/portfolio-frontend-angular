@@ -26,7 +26,7 @@ export class EditExperienceComponent implements OnInit {
         this.experience.userId = this.tokenService.getUserId()
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessage
@@ -36,7 +36,7 @@ export class EditExperienceComponent implements OnInit {
       },
       complete: () => {
         this.loadingExperience = false
-        this.subsContainer.add({ subscription: subExp })
+        this.subsContainer.add(subExp)
       }
     })
     const subDesc = this.descriptionService.getByProfileAndExperienceId(this.profileId, this.experienceId).subscribe({
@@ -45,7 +45,7 @@ export class EditExperienceComponent implements OnInit {
         this.description.profileId = this.profileId
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessage
@@ -55,7 +55,7 @@ export class EditExperienceComponent implements OnInit {
       },
       complete: () => {
         this.loadingDescription = false
-        this.subsContainer.add({ subscription: subDesc })
+        this.subsContainer.add(subDesc)
       }
     })
   }
@@ -64,14 +64,14 @@ export class EditExperienceComponent implements OnInit {
     this.subsContainer.unsubscribeAll()
   }
 
-  save () {
+  save (): void {
     this.isErrorLoadingNewData = false
     this.loadingNewData = true
     const subExperience = this.experienceService.edit(this.experience).subscribe({
       next: () => {
         const subDescription = this.descriptionService.edit(this.description).subscribe({
           error (err) {
-            if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+            if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
               this.errorMessageLoadingNewData = err.error.message
             } else {
               this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
@@ -81,13 +81,13 @@ export class EditExperienceComponent implements OnInit {
           },
           complete: () => {
             this.loadingNewData = false
-            this.subsContainer.add({ subscription: subDescription })
-            this.router.navigate(['/' + this.username])
+            this.subsContainer.add(subDescription)
+            void this.router.navigate(['/' + this.username])
           }
         })
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessageLoadingNewData = err.error.message
         } else {
           this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
@@ -96,7 +96,7 @@ export class EditExperienceComponent implements OnInit {
         this.loadingNewData = false
       },
       complete: () => {
-        this.subsContainer.add({ subscription: subExperience })
+        this.subsContainer.add(subExperience)
       }
     })
   }

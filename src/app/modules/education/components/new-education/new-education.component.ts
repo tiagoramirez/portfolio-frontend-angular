@@ -25,7 +25,7 @@ export class NewEducationComponent implements OnInit {
     this.subsContainer.unsubscribeAll()
   }
 
-  save () {
+  save (): void {
     this.isErrorLoadingNewData = false
     this.loadingNewData = true
     const subExperience = this.educationService.addNew(this.education).subscribe({
@@ -34,7 +34,7 @@ export class NewEducationComponent implements OnInit {
         this.description.educationId = data.id
         const subDescription = this.descriptionService.addNew(this.description).subscribe({
           error: (err) => {
-            if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+            if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
               this.errorMessageLoadingNewData = err.error.message
             } else {
               this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
@@ -44,13 +44,13 @@ export class NewEducationComponent implements OnInit {
           },
           complete: () => {
             this.loadingNewData = false
-            this.subsContainer.add({ subscription: subDescription })
-            this.router.navigate(['/' + this.username])
+            this.subsContainer.add(subDescription)
+            void this.router.navigate(['/' + this.username])
           }
         })
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessageLoadingNewData = err.error.message
         } else {
           this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
@@ -59,7 +59,7 @@ export class NewEducationComponent implements OnInit {
         this.loadingNewData = false
       },
       complete: () => {
-        this.subsContainer.add({ subscription: subExperience })
+        this.subsContainer.add(subExperience)
       }
     })
   }
@@ -72,8 +72,8 @@ export class NewEducationComponent implements OnInit {
     title_name: '',
     institute_name: '',
     isActual: false,
-    start_date: undefined,
-    end_date: undefined
+    start_date: new Date(),
+    end_date: new Date()
   }
 
   description: IDescription = {

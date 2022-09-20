@@ -25,11 +25,11 @@ export class EditPhotoComponent implements OnInit, OnDestroy {
             this.photoLoaded = false
             this.isFirstPhoto = true
           } else {
-            this.photoId = data.id
-            this.userId = data.userId
+            this.photoId = data.id ?? -1
+            this.userId = data.userId ?? -1
             this.isFirstPhoto = false
             this.photoLoaded = true
-            this.photoString = 'data:image/jpeg;base64,' + data.photo
+            this.photoString = 'data:image/jpeg;base64,' + String(data.photo)
           }
         },
         error: (e) => {
@@ -40,7 +40,7 @@ export class EditPhotoComponent implements OnInit, OnDestroy {
         complete: () => {
           this.error = false
           this.loading = false
-          this.subsContainer.add({ subscription: subPhoto })
+          this.subsContainer.add(subPhoto)
         }
       })
     } else if (this.type === 'banner') {
@@ -50,11 +50,11 @@ export class EditPhotoComponent implements OnInit, OnDestroy {
             this.photoLoaded = false
             this.isFirstPhoto = true
           } else {
-            this.photoId = data.id
-            this.userId = data.userId
+            this.photoId = data.id ?? -1
+            this.userId = data.userId ?? -1
             this.isFirstPhoto = false
             this.photoLoaded = true
-            this.photoString = 'data:image/jpeg;base64,' + data.banner
+            this.photoString = 'data:image/jpeg;base64,' + String(data.banner)
           }
         },
         error: (e) => {
@@ -65,7 +65,7 @@ export class EditPhotoComponent implements OnInit, OnDestroy {
         complete: () => {
           this.error = false
           this.loading = false
-          this.subsContainer.add({ subscription: subBanner })
+          this.subsContainer.add(subBanner)
         }
       })
     }
@@ -75,14 +75,15 @@ export class EditPhotoComponent implements OnInit, OnDestroy {
     this.subsContainer.unsubscribeAll()
   }
 
-  loadImg (event: any) {
-    this.photoFile = <File>event.target.files[0]
-    getBase64(this.photoFile).then((res: any) => this.photoString = res.base)
+  loadImg (event: any): void {
+    this.photoFile = event.target.files[0] as File
+    // eslint-disable-next-line no-return-assign
+    void getBase64(this.photoFile).then((res: any) => this.photoString = res.base)
     this.photoLoaded = true
     this.isPhotoSelected = true
   }
 
-  saveImg () {
+  saveImg (): void {
     if (this.photoFile !== undefined && this.photoFile !== null) {
       if (this.type === 'photo' && this.isFirstPhoto) {
         const subPhoto: Subscription = this.photoService.addNew(this.photoFile, this.tokenService.getUserId()).subscribe({
@@ -93,8 +94,8 @@ export class EditPhotoComponent implements OnInit, OnDestroy {
             console.error(e)
           },
           complete: () => {
-            this.subsContainer.add({ subscription: subPhoto })
-            this.router.navigate(['/' + this.username])
+            this.subsContainer.add(subPhoto)
+            void this.router.navigate(['/' + this.username])
           }
         })
       } else if (this.type === 'banner' && this.isFirstPhoto) {
@@ -106,8 +107,8 @@ export class EditPhotoComponent implements OnInit, OnDestroy {
             console.error(e)
           },
           complete: () => {
-            this.subsContainer.add({ subscription: subBanner })
-            this.router.navigate(['/' + this.username])
+            this.subsContainer.add(subBanner)
+            void this.router.navigate(['/' + this.username])
           }
         })
       } else if (this.type === 'photo' && !this.isFirstPhoto) {
@@ -119,8 +120,8 @@ export class EditPhotoComponent implements OnInit, OnDestroy {
             console.error(e)
           },
           complete: () => {
-            this.subsContainer.add({ subscription: subPhoto })
-            this.router.navigate(['/' + this.username])
+            this.subsContainer.add(subPhoto)
+            void this.router.navigate(['/' + this.username])
           }
         })
       } else if (this.type === 'banner' && !this.isFirstPhoto) {
@@ -132,8 +133,8 @@ export class EditPhotoComponent implements OnInit, OnDestroy {
             console.error(e)
           },
           complete: () => {
-            this.subsContainer.add({ subscription: subBanner })
-            this.router.navigate(['/' + this.username])
+            this.subsContainer.add(subBanner)
+            void this.router.navigate(['/' + this.username])
           }
         })
       }

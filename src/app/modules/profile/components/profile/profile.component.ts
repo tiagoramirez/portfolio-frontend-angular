@@ -23,8 +23,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnInit (): void {
     this.username = this.route.snapshot.params['username']
 
-    if (this.tokenService.getToken()) {
-      this.loggedUsername = this.tokenService.getUsername()
+    if (this.tokenService.getToken() != null) {
+      this.loggedUsername = this.tokenService.getUsername() ?? ''
       this.isLogged = true
     } else {
       this.isLogged = false
@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.user = data
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessage
@@ -45,16 +45,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
       },
       complete: () => {
         this.loadingUser = false
-        this.subsContainer.add({ subscription: subUser })
+        this.subsContainer.add(subUser)
       }
     })
 
-    const subConfiguration: Subscription = this.configurationService.getByProfileId(this.profile.id).subscribe({
+    const subConfiguration: Subscription = this.configurationService.getByProfileId(this.profile.id ?? -1).subscribe({
       next: (data) => {
         this.configuration = data
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessage
@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       complete: () => {
         this.loadingConfig = false
         this.isError = false
-        this.subsContainer.add({ subscription: subConfiguration })
+        this.subsContainer.add(subConfiguration)
         if (this.configuration.show_photo) {
           const subPhoto: Subscription = this.photoService.getByUsername(this.username).subscribe({
             next: (data) => {
@@ -73,11 +73,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
                 this.isPhotoNull = true
               } else {
                 this.isPhotoNull = false
-                this.photoString = 'data:image/jpeg;base64,' + data.photo
+                this.photoString = 'data:image/jpeg;base64,' + String(data.photo)
               }
             },
             error: (err) => {
-              if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+              if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
                 this.errorMessage = err.error.message
               } else {
                 this.errorMessage = AppSettings.serverErrorMessage
@@ -87,7 +87,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
             },
             complete: () => {
               this.loadingPhoto = false
-              this.subsContainer.add({ subscription: subPhoto })
+              this.subsContainer.add(subPhoto)
             }
           })
         }
@@ -98,11 +98,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
                 this.isBannerNull = true
               } else {
                 this.isBannerNull = false
-                this.bannerString = 'data:image/jpeg;base64,' + data.banner
+                this.bannerString = 'data:image/jpeg;base64,' + String(data.banner)
               }
             },
             error: (err) => {
-              if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+              if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
                 this.errorMessage = err.error.message
               } else {
                 this.errorMessage = AppSettings.serverErrorMessage
@@ -112,7 +112,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
             },
             complete: () => {
               this.loadingBanner = false
-              this.subsContainer.add({ subscription: subBanner })
+              this.subsContainer.add(subBanner)
             }
           })
         }
@@ -128,11 +128,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.subsContainer.unsubscribeAll()
   }
 
-  openModal () {
+  openModal (): void {
     this.showModal = true
   }
 
-  closeModal () {
+  closeModal (): void {
     this.showModal = false
   }
 

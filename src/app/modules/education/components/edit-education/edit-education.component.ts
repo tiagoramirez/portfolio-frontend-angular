@@ -26,7 +26,7 @@ export class EditEducationComponent implements OnInit {
         this.education.userId = this.tokenService.getUserId()
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessage
@@ -36,7 +36,7 @@ export class EditEducationComponent implements OnInit {
       },
       complete: () => {
         this.loadingEducation = false
-        this.subsContainer.add({ subscription: subEduc })
+        this.subsContainer.add(subEduc)
       }
     })
     const subDesc = this.descriptionService.getByProfileAndEducationId(this.profileId, this.educationId).subscribe({
@@ -45,7 +45,7 @@ export class EditEducationComponent implements OnInit {
         this.description.profileId = this.profileId
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessage
@@ -55,7 +55,7 @@ export class EditEducationComponent implements OnInit {
       },
       complete: () => {
         this.loadingDescription = false
-        this.subsContainer.add({ subscription: subDesc })
+        this.subsContainer.add(subDesc)
       }
     })
   }
@@ -64,14 +64,14 @@ export class EditEducationComponent implements OnInit {
     this.subsContainer.unsubscribeAll()
   }
 
-  save () {
+  save (): void {
     this.isErrorLoadingNewData = false
     this.loadingNewData = true
     const subEducation = this.educationService.edit(this.education).subscribe({
       next: () => {
         const subDescription = this.descriptionService.edit(this.description).subscribe({
           error: (err) => {
-            if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+            if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
               this.errorMessageLoadingNewData = err.error.message
             } else {
               this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
@@ -81,13 +81,13 @@ export class EditEducationComponent implements OnInit {
           },
           complete: () => {
             this.loadingNewData = false
-            this.subsContainer.add({ subscription: subDescription })
-            this.router.navigate(['/' + this.username])
+            this.subsContainer.add(subDescription)
+            void this.router.navigate(['/' + this.username])
           }
         })
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessageLoadingNewData = err.error.message
         } else {
           this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
@@ -96,7 +96,7 @@ export class EditEducationComponent implements OnInit {
         this.loadingNewData = false
       },
       complete: () => {
-        this.subsContainer.add({ subscription: subEducation })
+        this.subsContainer.add(subEducation)
       }
     })
   }

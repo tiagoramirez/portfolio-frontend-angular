@@ -24,7 +24,7 @@ export class SkillComponent implements OnInit, OnDestroy {
         console.log(e)
       },
       complete: () => {
-        this.subsContainer.add({ subscription: sub })
+        this.subsContainer.add(sub)
       }
     })
   }

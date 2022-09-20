@@ -24,7 +24,7 @@ export class NewProjectComponent implements OnInit {
     this.subsContainer.unsubscribeAll()
   }
 
-  save () {
+  save (): void {
     const subProj = this.projectService.addNew(this.project).subscribe({
       next: (data) => {
         console.log(data)
@@ -39,7 +39,7 @@ export class NewProjectComponent implements OnInit {
             console.error(err)
           },
           complete: () => {
-            this.subsContainer.add({ subscription: subDescription })
+            this.subsContainer.add(subDescription)
           }
         })
       },
@@ -47,8 +47,8 @@ export class NewProjectComponent implements OnInit {
         console.error(err)
       },
       complete: () => {
-        this.subsContainer.add({ subscription: subProj })
-        this.router.navigate(['/' + this.username])
+        this.subsContainer.add(subProj)
+        void this.router.navigate(['/' + this.username])
       }
     })
   }

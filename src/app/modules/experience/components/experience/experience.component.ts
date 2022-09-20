@@ -17,10 +17,10 @@ import { ExperienceService } from 'src/app/services/experience.service'
 export class ExperienceComponent implements OnInit, OnDestroy {
   constructor (private readonly tokenService: TokenService, private readonly experienceService: ExperienceService, private readonly descriptionService: DescriptionService, private readonly route: ActivatedRoute) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.username = this.route.snapshot.params['username']
-    if (this.tokenService.getToken()) {
-      this.loggedUsername = this.tokenService.getUsername()
+    if (this.tokenService.getToken() != null) {
+      this.loggedUsername = this.tokenService.getUsername() ?? ''
       this.isLogged = true
     } else {
       this.isLogged = false
@@ -28,14 +28,15 @@ export class ExperienceComponent implements OnInit, OnDestroy {
     const sub = this.experienceService.getByUsername(this.username).subscribe({
       next: (data) => {
         this.experiences = data
+        // eslint-disable-next-line array-callback-return
         this.experiences.map((exp) => {
-          const subDesc: Subscription = this.descriptionService.getByProfileAndExperienceId(this.profile.id, exp.id).subscribe({
+          const subDesc: Subscription = this.descriptionService.getByProfileAndExperienceId(this.profile.id ?? -1, exp.id ?? -1).subscribe({
             next: (desc) => {
               this.loading = true
               exp.description = desc.description
             },
             error: (err) => {
-              if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+              if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
                 this.errorMessage = err.error.message
               } else {
                 this.errorMessage = AppSettings.serverErrorMessage
@@ -45,13 +46,13 @@ export class ExperienceComponent implements OnInit, OnDestroy {
             },
             complete: () => {
               this.loading = false
-              this.subsContainer.add({ subscription: subDesc })
+              this.subsContainer.add(subDesc)
             }
           })
         })
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessage
@@ -60,7 +61,7 @@ export class ExperienceComponent implements OnInit, OnDestroy {
         this.loading = false
       },
       complete: () => {
-        this.subsContainer.add({ subscription: sub })
+        this.subsContainer.add(sub)
       }
     })
   }

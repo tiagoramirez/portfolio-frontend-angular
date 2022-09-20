@@ -22,14 +22,14 @@ export class DeleteExperienceComponent implements OnInit, OnDestroy {
     this.subsContainer.unsubscribeAll()
   }
 
-  delete () {
+  delete (): void {
     this.isErrorLoadingNewData = false
     this.loadingNewData = true
     const subDes = this.descriptionService.deleteExperienceDescription(this.experienceId).subscribe({
       next: () => {
         const subExp = this.experienceService.delete(this.experienceId).subscribe({
           error: (err) => {
-            if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+            if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
               this.errorMessageLoadingNewData = err.error.message
             } else {
               this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
@@ -39,13 +39,13 @@ export class DeleteExperienceComponent implements OnInit, OnDestroy {
           },
           complete: () => {
             this.loadingNewData = false
-            this.subsContainer.add({ subscription: subExp })
-            this.router.navigate([this.username])
+            this.subsContainer.add(subExp)
+            void this.router.navigate([this.username])
           }
         })
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessageLoadingNewData = err.error.message
         } else {
           this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
@@ -54,7 +54,7 @@ export class DeleteExperienceComponent implements OnInit, OnDestroy {
         this.loadingNewData = false
       },
       complete: () => {
-        this.subsContainer.add({ subscription: subDes })
+        this.subsContainer.add(subDes)
       }
     })
   }

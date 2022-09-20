@@ -23,7 +23,7 @@ export class MainComponent implements OnInit, OnDestroy {
         this.selectedProfile = data[0]
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessageSection
@@ -33,7 +33,7 @@ export class MainComponent implements OnInit, OnDestroy {
       },
       complete: () => {
         this.loading = false
-        this.subsContainer.add({ subscription: sub })
+        this.subsContainer.add(sub)
       }
     })
   }

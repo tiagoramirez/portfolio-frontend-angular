@@ -26,7 +26,7 @@ export class NewSkillComponent implements OnInit, OnDestroy {
       },
       complete: () => {
         this.loading = false
-        this.subsContainer.add({ subscription: sub })
+        this.subsContainer.add(sub)
       }
     })
   }
@@ -35,7 +35,7 @@ export class NewSkillComponent implements OnInit, OnDestroy {
     this.subsContainer.unsubscribeAll()
   }
 
-  onSubmit () {
+  onSubmit (): void {
     this.loadingSubmit = true
 
     const sub = this.skillService.addNew(this.user_skill).subscribe({
@@ -48,8 +48,8 @@ export class NewSkillComponent implements OnInit, OnDestroy {
       },
       complete: () => {
         this.loadingSubmit = false
-        this.subsContainer.add({ subscription: sub })
-        this.router.navigate(['/' + this.username])
+        this.subsContainer.add(sub)
+        void this.router.navigate(['/' + this.username])
       }
     })
   }

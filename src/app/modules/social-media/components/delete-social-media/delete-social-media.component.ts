@@ -21,12 +21,12 @@ export class DeleteSocialMediaComponent implements OnInit {
     this.subsContainer.unsubscribeAll()
   }
 
-  delete () {
+  delete (): void {
     this.isErrorLoadingNewData = false
     this.loadingNewData = true
     const sub = this.socialMediaService.delete(this.socialMediaId).subscribe({
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessageLoadingNewData = err.error.message
         } else {
           this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
@@ -36,8 +36,8 @@ export class DeleteSocialMediaComponent implements OnInit {
       },
       complete: () => {
         this.loadingNewData = false
-        this.subsContainer.add({ subscription: sub })
-        this.router.navigate(['/' + this.username + '/social-media/list'])
+        this.subsContainer.add(sub)
+        void this.router.navigate(['/' + this.username + '/social-media/list'])
       }
     })
   }

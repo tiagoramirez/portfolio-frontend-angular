@@ -29,7 +29,7 @@ export class EditProjectComponent implements OnInit {
       },
       complete: () => {
         this.loadingProject = false
-        this.subsContainer.add({ subscription: subProj })
+        this.subsContainer.add(subProj)
       }
     })
     const subDesc = this.descriptionService.getByProfileAndProjectId(this.profileId, this.projectId).subscribe({
@@ -42,7 +42,7 @@ export class EditProjectComponent implements OnInit {
       },
       complete: () => {
         this.loadingDescription = false
-        this.subsContainer.add({ subscription: subDesc })
+        this.subsContainer.add(subDesc)
       }
     })
   }
@@ -51,7 +51,7 @@ export class EditProjectComponent implements OnInit {
     this.subsContainer.unsubscribeAll()
   }
 
-  save () {
+  save (): void {
     this.project.userId = this.tokenService.getUserId()
     this.description.profileId = this.profileId
     const subProject = this.projectService.edit(this.project).subscribe({
@@ -64,7 +64,7 @@ export class EditProjectComponent implements OnInit {
             console.error(err)
           },
           complete: () => {
-            this.subsContainer.add({ subscription: subDescription })
+            this.subsContainer.add(subDescription)
           }
         })
       },
@@ -72,8 +72,8 @@ export class EditProjectComponent implements OnInit {
         console.error(err)
       },
       complete: () => {
-        this.subsContainer.add({ subscription: subProject })
-        this.router.navigate(['/' + this.username])
+        this.subsContainer.add(subProject)
+        void this.router.navigate(['/' + this.username])
       }
     })
   }

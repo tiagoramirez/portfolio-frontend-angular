@@ -23,7 +23,7 @@ export class EditSocialMediaComponent implements OnInit {
         this.social_media.userId = this.tokenService.getUserId()
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessage
@@ -33,7 +33,7 @@ export class EditSocialMediaComponent implements OnInit {
       },
       complete: () => {
         this.loading = false
-        this.subsContainer.add({ subscription: sub })
+        this.subsContainer.add(sub)
       }
     })
   }
@@ -42,12 +42,12 @@ export class EditSocialMediaComponent implements OnInit {
     this.subsContainer.unsubscribeAll()
   }
 
-  save () {
+  save (): void {
     this.isErrorLoadingNewData = false
     this.loadingNewData = true
     const subExperience = this.socialMediaService.edit(this.social_media).subscribe({
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessageLoadingNewData = err.error.message
         } else {
           this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
@@ -57,8 +57,8 @@ export class EditSocialMediaComponent implements OnInit {
       },
       complete: () => {
         this.loadingNewData = false
-        this.subsContainer.add({ subscription: subExperience })
-        this.router.navigate(['/' + this.username])
+        this.subsContainer.add(subExperience)
+        void this.router.navigate(['/' + this.username])
       }
     })
   }

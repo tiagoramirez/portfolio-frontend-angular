@@ -18,18 +18,18 @@ export class AboutMeComponent implements OnInit, OnDestroy {
 
   ngOnInit (): void {
     this.username = this.route.snapshot.params['username']
-    if (this.tokenService.getToken()) {
-      this.loggedUsername = this.tokenService.getUsername()
+    if (this.tokenService.getToken() != null) {
+      this.loggedUsername = this.tokenService.getUsername() ?? ''
       this.isLogged = true
     } else {
       this.isLogged = false
     }
-    const sub: Subscription = this.aboutMeService.getByProfileId(this.profile.id).subscribe({
+    const sub: Subscription = this.aboutMeService.getByProfileId(this.profile.id ?? -1).subscribe({
       next: (data) => {
         this.aboutMe = data
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessageSection
@@ -39,7 +39,7 @@ export class AboutMeComponent implements OnInit, OnDestroy {
       },
       complete: () => {
         this.loading = false
-        this.subsContainer.add({ subscription: sub })
+        this.subsContainer.add(sub)
       }
     })
   }

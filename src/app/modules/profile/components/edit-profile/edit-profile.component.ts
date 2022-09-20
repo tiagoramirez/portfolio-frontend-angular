@@ -24,7 +24,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         this.profile = data
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessage
@@ -34,7 +34,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       },
       complete: () => {
         this.loadingProfile = false
-        this.subsContainer.add({ subscription: subPerson })
+        this.subsContainer.add(subPerson)
       }
     })
     const subConfig = this.configService.getByProfileId(this.profileId).subscribe({
@@ -43,7 +43,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         this.config.profileId = this.profileId
       },
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessage = err.error.message
         } else {
           this.errorMessage = AppSettings.serverErrorMessage
@@ -53,7 +53,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       },
       complete: () => {
         this.loadingConfig = false
-        this.subsContainer.add({ subscription: subConfig })
+        this.subsContainer.add(subConfig)
       }
     })
   }
@@ -62,12 +62,12 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     this.subsContainer.unsubscribeAll()
   }
 
-  saveConfig () {
+  saveConfig (): void {
     this.isErrorLoadingNewConfig = false
     this.loadingNewConfig = true
     const subConfig = this.configService.edit(this.config).subscribe({
       error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
           this.errorMessageLoadingNewConfig = err.error.message
         } else {
           this.errorMessageLoadingNewConfig = AppSettings.serverErrorMessage
@@ -77,36 +77,31 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       },
       complete: () => {
         this.loadingNewConfig = false
-        this.subsContainer.add({ subscription: subConfig })
+        this.subsContainer.add(subConfig)
       }
     })
   }
 
-  saveProfile () {
+  saveProfile (): void {
     this.isErrorLoadingNewProfile = false
     this.loadingNewProfile = true
-    const errorNumber = this.profileService.check(this.profile)
-    if (errorNumber !== 0) {
-      this.errorMessage = this.profileService.getErrorMessage(errorNumber)
-    } else {
-      this.profile.userId = this.tokenService.getUserId()
-      const subProfile = this.profileService.edit(this.profile).subscribe({
-        error: (err) => {
-          if (err.error.messageControlled !== undefined && err.error.messageControlled == true) {
-            this.errorMessageLoadingNewProfile = err.error.message
-          } else {
-            this.errorMessageLoadingNewProfile = AppSettings.serverErrorMessage
-          }
-          this.isErrorLoadingNewProfile = true
-          this.loadingNewProfile = false
-        },
-        complete: () => {
-          this.subsContainer.add({ subscription: subProfile })
-          this.loadingNewProfile = false
-          this.router.navigate(['/' + this.username])
+    this.profile.userId = this.tokenService.getUserId()
+    const subProfile = this.profileService.edit(this.profile).subscribe({
+      error: (err) => {
+        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+          this.errorMessageLoadingNewProfile = err.error.message
+        } else {
+          this.errorMessageLoadingNewProfile = AppSettings.serverErrorMessage
         }
-      })
-    }
+        this.isErrorLoadingNewProfile = true
+        this.loadingNewProfile = false
+      },
+      complete: () => {
+        this.subsContainer.add(subProfile)
+        this.loadingNewProfile = false
+        void this.router.navigate(['/' + this.username])
+      }
+    })
   }
 
   username: string

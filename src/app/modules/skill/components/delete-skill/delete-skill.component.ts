@@ -20,7 +20,7 @@ export class DeleteSkillComponent implements OnInit {
     this.subsContainer.unsubscribeAll()
   }
 
-  delete () {
+  delete (): void {
     const sub = this.skillService.delete(this.userSkillsId).subscribe({
       next: (value) => {
         console.log(value)
@@ -29,8 +29,8 @@ export class DeleteSkillComponent implements OnInit {
         console.error(err)
       },
       complete: () => {
-        this.subsContainer.add({ subscription: sub })
-        this.router.navigate([this.username])
+        this.subsContainer.add(sub)
+        void this.router.navigate([this.username])
       }
     })
   }
