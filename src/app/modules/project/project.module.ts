@@ -8,22 +8,22 @@ import { RouterModule } from '@angular/router'
 import { FormsModule } from '@angular/forms'
 
 @NgModule({
-  declarations: [
-    ProjectComponent,
-    NewProjectComponent,
-    EditProjectComponent,
-    DeleteProjectComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule
-  ],
-  exports: [
-    ProjectComponent,
-    NewProjectComponent,
-    EditProjectComponent,
-    DeleteProjectComponent
-  ]
+    declarations: [
+        ProjectComponent,
+        NewProjectComponent,
+        EditProjectComponent,
+        DeleteProjectComponent
+    ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule
+    ],
+    exports: [
+        ProjectComponent,
+        NewProjectComponent,
+        EditProjectComponent,
+        DeleteProjectComponent
+    ]
 })
 export class ProjectModule { }

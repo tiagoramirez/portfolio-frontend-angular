@@ -10,24 +10,24 @@ import { UserListComponent } from './components/user-list/user-list.component'
 import { RouterModule } from '@angular/router'
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    RegisterComponent,
-    UserListComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    RouterModule
-  ],
-  exports: [
-    LoginComponent,
-    RegisterComponent
-  ],
-  providers: [
-    AuthService,
-    TokenService
-  ]
+    declarations: [
+        LoginComponent,
+        RegisterComponent,
+        UserListComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        RouterModule
+    ],
+    exports: [
+        LoginComponent,
+        RegisterComponent
+    ],
+    providers: [
+        AuthService,
+        TokenService
+    ]
 })
 export class AuthModule { }

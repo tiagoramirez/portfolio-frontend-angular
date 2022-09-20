@@ -5,48 +5,48 @@ import { AuthService } from '../../services/auth.service'
 import { TokenService } from '../../services/token.service'
 
 @Component({
-  selector: 'app-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.css']
+    selector: 'app-user-list',
+    templateUrl: './user-list.component.html',
+    styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit, OnDestroy {
-  constructor (private readonly authService: AuthService, private readonly tokenService: TokenService) { }
+    constructor (private readonly authService: AuthService, private readonly tokenService: TokenService) { }
 
-  ngOnInit (): void {
-    (this.tokenService.getToken() != null) ? this.isLogged = true : this.isLogged = false
+    ngOnInit (): void {
+        (this.tokenService.getToken() != null) ? this.isLogged = true : this.isLogged = false
 
-    const sub = this.authService.getAllUsers().subscribe({
-      next: (data) => {
-        this.users = data
-      },
-      error: (e) => {
-        this.loading = false
-        this.error = true
-        console.log(e)
-      },
-      complete: () => {
-        this.loading = false
-        this.error = false
-        this.subsContainer.add(sub)
-      }
-    })
-  }
+        const sub = this.authService.getAllUsers().subscribe({
+            next: (data) => {
+                this.users = data
+            },
+            error: (e) => {
+                this.loading = false
+                this.error = true
+                console.log(e)
+            },
+            complete: () => {
+                this.loading = false
+                this.error = false
+                this.subsContainer.add(sub)
+            }
+        })
+    }
 
-  ngOnDestroy (): void {
-    this.subsContainer.unsubscribeAll()
-  }
+    ngOnDestroy (): void {
+        this.subsContainer.unsubscribeAll()
+    }
 
-  onLogout (): void {
-    this.tokenService.logOut()
-    window.location.reload()
-  }
+    onLogout (): void {
+        this.tokenService.logOut()
+        window.location.reload()
+    }
 
-  users: IUser[] = []
+    users: IUser[] = []
 
-  isLogged: boolean
+    isLogged: boolean
 
-  subsContainer: SubscriptionContainer = new SubscriptionContainer()
+    subsContainer: SubscriptionContainer = new SubscriptionContainer()
 
-  error: boolean = false
-  loading: boolean = true
+    error: boolean = false
+    loading: boolean = true
 }

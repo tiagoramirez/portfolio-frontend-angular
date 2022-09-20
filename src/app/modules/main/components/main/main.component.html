@@ -1,18 +1,25 @@
-<app-header *ngIf="!loading && !isError  && profiles.length!=0" class="animate__animated animate__fadeIn"></app-header>
-<app-profile *ngIf="!loading && !isError  && profiles.length!=0" class="animate__animated animate__zoomInDown" [profile]="selectedProfile">
+<app-header *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__fadeIn"></app-header>
+<app-profile *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__zoomInDown"
+    [profile]="selectedProfile">
 </app-profile>
-<app-about-me *ngIf="!loading && !isError  && profiles.length!=0" class="animate__animated animate__zoomInDown" [profile]="selectedProfile">
+<app-about-me *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__zoomInDown"
+    [profile]="selectedProfile">
 </app-about-me>
-<app-experience *ngIf="!loading && !isError  && profiles.length!=0" class="animate__animated animate__zoomInDown" [profile]="selectedProfile">
+<app-experience *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__zoomInDown"
+    [profile]="selectedProfile">
 </app-experience>
-<app-education *ngIf="!loading && !isError  && profiles.length!=0" class="animate__animated animate__zoomInDown" [profile]="selectedProfile">
+<app-education *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__zoomInDown"
+    [profile]="selectedProfile">
 </app-education>
-<app-project *ngIf="!loading && !isError  && profiles.length!=0" class="animate__animated animate__zoomInDown" [profile]="selectedProfile">
+<app-project *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__zoomInDown"
+    [profile]="selectedProfile">
 </app-project>
-<app-skill *ngIf="!loading && !isError  && profiles.length!=0" class="animate__animated animate__zoomInDown"></app-skill>
+<app-skill *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__zoomInDown">
+</app-skill>
 
 <span *ngIf="loading" class="loader"></span>
 
 <p class="error-message" *ngIf="isError">{{errorMessage}}</p>
 
-<p class="error-message" *ngIf="!isError && !loading && profiles.length==0">No se encontro al usuario "{{username}}"</p>
+<p class="error-message" *ngIf="!isError && !loading && profiles.length===0">No se encontro al usuario "{{username}}"
+</p>

@@ -41,54 +41,54 @@ import { DeleteSocialMediaComponent } from './modules/social-media/components/de
 import { ListSocialMediaComponent } from './modules/social-media/components/list-social-media/list-social-media.component'
 
 const routes: Routes = [
-  { path: '', component: UserListComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: ':username', component: MainComponent },
-  { path: ':username/social-media/list', component: ListSocialMediaComponent },
-  { path: ':username/social-media/add', component: NewSocialMediaComponent },
-  { path: ':username/social-media/edit/:idSm', component: EditSocialMediaComponent },
-  { path: ':username/social-media/delete/:idSm', component: DeleteSocialMediaComponent },
-  { path: ':username/profile/edit/:profileId', component: EditProfileComponent },
-  { path: ':username/profile/edit/img/:type', component: EditPhotoComponent },
-  { path: ':username/about-me/edit/:profileId', component: EditAboutMeComponent },
-  { path: ':username/experience/add/:profileId', component: NewExperienceComponent },
-  { path: ':username/experience/edit/:experienceId/:profileId', component: EditExperienceComponent },
-  { path: ':username/experience/delete/:experienceId', component: DeleteExperienceComponent },
-  { path: ':username/education/add/:profileId', component: NewEducationComponent },
-  { path: ':username/education/edit/:educationId/:profileId', component: EditEducationComponent },
-  { path: ':username/education/delete/:educationId', component: DeleteEducationComponent },
-  { path: ':username/project/add/:profileId', component: NewProjectComponent },
-  { path: ':username/project/edit/:projectId/:profileId', component: EditProjectComponent },
-  { path: ':username/project/delete/:projectId', component: DeleteProjectComponent },
-  { path: ':username/skill/list', component: ListSkillComponent },
-  { path: ':username/skill/add', component: NewSkillComponent },
-  { path: ':username/skill/delete/:userSkillsId', component: DeleteSkillComponent }
+    { path: '', component: UserListComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: ':username', component: MainComponent },
+    { path: ':username/social-media/list', component: ListSocialMediaComponent },
+    { path: ':username/social-media/add', component: NewSocialMediaComponent },
+    { path: ':username/social-media/edit/:idSm', component: EditSocialMediaComponent },
+    { path: ':username/social-media/delete/:idSm', component: DeleteSocialMediaComponent },
+    { path: ':username/profile/edit/:profileId', component: EditProfileComponent },
+    { path: ':username/profile/edit/img/:type', component: EditPhotoComponent },
+    { path: ':username/about-me/edit/:profileId', component: EditAboutMeComponent },
+    { path: ':username/experience/add/:profileId', component: NewExperienceComponent },
+    { path: ':username/experience/edit/:experienceId/:profileId', component: EditExperienceComponent },
+    { path: ':username/experience/delete/:experienceId', component: DeleteExperienceComponent },
+    { path: ':username/education/add/:profileId', component: NewEducationComponent },
+    { path: ':username/education/edit/:educationId/:profileId', component: EditEducationComponent },
+    { path: ':username/education/delete/:educationId', component: DeleteEducationComponent },
+    { path: ':username/project/add/:profileId', component: NewProjectComponent },
+    { path: ':username/project/edit/:projectId/:profileId', component: EditProjectComponent },
+    { path: ':username/project/delete/:projectId', component: DeleteProjectComponent },
+    { path: ':username/skill/list', component: ListSkillComponent },
+    { path: ':username/skill/add', component: NewSkillComponent },
+    { path: ':username/skill/delete/:userSkillsId', component: DeleteSkillComponent }
 ]
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(routes),
-    AuthModule,
-    MainModule
-  ],
-  providers: [
-    AboutMeService,
-    BannerService,
-    ConfigurationService,
-    DescriptionService,
-    EducationService,
-    ExperienceService,
-    PhotoService,
-    ProfileService,
-    ProjectService,
-    SocialMediaService,
-    SkillService
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        RouterModule.forRoot(routes),
+        AuthModule,
+        MainModule
+    ],
+    providers: [
+        AboutMeService,
+        BannerService,
+        ConfigurationService,
+        DescriptionService,
+        EducationService,
+        ExperienceService,
+        PhotoService,
+        ProfileService,
+        ProjectService,
+        SocialMediaService,
+        SkillService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

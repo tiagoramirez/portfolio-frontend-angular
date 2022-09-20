@@ -6,18 +6,18 @@ import { EditAboutMeComponent } from './components/edit-about-me/edit-about-me.c
 import { FormsModule } from '@angular/forms'
 
 @NgModule({
-  declarations: [
-    AboutMeComponent,
-    EditAboutMeComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule
-  ],
-  exports: [
-    AboutMeComponent,
-    EditAboutMeComponent
-  ]
+    declarations: [
+        AboutMeComponent,
+        EditAboutMeComponent
+    ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule
+    ],
+    exports: [
+        AboutMeComponent,
+        EditAboutMeComponent
+    ]
 })
 export class AboutMeModule { }

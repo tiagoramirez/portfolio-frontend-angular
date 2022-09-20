@@ -8,22 +8,22 @@ import { EditExperienceComponent } from './components/edit-experience/edit-exper
 import { DeleteExperienceComponent } from './components/delete-experience/delete-experience.component'
 
 @NgModule({
-  declarations: [
-    ExperienceComponent,
-    NewExperienceComponent,
-    EditExperienceComponent,
-    DeleteExperienceComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule
-  ],
-  exports: [
-    ExperienceComponent,
-    NewExperienceComponent,
-    EditExperienceComponent,
-    DeleteExperienceComponent
-  ]
+    declarations: [
+        ExperienceComponent,
+        NewExperienceComponent,
+        EditExperienceComponent,
+        DeleteExperienceComponent
+    ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule
+    ],
+    exports: [
+        ExperienceComponent,
+        NewExperienceComponent,
+        EditExperienceComponent,
+        DeleteExperienceComponent
+    ]
 })
 export class ExperienceModule { }

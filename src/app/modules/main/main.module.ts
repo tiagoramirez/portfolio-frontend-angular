@@ -11,19 +11,19 @@ import { SkillModule } from '../skill/skill.module'
 import { SocialMediaModule } from '../social-media/social-media.module'
 
 @NgModule({
-  declarations: [
-    MainComponent
-  ],
-  imports: [
-    CommonModule,
-    AboutMeModule,
-    EducationModule,
-    ExperienceModule,
-    HeaderModule,
-    ProfileModule,
-    ProjectModule,
-    SkillModule,
-    SocialMediaModule
-  ]
+    declarations: [
+        MainComponent
+    ],
+    imports: [
+        CommonModule,
+        AboutMeModule,
+        EducationModule,
+        ExperienceModule,
+        HeaderModule,
+        ProfileModule,
+        ProjectModule,
+        SkillModule,
+        SocialMediaModule
+    ]
 })
 export class MainModule { }

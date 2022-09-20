@@ -8,22 +8,22 @@ import { DeleteEducationComponent } from './components/delete-education/delete-e
 import { RouterModule } from '@angular/router'
 
 @NgModule({
-  declarations: [
-    EducationComponent,
-    NewEducationComponent,
-    EditEducationComponent,
-    DeleteEducationComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule
-  ],
-  exports: [
-    EducationComponent,
-    NewEducationComponent,
-    EditEducationComponent,
-    DeleteEducationComponent
-  ]
+    declarations: [
+        EducationComponent,
+        NewEducationComponent,
+        EditEducationComponent,
+        DeleteEducationComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule
+    ],
+    exports: [
+        EducationComponent,
+        NewEducationComponent,
+        EditEducationComponent,
+        DeleteEducationComponent
+    ]
 })
 export class EducationModule { }

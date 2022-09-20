@@ -8,60 +8,60 @@ import { IUserSocialMedia } from 'src/app/models/social_media.interface'
 import { SocialMediaService } from 'src/app/services/social-media.service'
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  constructor (private readonly route: ActivatedRoute, private readonly tokenService: TokenService, private readonly socialMediaService: SocialMediaService, private readonly router: Router) { }
+    constructor (private readonly route: ActivatedRoute, private readonly tokenService: TokenService, private readonly socialMediaService: SocialMediaService, private readonly router: Router) { }
 
-  ngOnInit (): void {
-    this.username = this.route.snapshot.params['username']
-    if (this.tokenService.getToken() != null) {
-      this.loggedUsername = this.tokenService.getUsername() ?? ''
-      this.isLogged = true
-    } else {
-      this.isLogged = false
+    ngOnInit (): void {
+        this.username = this.route.snapshot.params['username']
+        if (this.tokenService.getToken() != null) {
+            this.loggedUsername = this.tokenService.getUsername() ?? ''
+            this.isLogged = true
+        } else {
+            this.isLogged = false
+        }
+
+        const sub: Subscription = this.socialMediaService.getAllByUsername(this.username).subscribe({
+            next: (data) => {
+                this.socialMedia = data
+            },
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                    this.errorMessage = err.error.message
+                } else {
+                    this.errorMessage = AppSettings.serverErrorMessageSection
+                }
+                this.isError = true
+                this.loading = false
+            },
+            complete: () => {
+                this.loading = false
+                this.subsContainer.add(sub)
+            }
+        })
     }
 
-    const sub: Subscription = this.socialMediaService.getAllByUsername(this.username).subscribe({
-      next: (data) => {
-        this.socialMedia = data
-      },
-      error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
-          this.errorMessage = err.error.message
-        } else {
-          this.errorMessage = AppSettings.serverErrorMessageSection
-        }
-        this.isError = true
-        this.loading = false
-      },
-      complete: () => {
-        this.loading = false
-        this.subsContainer.add(sub)
-      }
-    })
-  }
+    ngOnDestroy (): void {
+        this.subsContainer.unsubscribeAll()
+    }
 
-  ngOnDestroy (): void {
-    this.subsContainer.unsubscribeAll()
-  }
+    onLogout (): void {
+        this.tokenService.logOut()
+        window.location.reload()
+    }
 
-  onLogout (): void {
-    this.tokenService.logOut()
-    window.location.reload()
-  }
+    username: string
+    socialMedia: IUserSocialMedia[] = []
+    loggedUsername: string = ''
 
-  username: string
-  socialMedia: IUserSocialMedia[] = []
-  loggedUsername: string = ''
+    isLogged = false
 
-  isLogged = false
+    subsContainer: SubscriptionContainer = new SubscriptionContainer()
 
-  subsContainer: SubscriptionContainer = new SubscriptionContainer()
-
-  loading: boolean = true
-  errorMessage: string = ''
-  isError: boolean = false
+    loading: boolean = true
+    errorMessage: string = ''
+    isError: boolean = false
 }

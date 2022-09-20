@@ -7,20 +7,20 @@ import { RouterModule } from '@angular/router'
 import { EditPhotoComponent } from './components/edit-photo/edit-photo.component'
 
 @NgModule({
-  declarations: [
-    ProfileComponent,
-    EditProfileComponent,
-    EditPhotoComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule
-  ],
-  exports: [
-    ProfileComponent,
-    EditProfileComponent,
-    EditPhotoComponent
-  ]
+    declarations: [
+        ProfileComponent,
+        EditProfileComponent,
+        EditPhotoComponent
+    ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule
+    ],
+    exports: [
+        ProfileComponent,
+        EditProfileComponent,
+        EditPhotoComponent
+    ]
 })
 export class ProfileModule { }

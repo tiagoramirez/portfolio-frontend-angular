@@ -9,44 +9,44 @@ import { IProfile } from 'src/app/models/profile.interface'
 import { AboutMeService } from 'src/app/services/about-me.service'
 
 @Component({
-  selector: 'app-about-me',
-  templateUrl: './about-me.component.html',
-  styleUrls: ['./about-me.component.css']
+    selector: 'app-about-me',
+    templateUrl: './about-me.component.html',
+    styleUrls: ['./about-me.component.css']
 })
 export class AboutMeComponent implements OnInit, OnDestroy {
-  constructor (private readonly aboutMeService: AboutMeService, private readonly tokenService: TokenService, private readonly route: ActivatedRoute) { }
+    constructor (private readonly aboutMeService: AboutMeService, private readonly tokenService: TokenService, private readonly route: ActivatedRoute) { }
 
-  ngOnInit (): void {
-    this.username = this.route.snapshot.params['username']
-    if (this.tokenService.getToken() != null) {
-      this.loggedUsername = this.tokenService.getUsername() ?? ''
-      this.isLogged = true
-    } else {
-      this.isLogged = false
-    }
-    const sub: Subscription = this.aboutMeService.getByProfileId(this.profile.id ?? -1).subscribe({
-      next: (data) => {
-        this.aboutMe = data
-      },
-      error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
-          this.errorMessage = err.error.message
+    ngOnInit (): void {
+        this.username = this.route.snapshot.params['username']
+        if (this.tokenService.getToken() != null) {
+            this.loggedUsername = this.tokenService.getUsername() ?? ''
+            this.isLogged = true
         } else {
-          this.errorMessage = AppSettings.serverErrorMessageSection
+            this.isLogged = false
         }
-        this.isError = true
-        this.loading = false
-      },
-      complete: () => {
-        this.loading = false
-        this.subsContainer.add(sub)
-      }
-    })
-  }
+        const sub: Subscription = this.aboutMeService.getByProfileId(this.profile.id ?? -1).subscribe({
+            next: (data) => {
+                this.aboutMe = data
+            },
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                    this.errorMessage = err.error.message
+                } else {
+                    this.errorMessage = AppSettings.serverErrorMessageSection
+                }
+                this.isError = true
+                this.loading = false
+            },
+            complete: () => {
+                this.loading = false
+                this.subsContainer.add(sub)
+            }
+        })
+    }
 
-  ngOnDestroy (): void {
-    this.subsContainer.unsubscribeAll()
-  }
+    ngOnDestroy (): void {
+        this.subsContainer.unsubscribeAll()
+    }
 
   @Input() profile: IProfile
   aboutMe: IAboutMe

@@ -10,67 +10,67 @@ import { DescriptionService } from 'src/app/services/description.service'
 import { ExperienceService } from 'src/app/services/experience.service'
 
 @Component({
-  selector: 'app-experience',
-  templateUrl: './experience.component.html',
-  styleUrls: ['./experience.component.css']
+    selector: 'app-experience',
+    templateUrl: './experience.component.html',
+    styleUrls: ['./experience.component.css']
 })
 export class ExperienceComponent implements OnInit, OnDestroy {
-  constructor (private readonly tokenService: TokenService, private readonly experienceService: ExperienceService, private readonly descriptionService: DescriptionService, private readonly route: ActivatedRoute) { }
+    constructor (private readonly tokenService: TokenService, private readonly experienceService: ExperienceService, private readonly descriptionService: DescriptionService, private readonly route: ActivatedRoute) { }
 
-  ngOnInit (): void {
-    this.username = this.route.snapshot.params['username']
-    if (this.tokenService.getToken() != null) {
-      this.loggedUsername = this.tokenService.getUsername() ?? ''
-      this.isLogged = true
-    } else {
-      this.isLogged = false
-    }
-    const sub = this.experienceService.getByUsername(this.username).subscribe({
-      next: (data) => {
-        this.experiences = data
-        // eslint-disable-next-line array-callback-return
-        this.experiences.map((exp) => {
-          const subDesc: Subscription = this.descriptionService.getByProfileAndExperienceId(this.profile.id ?? -1, exp.id ?? -1).subscribe({
-            next: (desc) => {
-              this.loading = true
-              exp.description = desc.description
+    ngOnInit (): void {
+        this.username = this.route.snapshot.params['username']
+        if (this.tokenService.getToken() != null) {
+            this.loggedUsername = this.tokenService.getUsername() ?? ''
+            this.isLogged = true
+        } else {
+            this.isLogged = false
+        }
+        const sub = this.experienceService.getByUsername(this.username).subscribe({
+            next: (data) => {
+                this.experiences = data
+                // eslint-disable-next-line array-callback-return
+                this.experiences.map((exp) => {
+                    const subDesc: Subscription = this.descriptionService.getByProfileAndExperienceId(this.profile.id ?? -1, exp.id ?? -1).subscribe({
+                        next: (desc) => {
+                            this.loading = true
+                            exp.description = desc.description
+                        },
+                        error: (err) => {
+                            if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                                this.errorMessage = err.error.message
+                            } else {
+                                this.errorMessage = AppSettings.serverErrorMessage
+                            }
+                            this.isError = true
+                            this.loading = false
+                        },
+                        complete: () => {
+                            this.loading = false
+                            this.subsContainer.add(subDesc)
+                        }
+                    })
+                })
             },
             error: (err) => {
-              if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
-                this.errorMessage = err.error.message
-              } else {
-                this.errorMessage = AppSettings.serverErrorMessage
-              }
-              this.isError = true
-              this.loading = false
+                if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                    this.errorMessage = err.error.message
+                } else {
+                    this.errorMessage = AppSettings.serverErrorMessage
+                }
+                this.isError = true
+                this.loading = false
             },
             complete: () => {
-              this.loading = false
-              this.subsContainer.add(subDesc)
+                this.subsContainer.add(sub)
             }
-          })
         })
-      },
-      error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
-          this.errorMessage = err.error.message
-        } else {
-          this.errorMessage = AppSettings.serverErrorMessage
-        }
-        this.isError = true
-        this.loading = false
-      },
-      complete: () => {
-        this.subsContainer.add(sub)
-      }
-    })
-  }
+    }
 
-  ngOnDestroy (): void {
-    this.subsContainer.unsubscribeAll()
-  }
+    ngOnDestroy (): void {
+        this.subsContainer.unsubscribeAll()
+    }
 
-  username: string
+    username: string
   @Input() profile: IProfile
   experiences: IExperience[]
   loggedUsername: string

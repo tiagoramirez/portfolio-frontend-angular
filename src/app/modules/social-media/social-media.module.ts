@@ -8,22 +8,22 @@ import { FormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 
 @NgModule({
-  declarations: [
-    ListSocialMediaComponent,
-    NewSocialMediaComponent,
-    EditSocialMediaComponent,
-    DeleteSocialMediaComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule
-  ],
-  exports: [
-    ListSocialMediaComponent,
-    NewSocialMediaComponent,
-    EditSocialMediaComponent,
-    DeleteSocialMediaComponent
-  ]
+    declarations: [
+        ListSocialMediaComponent,
+        NewSocialMediaComponent,
+        EditSocialMediaComponent,
+        DeleteSocialMediaComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule
+    ],
+    exports: [
+        ListSocialMediaComponent,
+        NewSocialMediaComponent,
+        EditSocialMediaComponent,
+        DeleteSocialMediaComponent
+    ]
 })
 export class SocialMediaModule { }

@@ -9,54 +9,54 @@ import { DescriptionService } from 'src/app/services/description.service'
 import { ProjectService } from 'src/app/services/project.service'
 
 @Component({
-  selector: 'app-project',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css']
+    selector: 'app-project',
+    templateUrl: './project.component.html',
+    styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit, OnDestroy {
-  constructor (private readonly tokenService: TokenService, private readonly projectService: ProjectService, private readonly descriptionService: DescriptionService, private readonly route: ActivatedRoute) { }
+    constructor (private readonly tokenService: TokenService, private readonly projectService: ProjectService, private readonly descriptionService: DescriptionService, private readonly route: ActivatedRoute) { }
 
-  ngOnInit (): void {
-    this.username = this.route.snapshot.params['username']
-    if (this.tokenService.getToken() != null) {
-      this.loggedUsername = this.tokenService.getUsername() ?? ''
-      this.isLogged = true
-    } else {
-      this.isLogged = false
-    }
-    const sub = this.projectService.getByUsername(this.username).subscribe({
-      next: (data) => {
-        this.projects = data
-        // eslint-disable-next-line array-callback-return
-        this.projects.map((proj) => {
-          const subDesc: Subscription = this.descriptionService.getByProfileAndProjectId(this.profile.id ?? -1, proj.id ?? -1).subscribe({
-            next: (desc) => {
-              proj.description = desc.description
+    ngOnInit (): void {
+        this.username = this.route.snapshot.params['username']
+        if (this.tokenService.getToken() != null) {
+            this.loggedUsername = this.tokenService.getUsername() ?? ''
+            this.isLogged = true
+        } else {
+            this.isLogged = false
+        }
+        const sub = this.projectService.getByUsername(this.username).subscribe({
+            next: (data) => {
+                this.projects = data
+                // eslint-disable-next-line array-callback-return
+                this.projects.map((proj) => {
+                    const subDesc: Subscription = this.descriptionService.getByProfileAndProjectId(this.profile.id ?? -1, proj.id ?? -1).subscribe({
+                        next: (desc) => {
+                            proj.description = desc.description
+                        },
+                        error: (error) => {
+                            console.error(error)
+                        },
+                        complete: () => {
+                            this.subsContainer.add(subDesc)
+                        }
+                    })
+                })
             },
             error: (error) => {
-              console.error(error)
+                console.log(error)
             },
             complete: () => {
-              this.subsContainer.add(subDesc)
+                this.subsContainer.add(sub)
             }
-          })
         })
-      },
-      error: (error) => {
-        console.log(error)
-      },
-      complete: () => {
-        this.subsContainer.add(sub)
-      }
-    })
-  }
+    }
 
-  ngOnDestroy (): void {
-    this.subsContainer.unsubscribeAll()
-  }
+    ngOnDestroy (): void {
+        this.subsContainer.unsubscribeAll()
+    }
 
-  username: string
-  loggedUsername: string
+    username: string
+    loggedUsername: string
   @Input() profile: IProfile
   projects: IProject[]
 

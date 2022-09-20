@@ -10,67 +10,67 @@ import { DescriptionService } from 'src/app/services/description.service'
 import { EducationService } from 'src/app/services/education.service'
 
 @Component({
-  selector: 'app-education',
-  templateUrl: './education.component.html',
-  styleUrls: ['./education.component.css']
+    selector: 'app-education',
+    templateUrl: './education.component.html',
+    styleUrls: ['./education.component.css']
 })
 export class EducationComponent implements OnInit, OnDestroy {
-  constructor (private readonly educationService: EducationService, private readonly tokenService: TokenService, private readonly descriptionService: DescriptionService, private readonly route: ActivatedRoute) { }
+    constructor (private readonly educationService: EducationService, private readonly tokenService: TokenService, private readonly descriptionService: DescriptionService, private readonly route: ActivatedRoute) { }
 
-  ngOnInit (): void {
-    this.username = this.route.snapshot.params['username']
-    if (this.tokenService.getToken() != null) {
-      this.loggedUsername = this.tokenService.getUsername() ?? ''
-      this.isLogged = true
-    } else {
-      this.isLogged = false
-    }
-    const sub = this.educationService.getByUsername(this.username).subscribe({
-      next: (data) => {
-        this.educations = data
-        // eslint-disable-next-line array-callback-return
-        this.educations.map((educ) => {
-          const subDesc: Subscription = this.descriptionService.getByProfileAndEducationId(this.profile.id ?? -1, educ.id ?? -1).subscribe({
-            next: (desc) => {
-              this.loading = true
-              educ.description = desc.description
+    ngOnInit (): void {
+        this.username = this.route.snapshot.params['username']
+        if (this.tokenService.getToken() != null) {
+            this.loggedUsername = this.tokenService.getUsername() ?? ''
+            this.isLogged = true
+        } else {
+            this.isLogged = false
+        }
+        const sub = this.educationService.getByUsername(this.username).subscribe({
+            next: (data) => {
+                this.educations = data
+                // eslint-disable-next-line array-callback-return
+                this.educations.map((educ) => {
+                    const subDesc: Subscription = this.descriptionService.getByProfileAndEducationId(this.profile.id ?? -1, educ.id ?? -1).subscribe({
+                        next: (desc) => {
+                            this.loading = true
+                            educ.description = desc.description
+                        },
+                        error: (err) => {
+                            if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                                this.errorMessage = err.error.message
+                            } else {
+                                this.errorMessage = AppSettings.serverErrorMessage
+                            }
+                            this.isError = true
+                            this.loading = false
+                        },
+                        complete: () => {
+                            this.loading = false
+                            this.subsContainer.add(subDesc)
+                        }
+                    })
+                })
             },
             error: (err) => {
-              if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
-                this.errorMessage = err.error.message
-              } else {
-                this.errorMessage = AppSettings.serverErrorMessage
-              }
-              this.isError = true
-              this.loading = false
+                if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                    this.errorMessage = err.error.message
+                } else {
+                    this.errorMessage = AppSettings.serverErrorMessage
+                }
+                this.isError = true
+                this.loading = false
             },
             complete: () => {
-              this.loading = false
-              this.subsContainer.add(subDesc)
+                this.subsContainer.add(sub)
             }
-          })
         })
-      },
-      error: (err) => {
-        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
-          this.errorMessage = err.error.message
-        } else {
-          this.errorMessage = AppSettings.serverErrorMessage
-        }
-        this.isError = true
-        this.loading = false
-      },
-      complete: () => {
-        this.subsContainer.add(sub)
-      }
-    })
-  }
+    }
 
-  ngOnDestroy (): void {
-    this.subsContainer.unsubscribeAll()
-  }
+    ngOnDestroy (): void {
+        this.subsContainer.unsubscribeAll()
+    }
 
-  username: string
+    username: string
   @Input() profile: IProfile
   educations: IEducation[]
   loggedUsername: string
