@@ -1,15 +1,15 @@
-import { Subscription } from "rxjs";
+import { Subscription } from 'rxjs'
 
 export class SubscriptionContainer {
-    private subscriptions: Subscription[] = [];
+  private readonly subscriptions: Subscription[] = []
 
-    add(subscription: Subscription) {
-        this.subscriptions.push(subscription);
-    }
+  add (subscription: Subscription): void {
+    this.subscriptions.push(subscription)
+  }
 
-    unsubscribeAll() {
-        this.subscriptions.forEach(subscription => {
-            subscription.unsubscribe();
-        });
-    }
+  unsubscribeAll (): void {
+    this.subscriptions.forEach(subscription => {
+      subscription.unsubscribe()
+    })
+  }
 }

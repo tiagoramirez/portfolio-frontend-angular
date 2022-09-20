@@ -1,4 +1,4 @@
 export interface IResponseMessage {
-    message: string;
-    id?: number;
+  message: string
+  id?: number
 }
