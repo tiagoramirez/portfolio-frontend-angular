@@ -16,7 +16,8 @@ import { EditBannerComponent } from './components/edit-banner/edit-banner.compon
         RouterModule
     ],
     exports: [
-
+        EditPhotoComponent,
+        EditBannerComponent
     ]
 })
 export class ImgHandlerModule { }
