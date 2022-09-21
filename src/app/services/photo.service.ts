@@ -8,21 +8,21 @@ import { environment } from 'src/environments/environment'
     providedIn: 'root'
 })
 export class PhotoService {
-    constructor (private readonly http: HttpClient) { }
+    constructor(private readonly http: HttpClient) { }
 
-    getByUsername (username: string): Observable<IPhoto> {
+    getByUsername(username: string): Observable<IPhoto> {
         return this.http.get<IPhoto>(environment.API_URL + '/photo/' + username)
     }
 
-    addNew (image: File, userId: number): Observable<IPhoto> {
+    addNew(image: File, userId: number): Observable<IPhoto> {
         const uploadData = new FormData()
         uploadData.append('photo', image, image.name)
-        return this.http.post<IPhoto>(environment.API_URL + '/photo/add/' + String(userId), uploadData)
+        return this.http.post<IPhoto>(environment.API_URL + '/photo/add/' + userId, uploadData)
     }
 
-    edit (image: File, userId: number, photoId: number): Observable<IPhoto> {
+    edit(image: File, userId: number, photoId: number): Observable<IPhoto> {
         const uploadData = new FormData()
         uploadData.append('photo', image, image.name)
-        return this.http.put<IPhoto>(environment.API_URL + '/photo/edit/' + String(userId) + '/' + String(photoId), uploadData)
+        return this.http.put<IPhoto>(environment.API_URL + '/photo/edit/' + userId + '/' + photoId, uploadData)
     }
 }

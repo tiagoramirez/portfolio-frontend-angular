@@ -14,17 +14,17 @@ import { AboutMeService } from 'src/app/services/about-me.service'
     styleUrls: ['./about-me.component.css']
 })
 export class AboutMeComponent implements OnInit, OnDestroy {
-    constructor (private readonly aboutMeService: AboutMeService, private readonly tokenService: TokenService, private readonly route: ActivatedRoute) { }
+    constructor(private readonly aboutMeService: AboutMeService, private readonly tokenService: TokenService, private readonly route: ActivatedRoute) { }
 
-    ngOnInit (): void {
+    ngOnInit(): void {
         this.username = this.route.snapshot.params['username']
         if (this.tokenService.getToken() != null) {
-            this.loggedUsername = this.tokenService.getUsername() ?? ''
+            this.loggedUsername = this.tokenService.getUsername()
             this.isLogged = true
         } else {
             this.isLogged = false
         }
-        const sub: Subscription = this.aboutMeService.getByProfileId(this.profile.id ?? -1).subscribe({
+        const sub: Subscription = this.aboutMeService.getByProfileId(this.profile.id).subscribe({
             next: (data) => {
                 this.aboutMe = data
             },
@@ -44,19 +44,19 @@ export class AboutMeComponent implements OnInit, OnDestroy {
         })
     }
 
-    ngOnDestroy (): void {
+    ngOnDestroy(): void {
         this.subsContainer.unsubscribeAll()
     }
 
-  @Input() profile: IProfile
-  aboutMe: IAboutMe
-  username: string
-  loggedUsername: string = ''
-  isLogged: boolean = false
+    @Input() profile: IProfile
+    aboutMe: IAboutMe
+    username: string
+    loggedUsername: string = ''
+    isLogged: boolean = false
 
-  subsContainer: SubscriptionContainer = new SubscriptionContainer()
+    subsContainer: SubscriptionContainer = new SubscriptionContainer()
 
-  loading: boolean = true
-  errorMessage: string = ''
-  isError: boolean = false
+    loading: boolean = true
+    errorMessage: string = ''
+    isError: boolean = false
 }

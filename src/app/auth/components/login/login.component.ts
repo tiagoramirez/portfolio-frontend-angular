@@ -27,20 +27,20 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     loadingLogin: boolean = false
 
-    constructor (private readonly tokenService: TokenService, private readonly authService: AuthService, private readonly router: Router) { }
+    constructor(private readonly tokenService: TokenService, private readonly authService: AuthService, private readonly router: Router) { }
 
-    ngOnInit (): void {
-        if (this.tokenService.getToken() !== '') {
+    ngOnInit(): void {
+        if (this.tokenService.getToken() !== null) {
             this.isLogged = true
             this.roles = this.tokenService.getAuthorities()
         }
     }
 
-    ngOnDestroy (): void {
+    ngOnDestroy(): void {
         this.subsContainer.unsubscribeAll()
     }
 
-    onLogin (): void {
+    onLogin(): void {
         this.loadingLogin = true
         this.loginFailed = false
         const sub = this.authService.login(this.userLogin).subscribe({

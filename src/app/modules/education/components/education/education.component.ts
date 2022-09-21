@@ -15,12 +15,12 @@ import { EducationService } from 'src/app/services/education.service'
     styleUrls: ['./education.component.css']
 })
 export class EducationComponent implements OnInit, OnDestroy {
-    constructor (private readonly educationService: EducationService, private readonly tokenService: TokenService, private readonly descriptionService: DescriptionService, private readonly route: ActivatedRoute) { }
+    constructor(private readonly educationService: EducationService, private readonly tokenService: TokenService, private readonly descriptionService: DescriptionService, private readonly route: ActivatedRoute) { }
 
-    ngOnInit (): void {
+    ngOnInit(): void {
         this.username = this.route.snapshot.params['username']
         if (this.tokenService.getToken() != null) {
-            this.loggedUsername = this.tokenService.getUsername() ?? ''
+            this.loggedUsername = this.tokenService.getUsername()
             this.isLogged = true
         } else {
             this.isLogged = false
@@ -28,9 +28,8 @@ export class EducationComponent implements OnInit, OnDestroy {
         const sub = this.educationService.getByUsername(this.username).subscribe({
             next: (data) => {
                 this.educations = data
-                // eslint-disable-next-line array-callback-return
                 this.educations.map((educ) => {
-                    const subDesc: Subscription = this.descriptionService.getByProfileAndEducationId(this.profile.id ?? -1, educ.id ?? -1).subscribe({
+                    const subDesc: Subscription = this.descriptionService.getByProfileAndEducationId(this.profile.id, educ.id).subscribe({
                         next: (desc) => {
                             this.loading = true
                             educ.description = desc.description
@@ -66,19 +65,19 @@ export class EducationComponent implements OnInit, OnDestroy {
         })
     }
 
-    ngOnDestroy (): void {
+    ngOnDestroy(): void {
         this.subsContainer.unsubscribeAll()
     }
 
     username: string
-  @Input() profile: IProfile
-  educations: IEducation[]
-  loggedUsername: string
-  isLogged: boolean = false
+    @Input() profile: IProfile
+    educations: IEducation[]
+    loggedUsername: string
+    isLogged: boolean = false
 
-  subsContainer: SubscriptionContainer = new SubscriptionContainer()
+    subsContainer: SubscriptionContainer = new SubscriptionContainer()
 
-  loading: boolean = true
-  errorMessage: string = ''
-  isError: boolean = false
+    loading: boolean = true
+    errorMessage: string = ''
+    isError: boolean = false
 }

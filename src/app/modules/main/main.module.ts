@@ -9,6 +9,7 @@ import { EducationModule } from '../education/education.module'
 import { ProjectModule } from '../project/project.module'
 import { SkillModule } from '../skill/skill.module'
 import { SocialMediaModule } from '../social-media/social-media.module'
+import { ImgHandlerModule } from '../img-handler/img-handler.module'
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import { SocialMediaModule } from '../social-media/social-media.module'
         EducationModule,
         ExperienceModule,
         HeaderModule,
+        ImgHandlerModule,
         ProfileModule,
         ProjectModule,
         SkillModule,

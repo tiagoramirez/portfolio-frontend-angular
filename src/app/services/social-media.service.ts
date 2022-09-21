@@ -8,29 +8,29 @@ import { ISocialMedia, IUserSocialMedia } from '../models/social_media.interface
     providedIn: 'root'
 })
 export class SocialMediaService {
-    constructor (private readonly http: HttpClient) { }
+    constructor(private readonly http: HttpClient) { }
 
-    getAll (): Observable<ISocialMedia[]> {
+    getAll(): Observable<ISocialMedia[]> {
         return this.http.get<ISocialMedia[]>(environment.API_URL + '/social-media/all')
     }
 
-    getAllByUsername (username: string): Observable<IUserSocialMedia[]> {
+    getAllByUsername(username: string): Observable<IUserSocialMedia[]> {
         return this.http.get<IUserSocialMedia[]>(environment.API_URL + '/social-media/' + username)
     }
 
-    getById (usmId: number): Observable<IUserSocialMedia> {
-        return this.http.get<IUserSocialMedia>(environment.API_URL + '/social-media?usmId=' + String(usmId))
+    getById(usmId: number): Observable<IUserSocialMedia> {
+        return this.http.get<IUserSocialMedia>(environment.API_URL + '/social-media?usmId=' + usmId)
     }
 
-    addNew (sm: IUserSocialMedia): Observable<IUserSocialMedia> {
+    addNew(sm: IUserSocialMedia): Observable<IUserSocialMedia> {
         return this.http.post<IUserSocialMedia>(environment.API_URL + '/social-media/add', sm)
     }
 
-    edit (sm: IUserSocialMedia): Observable<IUserSocialMedia> {
+    edit(sm: IUserSocialMedia): Observable<IUserSocialMedia> {
         return this.http.put<IUserSocialMedia>(environment.API_URL + '/social-media/edit', sm)
     }
 
-    delete (usmId: number): Observable<IUserSocialMedia> {
-        return this.http.delete<IUserSocialMedia>(environment.API_URL + '/social-media/delete/' + String(usmId))
+    delete(usmId: number): Observable<IUserSocialMedia> {
+        return this.http.delete<IUserSocialMedia>(environment.API_URL + '/social-media/delete/' + usmId)
     }
 }

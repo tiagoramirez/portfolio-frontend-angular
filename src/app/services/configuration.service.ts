@@ -8,17 +8,17 @@ import { environment } from 'src/environments/environment'
     providedIn: 'root'
 })
 export class ConfigurationService {
-    constructor (private readonly http: HttpClient) { }
+    constructor(private readonly http: HttpClient) { }
 
-    getByProfileId (profileId: number): Observable<IConfiguration> {
-        return this.http.get<IConfiguration>(environment.API_URL + '/configuration/' + String(profileId))
+    getByProfileId(profileId: number): Observable<IConfiguration> {
+        return this.http.get<IConfiguration>(environment.API_URL + '/configuration/' + profileId)
     }
 
-    addNew (config: IConfiguration): Observable<IConfiguration> {
+    addNew(config: IConfiguration): Observable<IConfiguration> {
         return this.http.post<IConfiguration>(environment.API_URL + '/configuration/create', config)
     }
 
-    edit (config: IConfiguration): Observable<IConfiguration> {
+    edit(config: IConfiguration): Observable<IConfiguration> {
         return this.http.put<IConfiguration>(environment.API_URL + '/configuration/edit', config)
     }
 }

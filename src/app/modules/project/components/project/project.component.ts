@@ -14,12 +14,12 @@ import { ProjectService } from 'src/app/services/project.service'
     styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit, OnDestroy {
-    constructor (private readonly tokenService: TokenService, private readonly projectService: ProjectService, private readonly descriptionService: DescriptionService, private readonly route: ActivatedRoute) { }
+    constructor(private readonly tokenService: TokenService, private readonly projectService: ProjectService, private readonly descriptionService: DescriptionService, private readonly route: ActivatedRoute) { }
 
-    ngOnInit (): void {
+    ngOnInit(): void {
         this.username = this.route.snapshot.params['username']
         if (this.tokenService.getToken() != null) {
-            this.loggedUsername = this.tokenService.getUsername() ?? ''
+            this.loggedUsername = this.tokenService.getUsername()
             this.isLogged = true
         } else {
             this.isLogged = false
@@ -27,9 +27,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
         const sub = this.projectService.getByUsername(this.username).subscribe({
             next: (data) => {
                 this.projects = data
-                // eslint-disable-next-line array-callback-return
                 this.projects.map((proj) => {
-                    const subDesc: Subscription = this.descriptionService.getByProfileAndProjectId(this.profile.id ?? -1, proj.id ?? -1).subscribe({
+                    const subDesc: Subscription = this.descriptionService.getByProfileAndProjectId(this.profile.id, proj.id).subscribe({
                         next: (desc) => {
                             proj.description = desc.description
                         },
@@ -51,16 +50,16 @@ export class ProjectComponent implements OnInit, OnDestroy {
         })
     }
 
-    ngOnDestroy (): void {
+    ngOnDestroy(): void {
         this.subsContainer.unsubscribeAll()
     }
 
     username: string
     loggedUsername: string
-  @Input() profile: IProfile
-  projects: IProject[]
+    @Input() profile: IProfile
+    projects: IProject[]
 
-  subsContainer: SubscriptionContainer = new SubscriptionContainer()
+    subsContainer: SubscriptionContainer = new SubscriptionContainer()
 
-  isLogged: boolean
+    isLogged: boolean
 }

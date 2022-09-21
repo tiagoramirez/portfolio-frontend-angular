@@ -15,12 +15,12 @@ import { ExperienceService } from 'src/app/services/experience.service'
     styleUrls: ['./experience.component.css']
 })
 export class ExperienceComponent implements OnInit, OnDestroy {
-    constructor (private readonly tokenService: TokenService, private readonly experienceService: ExperienceService, private readonly descriptionService: DescriptionService, private readonly route: ActivatedRoute) { }
+    constructor(private readonly tokenService: TokenService, private readonly experienceService: ExperienceService, private readonly descriptionService: DescriptionService, private readonly route: ActivatedRoute) { }
 
-    ngOnInit (): void {
+    ngOnInit(): void {
         this.username = this.route.snapshot.params['username']
         if (this.tokenService.getToken() != null) {
-            this.loggedUsername = this.tokenService.getUsername() ?? ''
+            this.loggedUsername = this.tokenService.getUsername()
             this.isLogged = true
         } else {
             this.isLogged = false
@@ -28,9 +28,8 @@ export class ExperienceComponent implements OnInit, OnDestroy {
         const sub = this.experienceService.getByUsername(this.username).subscribe({
             next: (data) => {
                 this.experiences = data
-                // eslint-disable-next-line array-callback-return
                 this.experiences.map((exp) => {
-                    const subDesc: Subscription = this.descriptionService.getByProfileAndExperienceId(this.profile.id ?? -1, exp.id ?? -1).subscribe({
+                    const subDesc: Subscription = this.descriptionService.getByProfileAndExperienceId(this.profile.id, exp.id).subscribe({
                         next: (desc) => {
                             this.loading = true
                             exp.description = desc.description
@@ -66,19 +65,19 @@ export class ExperienceComponent implements OnInit, OnDestroy {
         })
     }
 
-    ngOnDestroy (): void {
+    ngOnDestroy(): void {
         this.subsContainer.unsubscribeAll()
     }
 
     username: string
-  @Input() profile: IProfile
-  experiences: IExperience[]
-  loggedUsername: string
-  isLogged: boolean
+    @Input() profile: IProfile
+    experiences: IExperience[]
+    loggedUsername: string
+    isLogged: boolean
 
-  subsContainer: SubscriptionContainer = new SubscriptionContainer()
+    subsContainer: SubscriptionContainer = new SubscriptionContainer()
 
-  loading: boolean = true
-  errorMessage: string = ''
-  isError: boolean = false
+    loading: boolean = true
+    errorMessage: string = ''
+    isError: boolean = false
 }

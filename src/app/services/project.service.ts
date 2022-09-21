@@ -9,25 +9,25 @@ import { IResponseMessage } from '../models/response_message.interface'
     providedIn: 'root'
 })
 export class ProjectService {
-    constructor (private readonly http: HttpClient) { }
+    constructor(private readonly http: HttpClient) { }
 
-    getByUsername (username: string): Observable<IProject[]> {
+    getByUsername(username: string): Observable<IProject[]> {
         return this.http.get<IProject[]>(environment.API_URL + '/project/' + username)
     }
 
-    getById (projectId: number): Observable<IProject> {
-        return this.http.get<IProject>(environment.API_URL + '/project?id=' + String(projectId))
+    getById(projectId: number): Observable<IProject> {
+        return this.http.get<IProject>(environment.API_URL + '/project?id=' + projectId)
     }
 
-    addNew (project: IProject): Observable<IResponseMessage> {
+    addNew(project: IProject): Observable<IResponseMessage> {
         return this.http.post<IResponseMessage>(environment.API_URL + '/project/add', project)
     }
 
-    edit (project: IProject): Observable<IResponseMessage> {
+    edit(project: IProject): Observable<IResponseMessage> {
         return this.http.put<IResponseMessage>(environment.API_URL + '/project/edit', project)
     }
 
-    delete (projectId: number): Observable<IResponseMessage> {
-        return this.http.delete<IResponseMessage>(environment.API_URL + '/project/delete/' + String(projectId))
+    delete(projectId: number): Observable<IResponseMessage> {
+        return this.http.delete<IResponseMessage>(environment.API_URL + '/project/delete/' + projectId)
     }
 }

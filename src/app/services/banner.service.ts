@@ -8,21 +8,21 @@ import { environment } from 'src/environments/environment'
     providedIn: 'root'
 })
 export class BannerService {
-    constructor (private readonly http: HttpClient) { }
+    constructor(private readonly http: HttpClient) { }
 
-    getByUsername (username: string): Observable<IBanner> {
+    getByUsername(username: string): Observable<IBanner> {
         return this.http.get<IBanner>(environment.API_URL + '/banner/' + username)
     }
 
-    addNew (image: File, userId: number): Observable<IBanner> {
+    addNew(image: File, userId: number): Observable<IBanner> {
         const uploadData = new FormData()
         uploadData.append('banner', image, image.name)
-        return this.http.post<IBanner>(environment.API_URL + '/banner/add/' + String(userId), uploadData)
+        return this.http.post<IBanner>(environment.API_URL + '/banner/add/' + userId, uploadData)
     }
 
-    edit (image: File, userId: number, bannerId: number): Observable<IBanner> {
+    edit(image: File, userId: number, bannerId: number): Observable<IBanner> {
         const uploadData = new FormData()
         uploadData.append('banner', image, image.name)
-        return this.http.put<IBanner>(environment.API_URL + '/banner/edit/' + String(userId) + '/' + String(bannerId), uploadData)
+        return this.http.put<IBanner>(environment.API_URL + '/banner/edit/' + userId + '/' + bannerId, uploadData)
     }
 }

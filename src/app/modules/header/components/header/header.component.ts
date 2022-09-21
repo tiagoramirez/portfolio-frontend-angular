@@ -13,12 +13,12 @@ import { SocialMediaService } from 'src/app/services/social-media.service'
     styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-    constructor (private readonly route: ActivatedRoute, private readonly tokenService: TokenService, private readonly socialMediaService: SocialMediaService, private readonly router: Router) { }
+    constructor(private readonly route: ActivatedRoute, private readonly tokenService: TokenService, private readonly socialMediaService: SocialMediaService, private readonly router: Router) { }
 
-    ngOnInit (): void {
+    ngOnInit(): void {
         this.username = this.route.snapshot.params['username']
         if (this.tokenService.getToken() != null) {
-            this.loggedUsername = this.tokenService.getUsername() ?? ''
+            this.loggedUsername = this.tokenService.getUsername()
             this.isLogged = true
         } else {
             this.isLogged = false
@@ -44,11 +44,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         })
     }
 
-    ngOnDestroy (): void {
+    ngOnDestroy(): void {
         this.subsContainer.unsubscribeAll()
     }
 
-    onLogout (): void {
+    onLogout(): void {
         this.tokenService.logOut()
         window.location.reload()
     }

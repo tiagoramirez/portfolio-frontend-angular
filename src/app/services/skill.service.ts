@@ -8,13 +8,13 @@ import { ISkill, IUserSkills } from '../models/skill.interface'
     providedIn: 'root'
 })
 export class SkillService {
-    constructor (private readonly http: HttpClient) { }
+    constructor(private readonly http: HttpClient) { }
 
-    getAll (): Observable<ISkill[]> {
+    getAll(): Observable<ISkill[]> {
         return this.http.get<ISkill[]>(environment.API_URL + '/skill/all')
     }
 
-    getAllByUsername (username: string): Observable<IUserSkills[]> {
+    getAllByUsername(username: string): Observable<IUserSkills[]> {
         return this.http.get<IUserSkills[]>(environment.API_URL + '/skill/' + username)
     }
 
@@ -22,11 +22,11 @@ export class SkillService {
     //     return this.http.get<IUserSkills>(environment.API_URL + "/skill?userSkillsId=" + userSkillsId);
     // }
 
-    addNew (userSkill: IUserSkills): Observable<IUserSkills> {
+    addNew(userSkill: IUserSkills): Observable<IUserSkills> {
         return this.http.post<IUserSkills>(environment.API_URL + '/skill/add', userSkill)
     }
 
-    delete (userSkillId: number): Observable<IUserSkills> {
-        return this.http.delete<IUserSkills>(environment.API_URL + '/skill/delete/' + String(userSkillId))
+    delete(userSkillId: number): Observable<IUserSkills> {
+        return this.http.delete<IUserSkills>(environment.API_URL + '/skill/delete/' + userSkillId)
     }
 }

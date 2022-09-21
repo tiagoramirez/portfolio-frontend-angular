@@ -18,13 +18,13 @@ import { PhotoService } from 'src/app/services/photo.service'
     styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-    constructor (private readonly route: ActivatedRoute, private readonly authService: AuthService, private readonly tokenService: TokenService, private readonly configurationService: ConfigurationService, private readonly photoService: PhotoService, private readonly bannerService: BannerService) { }
+    constructor(private readonly route: ActivatedRoute, private readonly authService: AuthService, private readonly tokenService: TokenService, private readonly configurationService: ConfigurationService, private readonly photoService: PhotoService, private readonly bannerService: BannerService) { }
 
-    ngOnInit (): void {
+    ngOnInit(): void {
         this.username = this.route.snapshot.params['username']
 
         if (this.tokenService.getToken() != null) {
-            this.loggedUsername = this.tokenService.getUsername() ?? ''
+            this.loggedUsername = this.tokenService.getUsername()
             this.isLogged = true
         } else {
             this.isLogged = false
@@ -49,7 +49,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
             }
         })
 
-        const subConfiguration: Subscription = this.configurationService.getByProfileId(this.profile.id ?? -1).subscribe({
+        const subConfiguration: Subscription = this.configurationService.getByProfileId(this.profile.id).subscribe({
             next: (data) => {
                 this.configuration = data
             },
@@ -73,7 +73,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
                                 this.isPhotoNull = true
                             } else {
                                 this.isPhotoNull = false
-                                this.photoString = 'data:image/jpeg;base64,' + String(data.photo)
+                                this.photoString = 'data:image/jpeg;base64,' + data.photo
                             }
                         },
                         error: (err) => {
@@ -98,7 +98,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
                                 this.isBannerNull = true
                             } else {
                                 this.isBannerNull = false
-                                this.bannerString = 'data:image/jpeg;base64,' + String(data.banner)
+                                this.bannerString = 'data:image/jpeg;base64,' + data.banner
                             }
                         },
                         error: (err) => {
@@ -124,15 +124,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
         })
     }
 
-    ngOnDestroy (): void {
+    ngOnDestroy(): void {
         this.subsContainer.unsubscribeAll()
     }
 
-    openModal (): void {
+    openModal(): void {
         this.showModal = true
     }
 
-    closeModal (): void {
+    closeModal(): void {
         this.showModal = false
     }
 
@@ -141,20 +141,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
     isLogged: boolean
     user: IUser
     configuration: IConfiguration
-  @Input() profile: IProfile
-  showModal = false
-  isPhotoNull = false
-  photoString: string
-  isBannerNull = false
-  bannerString: string
+    @Input() profile: IProfile
+    showModal = false
+    isPhotoNull = false
+    photoString: string
+    isBannerNull = false
+    bannerString: string
 
-  subsContainer: SubscriptionContainer = new SubscriptionContainer()
+    subsContainer: SubscriptionContainer = new SubscriptionContainer()
 
-  loading: boolean = true
-  loadingUser: boolean = true
-  loadingConfig: boolean = true
-  loadingPhoto: boolean = true
-  loadingBanner: boolean = true
-  errorMessage: string = ''
-  isError: boolean = false
+    loading: boolean = true
+    loadingUser: boolean = true
+    loadingConfig: boolean = true
+    loadingPhoto: boolean = true
+    loadingBanner: boolean = true
+    errorMessage: string = ''
+    isError: boolean = false
 }

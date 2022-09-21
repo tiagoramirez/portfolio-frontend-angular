@@ -15,7 +15,6 @@ import { ConfigurationService } from './services/configuration.service'
 import { PhotoService } from './services/photo.service'
 import { ProfileService } from './services/profile.service'
 import { SocialMediaService } from './services/social-media.service'
-import { EditPhotoComponent } from './modules/profile/components/edit-photo/edit-photo.component'
 import { AboutMeService } from './services/about-me.service'
 import { ExperienceService } from './services/experience.service'
 import { DescriptionService } from './services/description.service'
@@ -39,6 +38,7 @@ import { NewSocialMediaComponent } from './modules/social-media/components/new-s
 import { EditSocialMediaComponent } from './modules/social-media/components/edit-social-media/edit-social-media.component'
 import { DeleteSocialMediaComponent } from './modules/social-media/components/delete-social-media/delete-social-media.component'
 import { ListSocialMediaComponent } from './modules/social-media/components/list-social-media/list-social-media.component'
+import { EditPhotoComponent } from './modules/img-handler/components/edit-photo/edit-photo.component'
 
 const routes: Routes = [
     { path: '', component: UserListComponent },
@@ -50,7 +50,8 @@ const routes: Routes = [
     { path: ':username/social-media/edit/:idSm', component: EditSocialMediaComponent },
     { path: ':username/social-media/delete/:idSm', component: DeleteSocialMediaComponent },
     { path: ':username/profile/edit/:profileId', component: EditProfileComponent },
-    { path: ':username/profile/edit/img/:type', component: EditPhotoComponent },
+    { path: ':username/profile/edit/img/photo', component: EditPhotoComponent },
+    // { path: ':username/profile/edit/img/banner', component: EditPhotoComponent },
     { path: ':username/about-me/edit/:profileId', component: EditAboutMeComponent },
     { path: ':username/experience/add/:profileId', component: NewExperienceComponent },
     { path: ':username/experience/edit/:experienceId/:profileId', component: EditExperienceComponent },
