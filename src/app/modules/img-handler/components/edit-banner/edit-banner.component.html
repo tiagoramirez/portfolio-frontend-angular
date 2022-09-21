@@ -1,1 +1,21 @@
-<p>edit-banner works!</p>
+<p class="section-title">Subir nueva imagen:</p>
+<button class="custom-input-file large-button" *ngIf="!loading && !isError">
+    <input class="input-file" type="file" (change)="loadImg($event)" accept="image/*">
+    <p>Subir Imagen</p>
+</button>
+
+<p class="section-title" *ngIf="!loading && photoLoaded">Previsualizacion de la imagen:</p>
+
+<div *ngIf=" !loading && photoLoaded" [ngClass]="type==='photo'?'photo':'banner'">
+    <img [src]="photoString">
+</div>
+
+<button *ngIf="isPhotoSelected && !loadingNewData" (click)="saveImg()" class="large-button">Guardar imagen</button>
+
+<p *ngIf="isError" class="error-message">{{errorMessage}}</p>
+
+<p *ngIf="isErrorLoadingNewData" class="error-message">{{errorMessageLoadingNewData}}</p>
+
+<button class="large-button go-back" [routerLink]="['/'+username]">Volver</button>
+
+<span *ngIf="loading || loadingNewData" class="loader"></span>

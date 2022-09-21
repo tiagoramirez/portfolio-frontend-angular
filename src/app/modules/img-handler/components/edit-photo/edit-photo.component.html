@@ -1,5 +1,5 @@
 <p class="section-title">Subir nueva imagen:</p>
-<button class="custom-input-file large-button">
+<button class="custom-input-file large-button" *ngIf="!loading && !isError">
     <input class="input-file" type="file" (change)="loadImg($event)" accept="image/*">
     <p>Subir Imagen</p>
 </button>
@@ -14,4 +14,8 @@
 
 <p *ngIf="isError" class="error-message">{{errorMessage}}</p>
 
+<p *ngIf="isErrorLoadingNewData" class="error-message">{{errorMessageLoadingNewData}}</p>
+
 <button class="large-button go-back" [routerLink]="['/'+username]">Volver</button>
+
+<span *ngIf="loading" class="loader"></span>

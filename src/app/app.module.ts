@@ -39,6 +39,7 @@ import { EditSocialMediaComponent } from './modules/social-media/components/edit
 import { DeleteSocialMediaComponent } from './modules/social-media/components/delete-social-media/delete-social-media.component'
 import { ListSocialMediaComponent } from './modules/social-media/components/list-social-media/list-social-media.component'
 import { EditPhotoComponent } from './modules/img-handler/components/edit-photo/edit-photo.component'
+import { EditBannerComponent } from './modules/img-handler/components/edit-banner/edit-banner.component'
 
 const routes: Routes = [
     { path: '', component: UserListComponent },
@@ -51,7 +52,7 @@ const routes: Routes = [
     { path: ':username/social-media/delete/:idSm', component: DeleteSocialMediaComponent },
     { path: ':username/profile/edit/:profileId', component: EditProfileComponent },
     { path: ':username/profile/edit/img/photo', component: EditPhotoComponent },
-    // { path: ':username/profile/edit/img/banner', component: EditPhotoComponent },
+    { path: ':username/profile/edit/img/banner', component: EditBannerComponent },
     { path: ':username/about-me/edit/:profileId', component: EditAboutMeComponent },
     { path: ':username/experience/add/:profileId', component: NewExperienceComponent },
     { path: ':username/experience/edit/:experienceId/:profileId', component: EditExperienceComponent },
