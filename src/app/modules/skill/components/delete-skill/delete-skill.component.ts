@@ -25,7 +25,7 @@ export class DeleteSkillComponent implements OnInit, OnDestroy {
             next: (value) => {
                 console.log(value)
             },
-            error(err) {
+            error: (err) => {
                 console.error(err)
             },
             complete: () => {

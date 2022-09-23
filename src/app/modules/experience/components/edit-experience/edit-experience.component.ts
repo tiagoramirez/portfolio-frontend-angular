@@ -70,7 +70,7 @@ export class EditExperienceComponent implements OnInit, OnDestroy {
         const subExperience = this.experienceService.edit(this.experience).subscribe({
             next: () => {
                 const subDescription = this.descriptionService.edit(this.description).subscribe({
-                    error(err) {
+                    error: (err) => {
                         if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
                             this.errorMessageLoadingNewData = err.error.message
                         } else {

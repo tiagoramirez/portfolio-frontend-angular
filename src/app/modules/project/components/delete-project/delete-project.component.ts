@@ -29,7 +29,7 @@ export class DeleteProjectComponent implements OnInit, OnDestroy {
                     next(value) {
                         console.log(value)
                     },
-                    error(err) {
+                    error: (err) => {
                         console.error(err)
                     },
                     complete: () => {
@@ -38,7 +38,7 @@ export class DeleteProjectComponent implements OnInit, OnDestroy {
                     }
                 })
             },
-            error(err) {
+            error: (err) => {
                 console.error(err)
             },
             complete: () => {

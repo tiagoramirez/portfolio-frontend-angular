@@ -63,7 +63,7 @@ export class EditPhotoComponent implements OnInit, OnDestroy {
         if (this.photoFile !== undefined && this.photoFile !== null) {
             if (this.isFirstPhoto) {
                 const sub: Subscription = this.photoService.addNew(this.photoFile, this.tokenService.getUserId()).subscribe({
-                    error(err) {
+                    error: (err) => {
                         if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
                             this.errorMessageLoadingNewData = err.error.message
                         } else {
@@ -80,7 +80,7 @@ export class EditPhotoComponent implements OnInit, OnDestroy {
                 })
             } else {
                 const sub: Subscription = this.photoService.edit(this.photoFile, this.tokenService.getUserId(), this.photoId).subscribe({
-                    error(err) {
+                    error: (err) => {
                         if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
                             this.errorMessageLoadingNewData = err.error.message
                         } else {
