@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { TokenService } from 'src/app/auth/services/token.service'
+import { AppSettings } from 'src/app/helpers/appSettings'
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer'
 import { IDescription } from 'src/app/models/description.interface'
 import { IProject } from 'src/app/models/project.interface'
@@ -25,30 +26,40 @@ export class NewProjectComponent implements OnInit, OnDestroy {
     }
 
     save(): void {
+        this.isErrorLoadingNewData = false
+        this.loadingNewData = true
         const subProj = this.projectService.addNew(this.project).subscribe({
             next: (data) => {
-                console.log(data)
-
                 this.description.profileId = this.profileId
                 this.description.projectId = data.id
                 const subDescription = this.descriptionService.addNew(this.description).subscribe({
-                    next(value) {
-                        console.log(value)
-                    },
                     error: (err) => {
-                        console.error(err)
+                        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                            this.errorMessageLoadingNewData = err.error.message
+                        } else {
+                            this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
+                        }
+                        this.isErrorLoadingNewData = true
+                        this.loadingNewData = false
                     },
                     complete: () => {
+                        this.loadingNewData = false
                         this.subsContainer.add(subDescription)
+                        void this.router.navigate(['/' + this.username])
                     }
                 })
             },
             error: (err) => {
-                console.error(err)
+                if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                    this.errorMessageLoadingNewData = err.error.message
+                } else {
+                    this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
+                }
+                this.isErrorLoadingNewData = true
+                this.loadingNewData = false
             },
             complete: () => {
                 this.subsContainer.add(subProj)
-                void this.router.navigate(['/' + this.username])
             }
         })
     }
@@ -69,6 +80,7 @@ export class NewProjectComponent implements OnInit, OnDestroy {
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer()
 
-    loading: boolean = true
-    loadingSubmit: boolean = false
+    loadingNewData: boolean = false
+    errorMessageLoadingNewData: string = ''
+    isErrorLoadingNewData: boolean = false
 }

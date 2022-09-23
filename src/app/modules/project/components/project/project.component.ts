@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Subscription } from 'rxjs'
 import { TokenService } from 'src/app/auth/services/token.service'
+import { AppSettings } from 'src/app/helpers/appSettings'
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer'
 import { IProfile } from 'src/app/models/profile.interface'
 import { IProject } from 'src/app/models/project.interface'
@@ -30,19 +31,33 @@ export class ProjectComponent implements OnInit, OnDestroy {
                 this.projects.map((proj) => {
                     const subDesc: Subscription = this.descriptionService.getByProfileAndProjectId(this.profile.id, proj.id).subscribe({
                         next: (desc) => {
+                            this.loading = true
                             proj.description = desc.description
                         },
-                        error: (error) => {
-                            console.error(error)
+                        error: (err) => {
+                            if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                                this.errorMessage = err.error.message
+                            } else {
+                                this.errorMessage = AppSettings.serverErrorMessage
+                            }
+                            this.isError = true
+                            this.loading = false
                         },
                         complete: () => {
+                            this.loading = false
                             this.subsContainer.add(subDesc)
                         }
                     })
                 })
             },
-            error: (error) => {
-                console.log(error)
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                    this.errorMessage = err.error.message
+                } else {
+                    this.errorMessage = AppSettings.serverErrorMessage
+                }
+                this.isError = true
+                this.loading = false
             },
             complete: () => {
                 this.subsContainer.add(sub)
@@ -55,11 +70,14 @@ export class ProjectComponent implements OnInit, OnDestroy {
     }
 
     username: string
-    loggedUsername: string
     @Input() profile: IProfile
     projects: IProject[]
+    loggedUsername: string
+    isLogged: boolean
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer()
 
-    isLogged: boolean
+    loading: boolean = true
+    errorMessage: string = ''
+    isError: boolean = false
 }

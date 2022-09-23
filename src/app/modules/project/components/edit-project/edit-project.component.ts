@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { TokenService } from 'src/app/auth/services/token.service'
+import { AppSettings } from 'src/app/helpers/appSettings'
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer'
 import { IDescription } from 'src/app/models/description.interface'
 import { IProject } from 'src/app/models/project.interface'
@@ -22,10 +23,17 @@ export class EditProjectComponent implements OnInit, OnDestroy {
         const subProj = this.projectService.getById(this.projectId).subscribe({
             next: (data) => {
                 this.project = data
+                this.project.userId = this.tokenService.getUserId()
+
             },
             error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                    this.errorMessage = err.error.message
+                } else {
+                    this.errorMessage = AppSettings.serverErrorMessage
+                }
+                this.isError = true
                 this.loadingProject = false
-                console.error(err)
             },
             complete: () => {
                 this.loadingProject = false
@@ -35,10 +43,16 @@ export class EditProjectComponent implements OnInit, OnDestroy {
         const subDesc = this.descriptionService.getByProfileAndProjectId(this.profileId, this.projectId).subscribe({
             next: (data) => {
                 this.description = data
+                this.description.profileId = this.profileId
             },
             error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                    this.errorMessage = err.error.message
+                } else {
+                    this.errorMessage = AppSettings.serverErrorMessage
+                }
+                this.isError = true
                 this.loadingDescription = false
-                console.error(err)
             },
             complete: () => {
                 this.loadingDescription = false
@@ -52,28 +66,38 @@ export class EditProjectComponent implements OnInit, OnDestroy {
     }
 
     save(): void {
-        this.project.userId = this.tokenService.getUserId()
-        this.description.profileId = this.profileId
+        this.isErrorLoadingNewData = false
+        this.loadingNewData = true
         const subProject = this.projectService.edit(this.project).subscribe({
             next: () => {
                 const subDescription = this.descriptionService.edit(this.description).subscribe({
-                    next(value) {
-                        console.log(value)
-                    },
                     error: (err) => {
-                        console.error(err)
+                        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                            this.errorMessageLoadingNewData = err.error.message
+                        } else {
+                            this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
+                        }
+                        this.isErrorLoadingNewData = true
+                        this.loadingNewData = false
                     },
                     complete: () => {
+                        this.loadingNewData = false
                         this.subsContainer.add(subDescription)
+                        void this.router.navigate(['/' + this.username])
                     }
                 })
             },
             error: (err) => {
-                console.error(err)
+                if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                    this.errorMessageLoadingNewData = err.error.message
+                } else {
+                    this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
+                }
+                this.isErrorLoadingNewData = true
+                this.loadingNewData = false
             },
             complete: () => {
                 this.subsContainer.add(subProject)
-                void this.router.navigate(['/' + this.username])
             }
         })
     }
@@ -86,7 +110,12 @@ export class EditProjectComponent implements OnInit, OnDestroy {
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer()
 
-    loadingSubmit: boolean = false
-    loadingProject: boolean = true
     loadingDescription: boolean = true
+    loadingProject: boolean = true
+    errorMessage: string = ''
+    isError: boolean = false
+
+    loadingNewData: boolean = false
+    errorMessageLoadingNewData: string = ''
+    isErrorLoadingNewData: boolean = false
 }
