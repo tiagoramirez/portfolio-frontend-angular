@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Subscription } from 'rxjs'
 import { TokenService } from 'src/app/auth/services/token.service'
+import { AppSettings } from 'src/app/helpers/appSettings'
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer'
 import { ISkill, IUserSkills } from 'src/app/models/skill.interface'
 import { SkillService } from 'src/app/services/skill.service'
@@ -12,17 +13,22 @@ import { SkillService } from 'src/app/services/skill.service'
     styleUrls: ['./new-skill.component.css']
 })
 export class NewSkillComponent implements OnInit, OnDestroy {
-    constructor (private readonly route: ActivatedRoute, private readonly skillService: SkillService, private readonly router: Router, private readonly tokenService: TokenService) { }
+    constructor(private readonly route: ActivatedRoute, private readonly skillService: SkillService, private readonly router: Router, private readonly tokenService: TokenService) { }
 
-    ngOnInit (): void {
+    ngOnInit(): void {
         this.username = this.route.snapshot.params['username']
         const sub: Subscription = this.skillService.getAll().subscribe({
             next: (data) => {
                 this.all_skills = data
             },
-            error: (e) => {
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                    this.errorMessage = err.error.message
+                } else {
+                    this.errorMessage = AppSettings.serverErrorMessage
+                }
+                this.isError = true
                 this.loading = false
-                console.error(e)
             },
             complete: () => {
                 this.loading = false
@@ -31,23 +37,25 @@ export class NewSkillComponent implements OnInit, OnDestroy {
         })
     }
 
-    ngOnDestroy (): void {
+    ngOnDestroy(): void {
         this.subsContainer.unsubscribeAll()
     }
 
-    onSubmit (): void {
-        this.loadingSubmit = true
-
+    onSubmit(): void {
+        this.isErrorLoadingNewData = false
+        this.loadingNewData = true
         const sub = this.skillService.addNew(this.user_skill).subscribe({
-            next: () => {
-                console.log('Subido correctamente')
-            },
-            error: (e) => {
-                this.loadingSubmit = false
-                console.error(e)
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                    this.errorMessageLoadingNewData = err.error.message
+                } else {
+                    this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
+                }
+                this.isErrorLoadingNewData = true
+                this.loadingNewData = false
             },
             complete: () => {
-                this.loadingSubmit = false
+                this.loadingNewData = false
                 this.subsContainer.add(sub)
                 void this.router.navigate(['/' + this.username])
             }
@@ -55,16 +63,20 @@ export class NewSkillComponent implements OnInit, OnDestroy {
     }
 
     username: string
+    all_skills: ISkill[]
     user_skill: IUserSkills = {
         userId: this.tokenService.getUserId(),
         id_skill: 0,
         percentage: 0
     }
 
-    all_skills: ISkill[]
-
     subsContainer: SubscriptionContainer = new SubscriptionContainer()
 
     loading: boolean = true
-    loadingSubmit: boolean = false
+    errorMessage: string = ''
+    isError: boolean = false
+
+    loadingNewData: boolean = false
+    errorMessageLoadingNewData: string = ''
+    isErrorLoadingNewData: boolean = false
 }

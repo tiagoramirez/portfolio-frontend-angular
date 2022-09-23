@@ -27,23 +27,14 @@
     margin-bottom: .75rem;
 }
 
-.actions {
+.skill .circular-button {
     margin-top: 1rem;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 50%;
-}
-
-.actions .circular-button{
     height: 2.3rem;
     width: 2.3rem;
     font-size: 1.2rem;
 }
 
-.create{
+.create {
     position: fixed;
     top: 1rem;
     right: 1rem;

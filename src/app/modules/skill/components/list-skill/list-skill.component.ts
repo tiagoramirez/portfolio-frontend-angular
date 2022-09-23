@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Subscription } from 'rxjs'
+import { AppSettings } from 'src/app/helpers/appSettings'
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer'
 import { IUserSkills } from 'src/app/models/skill.interface'
 import { SkillService } from 'src/app/services/skill.service'
@@ -19,15 +20,19 @@ export class ListSkillComponent implements OnInit, OnDestroy {
         const sub: Subscription = this.skillService.getAllByUsername(this.username).subscribe({
             next: (data) => {
                 this.skills = data
+                this.isEmpty = this.skills.length === 0
             },
-            error: (e) => {
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                    this.errorMessage = err.error.message
+                } else {
+                    this.errorMessage = AppSettings.serverErrorMessageSection
+                }
+                this.isError = true
                 this.loading = false
-                this.error = true
-                console.error(e)
             },
             complete: () => {
                 this.loading = false
-                this.error = false
                 this.subsContainer.add(sub)
             }
         })
@@ -39,9 +44,12 @@ export class ListSkillComponent implements OnInit, OnDestroy {
 
     username: string
     skills: IUserSkills[] = []
+    isEmpty: boolean
+    emptyMessage: string = AppSettings.emptyListMessage('skills')
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer()
 
     loading: boolean = true
-    error: boolean = false
+    errorMessage: string = ''
+    isError: boolean = false
 }

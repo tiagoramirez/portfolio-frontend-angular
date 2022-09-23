@@ -1,6 +1,6 @@
 <p class="section-title">Skill - Crear</p>
 
-<form #f="ngForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+<form #f="ngForm" (ngSubmit)="onSubmit()" *ngIf="!isError && !loading">
 
     <div class="skill-form">
         <label for="skill">Skill</label>
@@ -14,11 +14,16 @@
         <input name="percentage" type="number" [min]="0" [(ngModel)]="user_skill.percentage" required>
     </div>
 
-    <button class="large-button" type="submit" *ngIf="!loadingSubmit" [disabled]="!f.valid"><i
+    <button class="large-button" type="submit" *ngIf="!loadingNewData" [disabled]="!f.valid"><i
             class="bi bi-save"></i>&nbsp;Guardar</button>
 
-    <span *ngIf="loadingSubmit" class="loader"></span>
+    <p *ngIf="isErrorLoadingNewData" class="error-message">{{errorMessageLoadingNewData}}</p>
+
+
+    <span *ngIf="loadingNewData" class="loader"></span>
 </form>
+
+<p *ngIf="isError" class="error-message">{{errorMessage}}</p>
 
 <span *ngIf="loading" class="loader"></span>
 

@@ -1,17 +1,15 @@
 <p class="section-title">SKILLS</p>
 
-<p class="error-message" *ngIf="skills.length===0 && !error && !loading">No hay redes sociales cargadas. Agrega una
-    nueva 😋</p>
 <span *ngIf="loading" class="loader"></span>
+
+<p class="error-message" *ngIf="isError && !loading">{{errorMessage}}</p>
+
+<p class="error-message" *ngIf="!loading && !isError && isEmpty">{{emptyMessage}}</p>
 
 <div *ngFor="let skill of skills" class="skill">
     <p id="name">{{skill.skill.name}}</p>
     <p>{{skill.skill.type}}</p>
-    <div class="actions">
-        <button class="circular-button" [routerLink]="['../delete/'+skill.id]"><i class="bi bi-trash3"></i></button>
-        <button class="circular-button" [routerLink]="['../edit/'+skill.id]"><i
-                class="bi bi-pencil-square"></i></button>
-    </div>
+    <button class="circular-button" [routerLink]="['../delete/'+skill.id]"><i class="bi bi-trash3"></i></button>
 </div>
 
 <button type="button" routerLink="../add" class="circular-button create"><i

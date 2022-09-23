@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { TokenService } from 'src/app/auth/services/token.service'
 import { AppSettings } from 'src/app/helpers/appSettings'
@@ -11,10 +11,10 @@ import { SocialMediaService } from 'src/app/services/social-media.service'
     templateUrl: './new-social-media.component.html',
     styleUrls: ['./new-social-media.component.css']
 })
-export class NewSocialMediaComponent implements OnInit {
-    constructor (private readonly route: ActivatedRoute, private readonly router: Router, private readonly tokenService: TokenService, private readonly socialMediaService: SocialMediaService) { }
+export class NewSocialMediaComponent implements OnInit, OnDestroy {
+    constructor(private readonly route: ActivatedRoute, private readonly router: Router, private readonly tokenService: TokenService, private readonly socialMediaService: SocialMediaService) { }
 
-    ngOnInit (): void {
+    ngOnInit(): void {
         this.username = this.route.snapshot.params['username']
         const subSocialMedia = this.socialMediaService.getAll().subscribe({
             next: (data) => {
@@ -36,7 +36,11 @@ export class NewSocialMediaComponent implements OnInit {
         })
     }
 
-    onSave (): void {
+    ngOnDestroy(): void {
+        this.subsContainer.unsubscribeAll()
+    }
+
+    onSave(): void {
         this.isErrorLoadingNewData = false
         this.loadingNewData = true
         const sub = this.socialMediaService.addNew(this.user_social_media).subscribe({
