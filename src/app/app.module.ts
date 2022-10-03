@@ -40,31 +40,33 @@ import { DeleteSocialMediaComponent } from './modules/social-media/components/de
 import { ListSocialMediaComponent } from './modules/social-media/components/list-social-media/list-social-media.component'
 import { EditPhotoComponent } from './modules/img-handler/components/edit-photo/edit-photo.component'
 import { EditBannerComponent } from './modules/img-handler/components/edit-banner/edit-banner.component'
+import { interceptorProvider } from './interceptors/user-social-media-interceptor.service'
+import { UserGuardService as guard } from './guards/user_guard.service'
 
 const routes: Routes = [
     { path: '', component: UserListComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: ':username', component: MainComponent },
-    { path: ':username/social-media/list', component: ListSocialMediaComponent },
-    { path: ':username/social-media/add', component: NewSocialMediaComponent },
-    { path: ':username/social-media/edit/:idSm', component: EditSocialMediaComponent },
-    { path: ':username/social-media/delete/:idSm', component: DeleteSocialMediaComponent },
-    { path: ':username/profile/edit/:profileId', component: EditProfileComponent },
-    { path: ':username/profile/edit/img/photo', component: EditPhotoComponent },
-    { path: ':username/profile/edit/img/banner', component: EditBannerComponent },
-    { path: ':username/about-me/edit/:profileId', component: EditAboutMeComponent },
-    { path: ':username/experience/add/:profileId', component: NewExperienceComponent },
-    { path: ':username/experience/edit/:experienceId/:profileId', component: EditExperienceComponent },
-    { path: ':username/experience/delete/:experienceId', component: DeleteExperienceComponent },
-    { path: ':username/education/add/:profileId', component: NewEducationComponent },
-    { path: ':username/education/edit/:educationId/:profileId', component: EditEducationComponent },
-    { path: ':username/education/delete/:educationId', component: DeleteEducationComponent },
-    { path: ':username/project/add/:profileId', component: NewProjectComponent },
-    { path: ':username/project/edit/:projectId/:profileId', component: EditProjectComponent },
-    { path: ':username/project/delete/:projectId', component: DeleteProjectComponent },
-    { path: ':username/skill/list', component: ListSkillComponent },
-    { path: ':username/skill/add', component: NewSkillComponent },
+    { path: ':username/social-media/list', component: ListSocialMediaComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/social-media/add', component: NewSocialMediaComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/social-media/edit/:idSm', component: EditSocialMediaComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/social-media/delete/:idSm', component: DeleteSocialMediaComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/profile/edit/:profileId', component: EditProfileComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/profile/edit/img/photo', component: EditPhotoComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/profile/edit/img/banner', component: EditBannerComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/about-me/edit/:profileId', component: EditAboutMeComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/experience/add/:profileId', component: NewExperienceComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/experience/edit/:experienceId/:profileId', component: EditExperienceComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/experience/delete/:experienceId', component: DeleteExperienceComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/education/add/:profileId', component: NewEducationComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/education/edit/:educationId/:profileId', component: EditEducationComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/education/delete/:educationId', component: DeleteEducationComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/project/add/:profileId', component: NewProjectComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/project/edit/:projectId/:profileId', component: EditProjectComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/project/delete/:projectId', component: DeleteProjectComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/skill/list', component: ListSkillComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
+    { path: ':username/skill/add', component: NewSkillComponent, canActivate: [guard], data: { expectedRole: 'ROLE_USER' } },
     { path: ':username/skill/delete/:userSkillsId', component: DeleteSkillComponent }
 ]
 
@@ -89,7 +91,8 @@ const routes: Routes = [
         ProfileService,
         ProjectService,
         SocialMediaService,
-        SkillService
+        SkillService,
+        interceptorProvider
     ],
     bootstrap: [AppComponent]
 })

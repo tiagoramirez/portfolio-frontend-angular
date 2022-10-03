@@ -20,8 +20,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         password: ''
     }
 
-    roles: string[] = []
-
     loginFailed: boolean = false
     errorMessage: string = ''
 
@@ -32,7 +30,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         if (this.tokenService.getToken() !== null) {
             this.isLogged = true
-            this.roles = this.tokenService.getAuthorities()
         }
     }
 
@@ -50,9 +47,11 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this.loginFailed = false
                 this.tokenService.setToken(jwt.token)
                 this.tokenService.setUsername(jwt.username)
-                this.tokenService.setAuthorities(jwt.authorities)
+                const mappedAuthorities = jwt.authorities.map(authority => {
+                    return authority.authority;
+                })
+                this.tokenService.setAuthorities(mappedAuthorities)
                 this.tokenService.setUserId(jwt.userId)
-                this.roles = jwt.authorities
                 void this.router.navigate([''])
             },
             error: (e) => {
