@@ -3,7 +3,7 @@
 <span *ngIf="loading" class="loader"></span>
 
 <div *ngIf="!loading && !isError" class="section-data-container">
-    <p id="about-me-info">{{aboutMe.about_me}}</p>
+    <p id="about-me-info" style="margin-top: 1rem;">{{aboutMe.about_me}}</p>
 </div>
 
 <p *ngIf="!loading && isError" class="server-error">{{errorMessage}}</p>
