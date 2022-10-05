@@ -6,7 +6,7 @@
 
 <p class="section-title" *ngIf="!loading && photoLoaded">Previsualizacion de la imagen:</p>
 
-<div *ngIf=" !loading && photoLoaded" [ngClass]="type==='photo'?'photo':'banner'">
+<div *ngIf=" !loading && photoLoaded" class="img-container">
     <img [src]="photoString">
 </div>
 

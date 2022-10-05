@@ -21,13 +21,14 @@
 }
 
 .banner img {
+    object-fit: cover;
     width: 100%;
-    height: 100%;
+    height: 30vh;
 }
 
 .photo-banner,
 .photo-no-banner {
-    border-radius: 50%;
+    border-radius: 25%;
     overflow: hidden;
     width: 20vh;
     height: 20vh;
@@ -46,8 +47,9 @@
 
 .photo-banner img,
 .photo-no-banner img {
-    width: 20vh;
-    height: 20vh;
+    object-fit: cover;
+    width: 25vh;
+    height: 25vh;
 }
 
 #birthday,
