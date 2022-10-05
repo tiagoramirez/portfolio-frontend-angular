@@ -10,7 +10,7 @@
     <img [src]="photoString">
 </div>
 
-<button *ngIf="isPhotoSelected" (click)="saveImg()" class="large-button">Guardar imagen</button>
+<button *ngIf="isPhotoSelected && !loadingNewData" (click)="saveImg()" class="large-button">Guardar imagen</button>
 
 <p *ngIf="isError" class="error-message">{{errorMessage}}</p>
 
