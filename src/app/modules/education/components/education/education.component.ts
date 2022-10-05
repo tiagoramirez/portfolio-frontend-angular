@@ -60,6 +60,7 @@ export class EducationComponent implements OnInit, OnDestroy {
                 this.loading = false
             },
             complete: () => {
+                this.loading = false;
                 this.subsContainer.add(sub)
             }
         })

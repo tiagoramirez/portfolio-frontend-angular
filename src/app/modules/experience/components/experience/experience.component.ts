@@ -60,6 +60,7 @@ export class ExperienceComponent implements OnInit, OnDestroy {
                 this.loading = false
             },
             complete: () => {
+                this.loading = false;
                 this.subsContainer.add(sub)
             }
         })
