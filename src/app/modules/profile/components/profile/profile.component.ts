@@ -116,10 +116,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
                         }
                     })
                 }
-                if (!this.configuration.show_photo && !this.configuration.show_banner) {
-                    this.loadingBanner = false
-                    this.loadingPhoto = false
-                }
+                !this.configuration.show_photo ? this.loadingPhoto = false : null
+                !this.configuration.show_banner ? this.loadingBanner = false : null
             }
         })
     }
@@ -150,7 +148,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer()
 
-    loading: boolean = true
     loadingUser: boolean = true
     loadingConfig: boolean = true
     loadingPhoto: boolean = true

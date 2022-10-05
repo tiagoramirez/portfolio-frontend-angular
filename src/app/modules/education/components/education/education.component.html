@@ -1,4 +1,4 @@
-<p class="section-title">Educacion</p>
+<p *ngIf="!loading" class="section-title">Educacion</p>
 
 <div *ngIf="!loading && !isError" class="section-if-container">
     <div *ngFor="let education of educations" class="section-data-container">
@@ -21,3 +21,5 @@
 
 <button [routerLink]="['education/add/'+profile.id]" *ngIf="isLogged && username===loggedUsername"
     class="circular-button add"><i class="bi bi-plus-circle"></i></button>
+
+<span *ngIf="loading" class="loader"></span>

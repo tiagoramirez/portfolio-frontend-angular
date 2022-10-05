@@ -1,21 +1,25 @@
-<div class="banner" *ngIf="!loadingConfig && !loadingBanner && configuration.show_banner">
+<div class="banner"
+    *ngIf="!loadingUser && !loadingConfig && !loadingPhoto && !loadingBanner && configuration.show_banner">
     <img *ngIf="!isBannerNull" [src]="bannerString" alt="">
     <p *ngIf="isBannerNull" class="error-message">Ninguna imagen de fondo fue cargada.</p>
 </div>
 
 <div [ngClass]="configuration.show_banner?'photo-banner':'photo-no-banner'"
-    *ngIf="!loadingConfig && !loadingPhoto && configuration.show_photo">
+    *ngIf="!loadingUser && !loadingConfig && !loadingPhoto && !loadingBanner && configuration.show_photo">
     <img *ngIf="!isPhotoNull" [src]="photoString" alt="">
     <p *ngIf="isPhotoNull" class="error-message">Ninguna imagen de perfil fue cargada.</p>
 </div>
 
-<p class="section-title" *ngIf="!loadingUser">{{user.full_name}}</p>
-<p>{{profile.description}}</p>
-<p *ngIf="!loadingConfig && configuration.show_location">{{profile.location_country ===null ||
-    profile.location_state===null?'': profile.location_state+"
-    ("+profile.location_country+")"}}</p>
+<div class="personal-info" *ngIf="!loadingUser && !loadingConfig && !loadingPhoto && !loadingBanner">
+    <p class="section-title" *ngIf="!loadingUser">{{user.full_name}}</p>
+    <p>{{profile.description}}</p>
+    <p *ngIf="!loadingConfig && configuration.show_location">{{profile.location_country ===null ||
+        profile.location_state===null?'': profile.location_state+"
+        ("+profile.location_country+")"}}</p>
+</div>
 
-<button class="large-button more-info" (click)="openModal()"><i class="bi bi-arrows-angle-expand"></i>&nbsp;</button>
+<button class="large-button more-info" *ngIf="!loadingUser && !loadingConfig && !loadingPhoto && !loadingBanner"
+    (click)="openModal()"><i class="bi bi-arrows-angle-expand"></i>&nbsp;</button>
 <button [routerLink]="['profile/edit/'+profile.id]" *ngIf="isLogged && username===loggedUsername"
     class="circular-button edit"><i class="bi bi-pencil-square"></i></button>
 
@@ -30,3 +34,5 @@
         <p id="mail" *ngIf="!loadingUser">Mail: {{user.mail}}</p>
     </div>
 </div>
+
+<span *ngIf="loadingUser || loadingConfig || loadingPhoto || loadingBanner" class="loader"></span>

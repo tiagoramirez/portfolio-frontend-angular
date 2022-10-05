@@ -1,20 +1,21 @@
-<app-header *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__fadeIn"></app-header>
-<app-profile *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__zoomInDown"
+<app-header *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__fadeInDown">
+</app-header>
+<app-profile *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__heartBeat"
     [profile]="selectedProfile">
 </app-profile>
-<app-about-me *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__zoomInDown"
+<app-about-me *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__heartBeat"
     [profile]="selectedProfile">
 </app-about-me>
-<app-experience *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__zoomInDown"
+<app-experience *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__heartBeat"
     [profile]="selectedProfile">
 </app-experience>
-<app-education *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__zoomInDown"
+<app-education *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__heartBeat"
     [profile]="selectedProfile">
 </app-education>
-<app-project *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__zoomInDown"
+<app-project *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__heartBeat"
     [profile]="selectedProfile">
 </app-project>
-<app-skill *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__zoomInDown">
+<app-skill *ngIf="!loading && !isError  && profiles.length!==0" class="animate__animated animate__heartBeat">
 </app-skill>
 
 <span *ngIf="loading" class="loader"></span>
