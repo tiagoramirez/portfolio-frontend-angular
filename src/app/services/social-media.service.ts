@@ -15,7 +15,7 @@ export class SocialMediaService {
     }
 
     getAllByUsername(username: string): Observable<IUserSocialMedia[]> {
-        return this.http.get<IUserSocialMedia[]>(environment.API_URL + '/social-media/' + username)
+        return this.http.get<IUserSocialMedia[]>(environment.API_URL + '/social-media/get/' + username)
     }
 
     getById(usmId: number): Observable<IUserSocialMedia> {

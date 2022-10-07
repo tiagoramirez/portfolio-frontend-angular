@@ -10,16 +10,13 @@ export class UserGuardService implements CanActivate {
     constructor(private readonly tokenService: TokenService, private readonly router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        const expectedRole = route.data['expectedRole'];
 
-        const roles = this.tokenService.getAuthorities();
-
-        if (!this.tokenService.getToken() || roles.indexOf(expectedRole) === -1) {
-            this.router.navigate(['/'])
+        if (!this.tokenService.getToken()) {
+            this.router.navigate(['/' + route.params['username']])
             return false;
         }
         if (this.tokenService.getUsername() !== route.params['username']) {
-            this.router.navigate(['/'])
+            this.router.navigate(['/' + route.params['username']])
             return false;
         }
         return true;

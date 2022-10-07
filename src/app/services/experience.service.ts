@@ -12,7 +12,7 @@ export class ExperienceService {
     constructor(private readonly http: HttpClient) { }
 
     getByUsername(username: string): Observable<IExperience[]> {
-        return this.http.get<IExperience[]>(environment.API_URL + '/experience/' + username)
+        return this.http.get<IExperience[]>(environment.API_URL + '/experience/get/' + username)
     }
 
     getById(experienceId: number): Observable<IExperience> {

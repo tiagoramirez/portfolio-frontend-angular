@@ -15,7 +15,7 @@ export class SkillService {
     }
 
     getAllByUsername(username: string): Observable<IUserSkills[]> {
-        return this.http.get<IUserSkills[]>(environment.API_URL + '/skill/' + username)
+        return this.http.get<IUserSkills[]>(environment.API_URL + '/skill/get/' + username)
     }
 
     // getById(userSkillsId: number): Observable<IUserSkills> {

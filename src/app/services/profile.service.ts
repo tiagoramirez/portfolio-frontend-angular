@@ -11,7 +11,7 @@ export class ProfileService {
     constructor(private readonly http: HttpClient) { }
 
     getByUsername(username: string): Observable<IProfile[]> {
-        return this.http.get<IProfile[]>(environment.API_URL + '/profile/' + username)
+        return this.http.get<IProfile[]>(environment.API_URL + '/profile/get/' + username)
     }
 
     getById(profileId: number): Observable<IProfile> {

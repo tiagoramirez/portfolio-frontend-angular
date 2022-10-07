@@ -11,7 +11,7 @@ export class BannerService {
     constructor(private readonly http: HttpClient) { }
 
     getByUsername(username: string): Observable<IBanner> {
-        return this.http.get<IBanner>(environment.API_URL + '/banner/' + username)
+        return this.http.get<IBanner>(environment.API_URL + '/banner/get/' + username)
     }
 
     addNew(image: File, userId: number): Observable<IBanner> {

@@ -11,11 +11,6 @@ export class TokenInterceptorService implements HttpInterceptor {
     constructor(private readonly tokenService: TokenService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-
-        console.log("Paso por interceptor");
-        console.log(req);
-
         const token = this.tokenService.getToken();
 
         if (token) {

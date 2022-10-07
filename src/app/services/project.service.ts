@@ -12,7 +12,7 @@ export class ProjectService {
     constructor(private readonly http: HttpClient) { }
 
     getByUsername(username: string): Observable<IProject[]> {
-        return this.http.get<IProject[]>(environment.API_URL + '/project/' + username)
+        return this.http.get<IProject[]>(environment.API_URL + '/project/get/' + username)
     }
 
     getById(projectId: number): Observable<IProject> {

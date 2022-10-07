@@ -12,7 +12,7 @@ export class EducationService {
     constructor(private readonly http: HttpClient) { }
 
     getByUsername(username: string): Observable<IEducation[]> {
-        return this.http.get<IEducation[]>(environment.API_URL + '/education/' + username)
+        return this.http.get<IEducation[]>(environment.API_URL + '/education/get/' + username)
     }
 
     getById(educationId: number): Observable<IEducation> {

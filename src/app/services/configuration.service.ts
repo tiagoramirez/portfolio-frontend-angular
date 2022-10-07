@@ -11,7 +11,7 @@ export class ConfigurationService {
     constructor(private readonly http: HttpClient) { }
 
     getByProfileId(profileId: number): Observable<IConfiguration> {
-        return this.http.get<IConfiguration>(environment.API_URL + '/configuration/' + profileId)
+        return this.http.get<IConfiguration>(environment.API_URL + '/configuration/get/' + profileId)
     }
 
     addNew(config: IConfiguration): Observable<IConfiguration> {

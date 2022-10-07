@@ -12,15 +12,15 @@ export class DescriptionService {
     constructor(private readonly http: HttpClient) { }
 
     getByProfileAndExperienceId(profileId: number, experienceId: number): Observable<IDescription> {
-        return this.http.get<IDescription>(environment.API_URL + '/description/experience/' + profileId + '/' + experienceId)
+        return this.http.get<IDescription>(environment.API_URL + '/description/get/experience/' + profileId + '/' + experienceId)
     }
 
     getByProfileAndEducationId(profileId: number, educationId: number): Observable<IDescription> {
-        return this.http.get<IDescription>(environment.API_URL + '/description/education/' + profileId + '/' + educationId)
+        return this.http.get<IDescription>(environment.API_URL + '/description/get/education/' + profileId + '/' + educationId)
     }
 
     getByProfileAndProjectId(profileId: number, projectId: number): Observable<IDescription> {
-        return this.http.get<IDescription>(environment.API_URL + '/description/project/' + profileId + '/' + projectId)
+        return this.http.get<IDescription>(environment.API_URL + '/description/get/project/' + profileId + '/' + projectId)
     }
 
     addNew(description: IDescription): Observable<IResponseMessage> {

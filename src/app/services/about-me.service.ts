@@ -11,7 +11,7 @@ export class AboutMeService {
     constructor(private readonly http: HttpClient) { }
 
     getByProfileId(profileId: number): Observable<IAboutMe> {
-        return this.http.get<IAboutMe>(environment.API_URL + '/about-me/' + profileId)
+        return this.http.get<IAboutMe>(environment.API_URL + '/about-me/get/' + profileId)
     }
 
     addNew(aboutMe: IAboutMe): Observable<IAboutMe> {
