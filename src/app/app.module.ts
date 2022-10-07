@@ -40,8 +40,9 @@ import { DeleteSocialMediaComponent } from './modules/social-media/components/de
 import { ListSocialMediaComponent } from './modules/social-media/components/list-social-media/list-social-media.component'
 import { EditPhotoComponent } from './modules/img-handler/components/edit-photo/edit-photo.component'
 import { EditBannerComponent } from './modules/img-handler/components/edit-banner/edit-banner.component'
-import { interceptorProvider } from './interceptors/user-social-media-interceptor.service'
 import { UserGuardService as guard } from './guards/user_guard.service'
+import { HTTP_INTERCEPTORS } from '@angular/common/http'
+import { TokenInterceptorService } from './interceptors/token-interceptor.service'
 
 const routes: Routes = [
     { path: '', component: UserListComponent },
@@ -92,7 +93,11 @@ const routes: Routes = [
         ProjectService,
         SocialMediaService,
         SkillService,
-        interceptorProvider
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptorService,
+            multi: true
+        }
     ],
     bootstrap: [AppComponent]
 })
