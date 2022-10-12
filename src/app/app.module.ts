@@ -47,6 +47,7 @@ import { TokenInterceptorService } from './interceptors/token-interceptor.servic
 const routes: Routes = [
     { path: '', component: UserListComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'login/redirecTo/:username', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: ':username', component: MainComponent },
     { path: ':username/social-media/list', component: ListSocialMediaComponent, canActivate: [guard] },

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer'
 import { ILogin } from '../../models/login.interface'
 import { AuthService } from '../../services/auth.service'
@@ -20,17 +20,20 @@ export class LoginComponent implements OnInit, OnDestroy {
         password: ''
     }
 
+    username: string;
+
     loginFailed: boolean = false
     errorMessage: string = ''
 
     loadingLogin: boolean = false
 
-    constructor(private readonly tokenService: TokenService, private readonly authService: AuthService, private readonly router: Router) { }
+    constructor(private readonly tokenService: TokenService, private readonly authService: AuthService, private readonly router: Router, private readonly route: ActivatedRoute) { }
 
     ngOnInit(): void {
         if (this.tokenService.getToken() !== null) {
             this.isLogged = true
         }
+        this.username = this.route.snapshot.params['username']
     }
 
     ngOnDestroy(): void {
@@ -52,7 +55,12 @@ export class LoginComponent implements OnInit, OnDestroy {
                 })
                 this.tokenService.setAuthorities(mappedAuthorities)
                 this.tokenService.setUserId(jwt.userId)
-                void this.router.navigate([''])
+                if (this.username !== undefined) {
+                    void this.router.navigate(['' + this.username])
+                }
+                else {
+                    void this.router.navigate([''])
+                }
             },
             error: (e) => {
                 this.loadingLogin = false

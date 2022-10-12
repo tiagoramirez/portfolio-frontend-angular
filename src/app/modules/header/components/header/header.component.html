@@ -12,5 +12,7 @@
 
 <p *ngIf="!loading && isError" class="server-error">{{errorMessage}}</p>
 
-<button routerLink="/login" *ngIf="!isLogged" class="large-button">Login&nbsp;<i class="bi bi-box-arrow-in-right"></i></button>
-<button *ngIf="isLogged" class="large-button" (click)="onLogout()">Logout&nbsp;<i class="bi bi-box-arrow-in-right"></i></button>
+<button [routerLink]="'/login/redirecTo/'+username" *ngIf="!isLogged" class="large-button">Login&nbsp;<i
+        class="bi bi-box-arrow-in-right"></i></button>
+<button *ngIf="isLogged" class="large-button" (click)="onLogout()">Logout&nbsp;<i
+        class="bi bi-box-arrow-in-right"></i></button>
