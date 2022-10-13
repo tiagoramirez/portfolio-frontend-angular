@@ -12,11 +12,15 @@
     </div>
     <div>
         <label for="title_name">Titulo</label>
-        <input name="title_name" type="text" placeholder="Titulo" [(ngModel)]="education.title_name" required>
+        <input name="title_name" type="text" placeholder="Titulo" maxlength="50" [(ngModel)]="education.title_name"
+            required>
+        <p *ngIf="education.title_name.length>40">{{education.title_name.length}}/50</p>
     </div>
     <div>
         <label for="institute_name">Nombre del instituto</label>
-        <input name="institute_name" type="text" placeholder="Nombre del instituto" [(ngModel)]="education.institute_name" required>
+        <input name="institute_name" type="text" placeholder="Nombre del instituto" maxlength="50"
+            [(ngModel)]="education.institute_name" required>
+        <p *ngIf="education.institute_name.length>40">{{education.institute_name.length}}/50</p>
     </div>
     <div>
         <label for="isActual">Actual</label>
@@ -32,10 +36,13 @@
     </div>
     <div>
         <label for="description">Descripcion</label>
-        <textarea name="description" type="text" placeholder="Descripcion" [(ngModel)]="description.description"></textarea>
+        <textarea name="description" type="text" placeholder="Descripcion" maxlength="255"
+            [(ngModel)]="description.description"></textarea>
+        <p *ngIf="description.description.length>200">{{description.description.length}}/255</p>
     </div>
 
-    <button *ngIf="!loadingNewData" class="large-button" type="submit" [disabled]="!f.valid"><i class="bi bi-save"></i>&nbsp;Guardar</button>
+    <button *ngIf="!loadingNewData" class="large-button" type="submit" [disabled]="!f.valid"><i
+            class="bi bi-save"></i>&nbsp;Guardar</button>
 
     <span *ngIf="loadingNewData" class="loader"></span>
 

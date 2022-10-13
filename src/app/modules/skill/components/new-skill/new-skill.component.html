@@ -11,7 +11,7 @@
 
     <div class="percentage-form">
         <label for="percentage">Porcentaje</label>
-        <input name="percentage" type="number" [min]="0" [(ngModel)]="user_skill.percentage" required>
+        <input name="percentage" type="number" min="0" max="100" [(ngModel)]="user_skill.percentage" required>
     </div>
 
     <button class="large-button" type="submit" *ngIf="!loadingNewData" [disabled]="!f.valid"><i
@@ -19,14 +19,12 @@
 
     <p *ngIf="isErrorLoadingNewData" class="error-message">{{errorMessageLoadingNewData}}</p>
 
-
     <span *ngIf="loadingNewData" class="loader"></span>
 </form>
 
 <p *ngIf="isError" class="error-message">{{errorMessage}}</p>
 
 <span *ngIf="loading" class="loader"></span>
-
 
 <button type="button" [routerLink]="['/'+username+'/skill/list']" class="large-button go-back"><i
         class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</button>

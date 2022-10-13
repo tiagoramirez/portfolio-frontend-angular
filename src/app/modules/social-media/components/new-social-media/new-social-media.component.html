@@ -11,10 +11,12 @@
 
     <div>
         <label for="link">Link</label>
-        <input name="link" type="text" [(ngModel)]="user_social_media.link" required>
+        <input name="link" type="text" [(ngModel)]="user_social_media.link" maxlength="255" required>
+        <p *ngIf="user_social_media.link.length>200">{{user_social_media.link.length}}/255</p>
     </div>
 
-    <button *ngIf="!loadingNewData" class="large-button" type="submit" [disabled]="!f.valid"><i class="bi bi-save"></i>&nbsp;Guardar</button>
+    <button *ngIf="!loadingNewData" class="large-button" type="submit" [disabled]="!f.valid"><i
+            class="bi bi-save"></i>&nbsp;Guardar</button>
 
     <p *ngIf="isErrorLoadingNewData" class="error-message">{{errorMessageLoadingNewData}}</p>
 

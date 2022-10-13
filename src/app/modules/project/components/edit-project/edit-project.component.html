@@ -3,16 +3,20 @@
 <form #f="ngForm" (ngSubmit)="save()" *ngIf="!loadingProject && !loadingDescription">
     <div>
         <label for="name">Nombre del proyecto</label>
-        <input name="name" type="text" placeholder="Nombre del proyecto" [(ngModel)]="project.name" required>
+        <input name="name" type="text" placeholder="Nombre del proyecto" [(ngModel)]="project.name" maxlength="50"
+            required>
+        <p *ngIf="project.name.length>40">{{project.name.length}}/50</p>
     </div>
     <div>
         <label for="link">Link</label>
-        <input name="link" type="text" placeholder="Link" [(ngModel)]="project.link" required>
+        <input name="link" type="text" placeholder="Link" [(ngModel)]="project.link" maxlength="255" required>
+        <p *ngIf="project.link.length>200">{{project.link.length}}/255</p>
     </div>
     <div>
         <label for="description">Descripcion</label>
-        <textarea name="description" type="text" placeholder="Descripcion"
+        <textarea name="description" type="text" placeholder="Descripcion" maxlength="255"
             [(ngModel)]="description.description"></textarea>
+        <p *ngIf="description.description.length>200">{{description.description.length}}/255</p>
     </div>
 
     <p class="error-message" *ngIf="!loadingNewData && isErrorLoadingNewData">{{errorMessageLoadingNewData}}</p>

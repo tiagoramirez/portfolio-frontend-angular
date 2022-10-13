@@ -7,7 +7,8 @@
 
     <div>
         <label for="link">Link</label>
-        <input name="link" type="text" [(ngModel)]="social_media.link" required>
+        <input name="link" type="text" [(ngModel)]="social_media.link" maxlength="255" required>
+        <p *ngIf="social_media.link.length>200">{{social_media.link.length}}/255</p>
     </div>
 
     <p class="error-message" *ngIf="!loadingNewData && isErrorLoadingNewData">{{errorMessageLoadingNewData}}</p>
