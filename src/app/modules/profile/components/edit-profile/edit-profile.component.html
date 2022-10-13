@@ -4,22 +4,26 @@
     <div class="show_photo">
         <label for="show_photo">Mostrar foto de perfil</label>
         <span *ngIf="loadingNewConfig" class="loader"></span>
-        <input *ngIf="!loadingNewConfig" type="checkbox" name="show_photo" [(ngModel)]="config.show_photo" (change)="saveConfig()">
+        <input *ngIf="!loadingNewConfig" type="checkbox" name="show_photo" [(ngModel)]="config.show_photo"
+            (change)="saveConfig()">
     </div>
     <div class="show_banner">
         <label for="show_banner">Mostrar banner</label>
         <span *ngIf="loadingNewConfig" class="loader"></span>
-        <input *ngIf="!loadingNewConfig" type="checkbox" name="show_banner" [(ngModel)]="config.show_banner" (change)="saveConfig()">
+        <input *ngIf="!loadingNewConfig" type="checkbox" name="show_banner" [(ngModel)]="config.show_banner"
+            (change)="saveConfig()">
     </div>
     <div class="show_location">
         <label for="show_location">Mostrar ubicacion</label>
         <span *ngIf="loadingNewConfig" class="loader"></span>
-        <input *ngIf="!loadingNewConfig" type="checkbox" name="show_location" [(ngModel)]="config.show_location" (change)="saveConfig()">
+        <input *ngIf="!loadingNewConfig" type="checkbox" name="show_location" [(ngModel)]="config.show_location"
+            (change)="saveConfig()">
     </div>
     <div class="show_phone">
         <label for="show_phone">Mostrar telefono</label>
         <span *ngIf="loadingNewConfig" class="loader"></span>
-        <input *ngIf="!loadingNewConfig" type="checkbox" name="show_phone" [(ngModel)]="config.show_phone" (change)="saveConfig()">
+        <input *ngIf="!loadingNewConfig" type="checkbox" name="show_phone" [(ngModel)]="config.show_phone"
+            (change)="saveConfig()">
     </div>
 
     <p class="error-message" *ngIf="!loadingNewConfig && isErrorLoadingNewConfig">{{errorMessageLoadingNewConfig}}</p>
@@ -31,20 +35,26 @@
 <form #f="ngForm" novalidate *ngIf="!loadingProfile && !loadingConfig && !isError" (ngSubmit)="saveProfile()">
     <div class="phone" *ngIf="config.show_phone">
         <label for="phone">Telefono</label>
-        <input name="phone" type="text" placeholder="Telefono" [(ngModel)]="profile.phone" required>
+        <input name="phone" type="text" placeholder="Telefono" [(ngModel)]="profile.phone" maxlength="16" required>
+        <p *ngIf="profile.phone.length>13">{{profile.phone.length}}/16</p>
     </div>
     <div class="description">
         <label for="description">Descripcion</label>
-        <input type="text" name="description" placeholder="Descripcion" [(ngModel)]="profile.description" required>
+        <input type="text" name="description" placeholder="Descripcion" maxlength="100"
+            [(ngModel)]="profile.description" required>
+        <p *ngIf="profile.description.length>80">{{profile.description.length}}/100</p>
     </div>
     <div class="location_state" *ngIf="config.show_location">
         <label for="location_state">Estado/Provincia</label>
-        <input type="text" name="location_state" placeholder="Estado/Provincia" [(ngModel)]="profile.location_state"
-            required>
+        <input type="text" name="location_state" placeholder="Estado/Provincia" maxlength="50"
+            [(ngModel)]="profile.location_state" required>
+        <p *ngIf="profile.location_state.length>40">{{profile.location_state.length}}/50</p>
     </div>
     <div class="location_country" *ngIf="config.show_location">
         <label for="location_country">Pais</label>
-        <input type="text" name="location_country" placeholder="Pais" [(ngModel)]="profile.location_country" required>
+        <input type="text" name="location_country" placeholder="Pais" maxlength="50"
+            [(ngModel)]="profile.location_country" required>
+        <p *ngIf="profile.location_country.length>40">{{profile.location_country.length}}/50</p>
     </div>
     <div class="photo" *ngIf="config.show_photo">
         <label>Foto de perfil</label>
@@ -54,11 +64,13 @@
         <label>Fondo</label>
         <button type="button" routerLink="../img/banner" class="large-button">Cargar nueva imagen</button>
     </div>
-    
-    <button *ngIf="!loadingNewProfile" class="large-button" type="submit" [disabled]="!f.valid"><i class="bi bi-save"></i>&nbsp;Guardar</button>
-    
-    <p class="error-message" *ngIf="!loadingNewProfile && isErrorLoadingNewProfile">{{errorMessageLoadingNewProfile}}</p>
-    
+
+    <button *ngIf="!loadingNewProfile" class="large-button" type="submit" [disabled]="!f.valid"><i
+            class="bi bi-save"></i>&nbsp;Guardar</button>
+
+    <p class="error-message" *ngIf="!loadingNewProfile && isErrorLoadingNewProfile">{{errorMessageLoadingNewProfile}}
+    </p>
+
     <span *ngIf="loadingNewProfile" class="loader"></span>
 </form>
 

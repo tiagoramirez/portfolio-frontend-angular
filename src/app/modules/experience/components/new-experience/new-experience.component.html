@@ -3,7 +3,9 @@
 <form #f="ngForm" (ngSubmit)="save()">
     <div>
         <label for="position">Posicion</label>
-        <input name="position" type="text" placeholder="Posicion" [(ngModel)]="experience.position" required>
+        <input name="position" type="text" placeholder="Posicion" maxlength="100" [(ngModel)]="experience.position"
+            required>
+        <p *ngIf="experience.position.length>80">{{experience.position.length}}/100</p>
     </div>
     <div>
         <label for="type">Tipo</label>
@@ -14,11 +16,15 @@
     </div>
     <div>
         <label for="company_name">Empresa</label>
-        <input name="company_name" type="text" placeholder="Empresa" [(ngModel)]="experience.company_name" required>
+        <input name="company_name" type="text" placeholder="Empresa" maxlength="50"
+            [(ngModel)]="experience.company_name" required>
+        <p *ngIf="experience.company_name.length>40">{{experience.company_name.length}}/50</p>
     </div>
     <div>
         <label for="location">Ciudad de trabajo</label>
-        <input name="location" type="text" placeholder="Ciudad de trabajo" [(ngModel)]="experience.location" required>
+        <input name="location" type="text" placeholder="Ciudad de trabajo" maxlength="100"
+            [(ngModel)]="experience.location" required>
+        <p *ngIf="experience.location.length>80">{{experience.location.length}}/100</p>
     </div>
     <div>
         <label for="isActual">Actual</label>
@@ -32,13 +38,15 @@
         <label for="end_date">Fecha de Fin</label>
         <input name="end_date" type="date" placeholder="Fecha de Fin" [(ngModel)]="experience.end_date" required>
     </div>
-
     <div>
         <label for="description">Descripcion</label>
-        <textarea name="description" type="text" placeholder="Descripcion" [(ngModel)]="description.description"></textarea>
+        <textarea name="description" type="text" maxlength="255" placeholder="Descripcion"
+            [(ngModel)]="description.description"></textarea>
+        <p *ngIf="description.description.length>200">{{description.description.length}}/255</p>
     </div>
 
-    <button *ngIf="!loadingNewData" class="large-button" type="submit" [disabled]="!f.valid"><i class="bi bi-save"></i>&nbsp;Guardar</button>
+    <button *ngIf="!loadingNewData" class="large-button" type="submit" [disabled]="!f.valid"><i
+            class="bi bi-save"></i>&nbsp;Guardar</button>
 
     <span *ngIf="loadingNewData" class="loader"></span>
 

@@ -3,13 +3,13 @@
 <form #f="ngForm" *ngIf="!loading && !isError" (ngSubmit)="save()">
     <label for="about-me"></label>
     <textarea name="about-me" placeholder="Sobre mi..." [(ngModel)]="about_me.about_me" required
-        [maxLength]="255"></textarea>
+        maxlength="255"></textarea>
     <p *ngIf="about_me.about_me.length>200">{{about_me.about_me.length}}/255</p>
 
     <span *ngIf="loadingNewData" class="loader"></span>
 
     <p class="error-message" *ngIf="!loadingNewData && isErrorLoadingNewData">{{errorMessageLoadingNewData}}</p>
-    
+
     <button type="submit" *ngIf="!loadingNewData" class="large-button" [disabled]="!f.valid"><i
             class="bi bi-save"></i>&nbsp;Guardar</button>
 </form>
