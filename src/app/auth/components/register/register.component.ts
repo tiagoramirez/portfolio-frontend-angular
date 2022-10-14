@@ -32,40 +32,52 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     loadingRegister: boolean = false
 
-    constructor (private readonly tokenService: TokenService, private readonly authService: AuthService, private readonly router: Router) { }
+    constructor(private readonly tokenService: TokenService, private readonly authService: AuthService, private readonly router: Router) { }
 
-    ngOnInit (): void {
+    ngOnInit(): void {
         if (this.tokenService.getToken() != null) {
             this.isLogged = true
         }
     }
 
-    ngOnDestroy (): void {
+    ngOnDestroy(): void {
         this.subsContainer.unsubscribeAll()
     }
 
-    onRegister (): void {
+    onRegister(): void {
         this.loadingRegister = true
         this.registerFailed = false
         this.userRegister.username = this.userRegister.username.toLowerCase()
-        const sub = this.authService.register(this.userRegister).subscribe({
-            next: (data) => {
-                console.log(data.message)
-                this.loadingRegister = false
-            },
-            error: (e) => {
-                this.loadingRegister = false
-                this.registerFailed = true
-                if (e.error.message === null || e.error.message === undefined) {
-                    this.errorMessage = 'Error en el servidor. Intenta de nuevo mas tarde 🙈'
-                } else {
-                    this.errorMessage = e.error.message
+        const errorNumber = this.authService.checkRegister(this.userRegister)
+        console.log(errorNumber);
+        console.log(this.userRegister);
+
+
+        if (errorNumber != 0) {
+            this.loadingRegister = false
+            this.registerFailed = true
+            this.errorMessage = this.authService.getErrorMessage(errorNumber)
+        }
+        else {
+            const sub = this.authService.register(this.userRegister).subscribe({
+                next: (data) => {
+                    console.log(data.message)
+                    this.loadingRegister = false
+                },
+                error: (e) => {
+                    this.loadingRegister = false
+                    this.registerFailed = true
+                    if (e.error.message === null || e.error.message === undefined) {
+                        this.errorMessage = 'Error en el servidor. Intenta de nuevo mas tarde 🙈'
+                    } else {
+                        this.errorMessage = e.error.message
+                    }
+                },
+                complete: () => {
+                    this.subsContainer.add(sub)
+                    void this.router.navigate(['/login'])
                 }
-            },
-            complete: () => {
-                this.subsContainer.add(sub)
-                void this.router.navigate(['/login'])
-            }
-        })
+            })
+        }
     }
 }
