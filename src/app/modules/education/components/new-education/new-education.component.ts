@@ -28,7 +28,9 @@ export class NewEducationComponent implements OnInit, OnDestroy {
     save(): void {
         this.isErrorLoadingNewData = false
         this.loadingNewData = true
-        const subExperience = this.educationService.addNew(this.education).subscribe({
+        this.education.start_date = new Date(this.startYear, (this.startMonth - 1))
+        this.education.end_date = new Date(this.endYear, (this.endMonth - 1))
+        const subEducation = this.educationService.addNew(this.education).subscribe({
             next: (data) => {
                 this.description.profileId = this.profileId
                 this.description.educationId = data.id
@@ -59,7 +61,7 @@ export class NewEducationComponent implements OnInit, OnDestroy {
                 this.loadingNewData = false
             },
             complete: () => {
-                this.subsContainer.add(subExperience)
+                this.subsContainer.add(subEducation)
             }
         })
     }
@@ -81,6 +83,12 @@ export class NewEducationComponent implements OnInit, OnDestroy {
         educationId: 0,
         description: ''
     }
+
+    actualYear: number = new Date().getFullYear()
+    startMonth: number
+    startYear: number
+    endMonth: number
+    endYear: number
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer()
 

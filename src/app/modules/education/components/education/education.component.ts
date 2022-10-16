@@ -49,6 +49,16 @@ export class EducationComponent implements OnInit, OnDestroy {
                         }
                     })
                 })
+                this.educations.map((educ) => {
+                    const startDate = new Date(educ.start_date)
+                    educ.startYear = startDate.getUTCFullYear()
+                    educ.startMonth = startDate.getUTCMonth() + 1
+                    if (!educ.isActual) {
+                        const endDate = new Date(educ.end_date)
+                        educ.endYear = endDate.getUTCFullYear()
+                        educ.endMonth = endDate.getUTCMonth() + 1
+                    }
+                })
             },
             error: (err) => {
                 if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {

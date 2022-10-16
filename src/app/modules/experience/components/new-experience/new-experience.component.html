@@ -31,22 +31,20 @@
         <input name="isActual" type="checkbox" placeholder="Actual" [(ngModel)]="experience.isActual">
     </div>
     <div>
-        <label for="start_date">Fecha de Inicio</label>
+        <label for="startMonth startYear">Fecha de Inicio</label>
         <div class="date-inputs">
-            <input type="number" max="31" min="1" name="day" id="day" [(ngModel)]="startDay" placeholder="Dia" required>
-            <input type="number" max="12" min="1" name="month" id="month" [(ngModel)]="startMonth" placeholder="Mes"
-                required>
-            <input type="number" [max]="actualYear" min="1900" name="year" id="year" [(ngModel)]="startYear"
+            <input type="number" max="12" min="1" name="startMonth" id="startMonth" [(ngModel)]="startMonth"
+                placeholder="Mes" required>
+            <input type="number" [max]="actualYear" min="1900" name="startYear" id="startYear" [(ngModel)]="startYear"
                 placeholder="Anio" required>
         </div>
     </div>
     <div *ngIf="!experience.isActual">
-        <label for="end_date">Fecha de Fin</label>
+        <label for="endMonth endYear">Fecha de Fin</label>
         <div class="date-inputs">
-            <input type="number" max="31" min="1" name="day" id="day" [(ngModel)]="endDay" placeholder="Dia" required>
-            <input type="number" max="12" min="1" name="month" id="month" [(ngModel)]="endMonth" placeholder="Mes"
+            <input type="number" max="12" min="1" name="endMonth" id="endMonth" [(ngModel)]="endMonth" placeholder="Mes"
                 required>
-            <input type="number" [max]="actualYear" min="1900" name="year" id="year" [(ngModel)]="endYear"
+            <input type="number" [max]="actualYear" min="1900" name="endYear" id="endYear" [(ngModel)]="endYear"
                 placeholder="Anio" required>
         </div>
     </div>

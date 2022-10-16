@@ -24,6 +24,14 @@ export class EditEducationComponent implements OnInit, OnDestroy {
             next: (data) => {
                 this.education = data
                 this.education.userId = this.tokenService.getUserId()
+                const startDate = new Date(data.start_date)
+                this.startMonth = startDate.getUTCMonth() + 1
+                this.startYear = startDate.getUTCFullYear()
+                if (!data.isActual) {
+                    const endDate = new Date(data.end_date);
+                    this.endMonth = endDate.getUTCMonth() + 1
+                    this.endYear = endDate.getUTCFullYear()
+                }
             },
             error: (err) => {
                 if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
@@ -67,6 +75,8 @@ export class EditEducationComponent implements OnInit, OnDestroy {
     save(): void {
         this.isErrorLoadingNewData = false
         this.loadingNewData = true
+        this.education.start_date = new Date(this.startYear, (this.startMonth - 1))
+        this.education.end_date = new Date(this.endYear, (this.endMonth - 1))
         const subEducation = this.educationService.edit(this.education).subscribe({
             next: () => {
                 const subDescription = this.descriptionService.edit(this.description).subscribe({
@@ -106,6 +116,12 @@ export class EditEducationComponent implements OnInit, OnDestroy {
     profileId: number
     education: IEducation
     description: IDescription
+
+    actualYear: number = new Date().getFullYear()
+    startMonth: number
+    startYear: number
+    endMonth: number
+    endYear: number
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer()
 

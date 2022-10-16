@@ -27,12 +27,22 @@ description.description<p class="section-title">Educacion - Editar</p>
         <input name="isActual" type="checkbox" [(ngModel)]="education.isActual">
     </div>
     <div>
-        <label for="start_date">Fecha de Inicio</label>
-        <input name="start_date" type="date" placeholder="Fecha de Inicio" [(ngModel)]="education.start_date" required>
+        <label for="startMonth startYear">Fecha de Inicio</label>
+        <div class="date-inputs">
+            <input type="number" max="12" min="1" name="startMonth" id="startMonth" [(ngModel)]="startMonth"
+                placeholder="Mes" required>
+            <input type="number" [max]="actualYear" min="1900" name="startYear" id="startYear" [(ngModel)]="startYear"
+                placeholder="Anio" required>
+        </div>
     </div>
     <div *ngIf="!education.isActual">
-        <label for="end_date">Fecha de Fin</label>
-        <input name="end_date" type="date" placeholder="Fecha de Fin" [(ngModel)]="education.end_date" required>
+        <label for="endMonth endYear">Fecha de Fin</label>
+        <div class="date-inputs">
+            <input type="number" max="12" min="1" name="endMonth" id="endMonth" [(ngModel)]="endMonth" placeholder="Mes"
+                required>
+            <input type="number" [max]="actualYear" min="1900" name="endYear" id="endYear" [(ngModel)]="endYear"
+                placeholder="Anio" required>
+        </div>
     </div>
     <div>
         <label for="description">Descripcion</label>

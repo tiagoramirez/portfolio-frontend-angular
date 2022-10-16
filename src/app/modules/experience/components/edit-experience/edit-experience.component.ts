@@ -24,16 +24,14 @@ export class EditExperienceComponent implements OnInit, OnDestroy {
             next: (data) => {
                 this.experience = data
                 this.experience.userId = this.tokenService.getUserId()
+                const startDate = new Date(data.start_date)
+                this.startMonth = startDate.getUTCMonth() + 1
+                this.startYear = startDate.getUTCFullYear()
                 if (!data.isActual) {
                     const endDate = new Date(data.end_date);
-                    this.endDay = endDate.getDay()
-                    this.endMonth = endDate.getMonth() + 1
-                    this.endYear = endDate.getFullYear()
+                    this.endMonth = endDate.getUTCMonth() + 1
+                    this.endYear = endDate.getUTCFullYear()
                 }
-                const startDate = new Date(data.start_date);
-                this.startDay = startDate.getDay()
-                this.startMonth = startDate.getMonth() + 1
-                this.startYear = startDate.getFullYear()
             },
             error: (err) => {
                 if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
@@ -77,8 +75,8 @@ export class EditExperienceComponent implements OnInit, OnDestroy {
     save(): void {
         this.isErrorLoadingNewData = false
         this.loadingNewData = true
-        this.experience.start_date = new Date(this.startYear, (this.startMonth - 1), this.startDay)
-        this.experience.end_date = new Date(this.endYear, (this.endMonth - 1), this.endDay)
+        this.experience.start_date = new Date(this.startYear, (this.startMonth - 1))
+        this.experience.end_date = new Date(this.endYear, (this.endMonth - 1))
         const subExperience = this.experienceService.edit(this.experience).subscribe({
             next: () => {
                 const subDescription = this.descriptionService.edit(this.description).subscribe({
@@ -120,10 +118,8 @@ export class EditExperienceComponent implements OnInit, OnDestroy {
     description: IDescription
 
     actualYear: number = new Date().getFullYear()
-    startDay: number
     startMonth: number
     startYear: number
-    endDay: number
     endMonth: number
     endYear: number
 

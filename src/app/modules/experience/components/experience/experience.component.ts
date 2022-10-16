@@ -49,6 +49,16 @@ export class ExperienceComponent implements OnInit, OnDestroy {
                         }
                     })
                 })
+                this.experiences.map((exp) => {
+                    const startDate = new Date(exp.start_date)
+                    exp.startYear = startDate.getUTCFullYear()
+                    exp.startMonth = startDate.getUTCMonth() + 1
+                    if (!exp.isActual) {
+                        const endDate = new Date(exp.end_date)
+                        exp.endYear = endDate.getUTCFullYear()
+                        exp.endMonth = endDate.getUTCMonth() + 1
+                    }
+                })
             },
             error: (err) => {
                 if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {

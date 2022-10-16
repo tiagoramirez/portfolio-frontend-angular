@@ -306,3 +306,15 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+.date-inputs {
+    display: flex;
+    flex-direction: row;
+    max-width: 50%;
+    justify-content: space-evenly;
+}
+
+.date-inputs input {
+    width: 4rem;
+    text-align: center;
+}

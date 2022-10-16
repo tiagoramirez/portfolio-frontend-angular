@@ -5,7 +5,8 @@
         <p class="job-position">{{experience.position}}</p>
         <p class="job-type">{{experience.company_name}} - {{experience.type}}</p>
         <p class="job-description">{{experience.description}}</p>
-        <p class="job-time">{{experience.start_date}} - {{experience.isActual?"Actualidad":experience.end_date}}</p>
+        <p class="job-time">{{experience.startMonth}}/{{experience.startYear}} -
+            {{experience.isActual?"Actualidad":experience.endMonth+"/"+experience.endYear}}</p>
         <p class="job-location">{{experience.location}}</p>
         <div class="actions" *ngIf="isLogged && username===loggedUsername">
             <button [routerLink]="['experience/delete/'+experience.id]" class="circular-button delete"><i
