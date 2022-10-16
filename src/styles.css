@@ -299,3 +299,10 @@ form div {
     align-items: center;
     width: 100%;
 }
+
+/* Remove arrows input type number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

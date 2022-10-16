@@ -6,3 +6,15 @@
     align-items: center;
     justify-content: center;
 }
+
+.date-inputs {
+    display: flex;
+    flex-direction: row;
+    max-width: 50%;
+    justify-content: space-around;
+}
+
+.date-inputs input {
+    width: 4rem;
+    text-align: center;
+}

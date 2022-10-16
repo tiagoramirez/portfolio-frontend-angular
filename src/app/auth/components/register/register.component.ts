@@ -19,10 +19,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
         username: '',
         password: '',
         full_name: '',
-        birthday: new Date(),
+        birthday: undefined,
         mail: '',
         authorities: ['ROLE_USER']
     }
+
+    actualYear: number = new Date().getFullYear();
+    day: number
+    month: number
+    year: number
 
     password2: string
     roles: string[] = []
@@ -48,11 +53,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.loadingRegister = true
         this.registerFailed = false
         this.userRegister.username = this.userRegister.username.toLowerCase()
-        const errorNumber = this.authService.checkRegister(this.userRegister)
-        console.log(errorNumber);
-        console.log(this.userRegister);
-
-
+        this.userRegister.birthday = new Date(this.year, (this.month - 1), this.day)
+        const errorNumber = this.authService.checkRegister(this.userRegister, this.password2)
         if (errorNumber != 0) {
             this.loadingRegister = false
             this.registerFailed = true

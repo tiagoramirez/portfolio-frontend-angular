@@ -2,7 +2,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { checkDate } from 'src/app/helpers/checkDate'
 import { checkEmail } from 'src/app/helpers/checkEmail'
 import { checkPassword } from 'src/app/helpers/checkPassword'
 import { checkUsername } from 'src/app/helpers/checkUsername'
@@ -35,30 +34,31 @@ export class AuthService {
         return this.http.get<IUser>(environment.API_URL + '/auth/user/' + username)
     }
 
-    checkRegister(registerData: IRegister): number {
-        if (checkUsername(registerData.username)) {
+    checkRegister(registerData: IRegister, password2: string): number {
+        if (!checkUsername(registerData.username)) {
             return 1;
         }
-        if (checkPassword(registerData.password)) {
+        if (!checkPassword(registerData.password)) {
             return 2;
         }
-        if (checkDate(registerData.birthday)) {
+        if (registerData.password !== password2) {
             return 3;
         }
-        if (checkEmail(registerData.mail)) {
+        if (!checkEmail(registerData.mail)) {
             return 4;
         }
+
         return 0;
     }
 
     getErrorMessage(errorNumber: number): string {
         switch (errorNumber) {
             case 1:
-                return "Usuario invalido"
+                return "El usuario invalido. Los caracteres especiales permitidos son _ y ."
             case 2:
-                return "Contra invalida"
+                return "La contraseña debe tener una mayuscula, una minuscula, un caracter especial y un numero"
             case 3:
-                return "Fecha invalida"
+                return "Las contraseñas no coinciden"
             case 4:
                 return "Mail invalido"
             default:

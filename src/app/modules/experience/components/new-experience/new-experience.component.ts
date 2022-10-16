@@ -14,20 +14,22 @@ import { ExperienceService } from 'src/app/services/experience.service'
     styleUrls: ['./new-experience.component.css']
 })
 export class NewExperienceComponent implements OnInit, OnDestroy {
-    constructor (private readonly route: ActivatedRoute, private readonly tokenService: TokenService, private readonly experienceService: ExperienceService, private readonly descriptionService: DescriptionService, private readonly router: Router) { }
+    constructor(private readonly route: ActivatedRoute, private readonly tokenService: TokenService, private readonly experienceService: ExperienceService, private readonly descriptionService: DescriptionService, private readonly router: Router) { }
 
-    ngOnInit (): void {
+    ngOnInit(): void {
         this.username = this.route.snapshot.params['username']
         this.profileId = this.route.snapshot.params['profileId']
     }
 
-    ngOnDestroy (): void {
+    ngOnDestroy(): void {
         this.subsContainer.unsubscribeAll()
     }
 
-    save (): void {
+    save(): void {
         this.isErrorLoadingNewData = false
         this.loadingNewData = true
+        this.experience.start_date = new Date(this.startYear, (this.startMonth - 1), this.startDay)
+        this.experience.end_date = new Date(this.endYear, (this.endMonth - 1), this.endDay)
         const subExperience = this.experienceService.addNew(this.experience).subscribe({
             next: (data) => {
                 this.description.profileId = this.profileId
@@ -73,8 +75,8 @@ export class NewExperienceComponent implements OnInit, OnDestroy {
         company_name: '',
         location: '',
         isActual: false,
-        start_date: new Date(),
-        end_date: new Date()
+        start_date: undefined,
+        end_date: undefined
     }
 
     description: IDescription = {
@@ -82,6 +84,14 @@ export class NewExperienceComponent implements OnInit, OnDestroy {
         experienceId: 0,
         description: ''
     }
+
+    actualYear: number = new Date().getFullYear()
+    startDay: number
+    startMonth: number
+    startYear: number
+    endDay: number
+    endMonth: number
+    endYear: number
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer()
 

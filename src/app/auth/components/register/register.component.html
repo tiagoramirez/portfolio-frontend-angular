@@ -4,27 +4,37 @@
 <form #f="ngForm" *ngIf="!isLogged" novalidate (ngSubmit)="onRegister()">
     <div class="username-form">
         <label for="username">Nombre de usuario</label>
-        <input type="text" name="username" id="username" [(ngModel)]="userRegister.username" required>
+        <input type="text" name="username" id="username" placeholder="Nombre de usuario"
+            [(ngModel)]="userRegister.username" required>
     </div>
     <div class="password-form">
         <label for="password">Contraseña</label>
-        <input type="password" name="password" id="password" [(ngModel)]="userRegister.password" required>
+        <input type="password" name="password" id="password" placeholder="Contraseña"
+            [(ngModel)]="userRegister.password" required>
     </div>
     <div class="password2-form">
         <label for="password2">Repite la contraseña</label>
-        <input type="password" name="password2" id="password2" [(ngModel)]="password2" required>
+        <input type="password" name="password2" id="password2" placeholder="Repite la contraseña"
+            [(ngModel)]="password2" required>
     </div>
     <div class="full-name-form">
         <label for="full_name">Nombre completo</label>
-        <input type="text" name="full_name" id="full_name" [(ngModel)]="userRegister.full_name" required>
+        <input type="text" name="full_name" id="full_name" placeholder="Nombre completo"
+            [(ngModel)]="userRegister.full_name" required>
     </div>
     <div class="birthday-form">
         <label for="birthday">Fecha de nacimiento</label>
-        <input type="date" name="birthday" id="birthday" [(ngModel)]="userRegister.birthday" required>
+        <div class="date-inputs">
+            <input type="number" max="31" min="1" name="day" id="day" [(ngModel)]="day" placeholder="Dia" required>
+            <input type="number" max="12" min="1" name="month" id="month" [(ngModel)]="month" placeholder="Mes"
+                required>
+            <input type="number" [max]="actualYear" min="1900" name="year" id="year" [(ngModel)]="year"
+                placeholder="Anio" required>
+        </div>
     </div>
     <div class="mail-form">
         <label for="mail">Mail</label>
-        <input type="email" name="mail" id="mail" [(ngModel)]="userRegister.mail" required>
+        <input type="email" name="mail" id="mail" placeholder="Mail" [(ngModel)]="userRegister.mail" required>
     </div>
     <button class="large-button" *ngIf="!loadingRegister" type="submit" [disabled]="!f.valid">Crear cuenta</button>
     <span *ngIf="loadingRegister" class="loader"></span>

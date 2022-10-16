@@ -32,13 +32,24 @@
     </div>
     <div>
         <label for="start_date">Fecha de Inicio</label>
-        <input name="start_date" type="date" placeholder="Fecha de Inicio" [(ngModel)]="experience.start_date" required>
+        <div class="date-inputs">
+            <input type="number" max="31" min="1" name="day" id="day" [(ngModel)]="startDay" placeholder="Dia" required>
+            <input type="number" max="12" min="1" name="month" id="month" [(ngModel)]="startMonth" placeholder="Mes"
+                required>
+            <input type="number" [max]="actualYear" min="1900" name="year" id="year" [(ngModel)]="startYear"
+                placeholder="Anio" required>
+        </div>
     </div>
     <div *ngIf="!experience.isActual">
         <label for="end_date">Fecha de Fin</label>
-        <input name="end_date" type="date" placeholder="Fecha de Fin" [(ngModel)]="experience.end_date" required>
+        <div class="date-inputs">
+            <input type="number" max="31" min="1" name="day" id="day" [(ngModel)]="endDay" placeholder="Dia" required>
+            <input type="number" max="12" min="1" name="month" id="month" [(ngModel)]="endMonth" placeholder="Mes"
+                required>
+            <input type="number" [max]="actualYear" min="1900" name="year" id="year" [(ngModel)]="endYear"
+                placeholder="Anio" required>
+        </div>
     </div>
-
     <div>
         <label for="description">Descripcion</label>
         <textarea name="description" type="text" maxlength="255" placeholder="Descripcion"
