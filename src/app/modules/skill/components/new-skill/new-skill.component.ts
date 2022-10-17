@@ -66,8 +66,8 @@ export class NewSkillComponent implements OnInit, OnDestroy {
     all_skills: ISkill[]
     user_skill: IUserSkills = {
         userId: this.tokenService.getUserId(),
-        id_skill: 0,
-        percentage: 0
+        id_skill: undefined,
+        percentage: undefined
     }
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer()

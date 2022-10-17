@@ -1,4 +1,4 @@
-description.description<p class="section-title">Educacion - Editar</p>
+<p class="section-title">Educacion - Editar</p>
 
 <form #f="ngForm" (ngSubmit)="save()" *ngIf="!loadingEducation && !loadingDescription">
     <div>
@@ -58,6 +58,8 @@ description.description<p class="section-title">Educacion - Editar</p>
 
     <span *ngIf="loadingNewData" class="loader"></span>
 </form>
+
+<span *ngIf="loadingEducation || loadingDescription" class="loader"></span>
 
 <button type="button" [routerLink]="['/'+username]" class="large-button go-back"><i
         class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</button>

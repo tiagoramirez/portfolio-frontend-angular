@@ -27,5 +27,8 @@
     <span *ngIf="loadingNewData" class="loader"></span>
 </form>
 
+<span *ngIf="loadingProject || loadingDescription" class="loader"></span>
+
+
 <button type="button" [routerLink]="['/'+username]" class="large-button go-back"><i
         class="bi bi-box-arrow-left"></i>&nbsp;VOLVER</button>
