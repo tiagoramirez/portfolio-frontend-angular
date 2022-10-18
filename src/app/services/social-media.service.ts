@@ -1,7 +1,9 @@
+/* eslint-disable indent */
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { environment } from 'src/environments/environment'
+import { checkURL } from '../helpers/checkURL'
 import { ISocialMedia, IUserSocialMedia } from '../models/social_media.interface'
 
 @Injectable({
@@ -32,5 +34,21 @@ export class SocialMediaService {
 
     delete(usmId: number): Observable<IUserSocialMedia> {
         return this.http.delete<IUserSocialMedia>(environment.API_URL + '/social-media/delete/' + usmId)
+    }
+
+    check(socialMedia: IUserSocialMedia): number {
+        if (!checkURL(socialMedia.link)) {
+            return 1
+        }
+        return 0
+    }
+
+    getErrorMessage(errorNumber: number): string {
+        switch (errorNumber) {
+            case 1:
+                return "Link invalido"
+            default:
+                return ""
+        }
     }
 }

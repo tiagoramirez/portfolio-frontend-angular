@@ -4,7 +4,7 @@
     <div *ngFor="let project of projects" class="section-data-container">
         <p class="project-name">{{project.name}}</p>
         <p class="project-description">{{project.description}}</p>
-        <p class="project-link">{{project.link}}</p>
+        <a class="project-link" *ngIf="project.link!==''" [href]="project.link" target="_blank">LINK</a>
         <div class="actions" *ngIf="isLogged && username===loggedUsername">
             <button [routerLink]="['project/delete/'+project.id]" class="circular-button delete"><i
                     class="bi bi-trash3"></i></button>

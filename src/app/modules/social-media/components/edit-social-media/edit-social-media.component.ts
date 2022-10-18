@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { TokenService } from 'src/app/auth/services/token.service'
 import { AppSettings } from 'src/app/helpers/appSettings'
+import { checkProtocolURL } from 'src/app/helpers/checkProtocolURL'
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer'
 import { IUserSocialMedia } from 'src/app/models/social_media.interface'
 import { SocialMediaService } from 'src/app/services/social-media.service'
@@ -45,22 +46,31 @@ export class EditSocialMediaComponent implements OnInit, OnDestroy {
     save(): void {
         this.isErrorLoadingNewData = false
         this.loadingNewData = true
-        const subExperience = this.socialMediaService.edit(this.social_media).subscribe({
-            error: (err) => {
-                if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
-                    this.errorMessageLoadingNewData = err.error.message
-                } else {
-                    this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
+        const errorNumber = this.socialMediaService.check(this.social_media)
+        if (errorNumber != 0) {
+            this.isErrorLoadingNewData = true
+            this.loadingNewData = false
+            this.errorMessageLoadingNewData = this.socialMediaService.getErrorMessage(errorNumber)
+        }
+        else {
+            this.social_media.link = checkProtocolURL(this.social_media.link)
+            const subExperience = this.socialMediaService.edit(this.social_media).subscribe({
+                error: (err) => {
+                    if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                        this.errorMessageLoadingNewData = err.error.message
+                    } else {
+                        this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
+                    }
+                    this.isErrorLoadingNewData = true
+                    this.loadingNewData = false
+                },
+                complete: () => {
+                    this.loadingNewData = false
+                    this.subsContainer.add(subExperience)
+                    void this.router.navigate(['/' + this.username])
                 }
-                this.isErrorLoadingNewData = true
-                this.loadingNewData = false
-            },
-            complete: () => {
-                this.loadingNewData = false
-                this.subsContainer.add(subExperience)
-                void this.router.navigate(['/' + this.username])
-            }
-        })
+            })
+        }
     }
 
     username: string

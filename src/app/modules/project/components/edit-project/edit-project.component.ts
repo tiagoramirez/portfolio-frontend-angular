@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { TokenService } from 'src/app/auth/services/token.service'
 import { AppSettings } from 'src/app/helpers/appSettings'
+import { checkProtocolURL } from 'src/app/helpers/checkProtocolURL'
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer'
 import { IDescription } from 'src/app/models/description.interface'
 import { IProject } from 'src/app/models/project.interface'
@@ -24,7 +25,7 @@ export class EditProjectComponent implements OnInit, OnDestroy {
             next: (data) => {
                 this.project = data
                 this.project.userId = this.tokenService.getUserId()
-
+                this.hasLink = data.link !== ''
             },
             error: (err) => {
                 if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
@@ -68,38 +69,48 @@ export class EditProjectComponent implements OnInit, OnDestroy {
     save(): void {
         this.isErrorLoadingNewData = false
         this.loadingNewData = true
-        const subProject = this.projectService.edit(this.project).subscribe({
-            next: () => {
-                const subDescription = this.descriptionService.edit(this.description).subscribe({
-                    error: (err) => {
-                        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
-                            this.errorMessageLoadingNewData = err.error.message
-                        } else {
-                            this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
+        if (!this.hasLink) this.project.link = ''
+        const errorNumber = this.projectService.check(this.project, this.hasLink)
+        if (errorNumber != 0) {
+            this.isErrorLoadingNewData = true
+            this.loadingNewData = false
+            this.errorMessageLoadingNewData = this.projectService.getErrorMessage(errorNumber)
+        }
+        else {
+            if (this.hasLink) this.project.link = checkProtocolURL(this.project.link)
+            const subProject = this.projectService.edit(this.project).subscribe({
+                next: () => {
+                    const subDescription = this.descriptionService.edit(this.description).subscribe({
+                        error: (err) => {
+                            if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                                this.errorMessageLoadingNewData = err.error.message
+                            } else {
+                                this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
+                            }
+                            this.isErrorLoadingNewData = true
+                            this.loadingNewData = false
+                        },
+                        complete: () => {
+                            this.loadingNewData = false
+                            this.subsContainer.add(subDescription)
+                            void this.router.navigate(['/' + this.username])
                         }
-                        this.isErrorLoadingNewData = true
-                        this.loadingNewData = false
-                    },
-                    complete: () => {
-                        this.loadingNewData = false
-                        this.subsContainer.add(subDescription)
-                        void this.router.navigate(['/' + this.username])
+                    })
+                },
+                error: (err) => {
+                    if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                        this.errorMessageLoadingNewData = err.error.message
+                    } else {
+                        this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
                     }
-                })
-            },
-            error: (err) => {
-                if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
-                    this.errorMessageLoadingNewData = err.error.message
-                } else {
-                    this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
+                    this.isErrorLoadingNewData = true
+                    this.loadingNewData = false
+                },
+                complete: () => {
+                    this.subsContainer.add(subProject)
                 }
-                this.isErrorLoadingNewData = true
-                this.loadingNewData = false
-            },
-            complete: () => {
-                this.subsContainer.add(subProject)
-            }
-        })
+            })
+        }
     }
 
     username: string
@@ -107,6 +118,7 @@ export class EditProjectComponent implements OnInit, OnDestroy {
     profileId: number
     project: IProject
     description: IDescription
+    hasLink: boolean
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer()
 

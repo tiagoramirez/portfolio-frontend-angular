@@ -1,7 +1,9 @@
+/* eslint-disable indent */
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { environment } from 'src/environments/environment'
+import { checkURL } from '../helpers/checkURL'
 import { IProject } from '../models/project.interface'
 import { IResponseMessage } from '../models/response_message.interface'
 
@@ -29,5 +31,21 @@ export class ProjectService {
 
     delete(projectId: number): Observable<IResponseMessage> {
         return this.http.delete<IResponseMessage>(environment.API_URL + '/project/delete/' + projectId)
+    }
+
+    check(project: IProject, hasLink: boolean): number {
+        if (hasLink && !checkURL(project.link)) {
+            return 1
+        }
+        return 0
+    }
+
+    getErrorMessage(errorNumber: number): string {
+        switch (errorNumber) {
+            case 1:
+                return "Link invalido"
+            default:
+                return ""
+        }
     }
 }

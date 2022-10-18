@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { TokenService } from 'src/app/auth/services/token.service'
 import { AppSettings } from 'src/app/helpers/appSettings'
+import { checkProtocolURL } from 'src/app/helpers/checkProtocolURL'
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer'
 import { IDescription } from 'src/app/models/description.interface'
 import { IProject } from 'src/app/models/project.interface'
@@ -28,40 +29,49 @@ export class NewProjectComponent implements OnInit, OnDestroy {
     save(): void {
         this.isErrorLoadingNewData = false
         this.loadingNewData = true
-        const subProj = this.projectService.addNew(this.project).subscribe({
-            next: (data) => {
-                this.description.profileId = this.profileId
-                this.description.projectId = data.id
-                const subDescription = this.descriptionService.addNew(this.description).subscribe({
-                    error: (err) => {
-                        if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
-                            this.errorMessageLoadingNewData = err.error.message
-                        } else {
-                            this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
+        const errorNumber = this.projectService.check(this.project, this.hasLink)
+        if (errorNumber != 0) {
+            this.isErrorLoadingNewData = true
+            this.loadingNewData = false
+            this.errorMessageLoadingNewData = this.projectService.getErrorMessage(errorNumber)
+        }
+        else {
+            if (this.hasLink) this.project.link = checkProtocolURL(this.project.link)
+            const subProj = this.projectService.addNew(this.project).subscribe({
+                next: (data) => {
+                    this.description.profileId = this.profileId
+                    this.description.projectId = data.id
+                    const subDescription = this.descriptionService.addNew(this.description).subscribe({
+                        error: (err) => {
+                            if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                                this.errorMessageLoadingNewData = err.error.message
+                            } else {
+                                this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
+                            }
+                            this.isErrorLoadingNewData = true
+                            this.loadingNewData = false
+                        },
+                        complete: () => {
+                            this.loadingNewData = false
+                            this.subsContainer.add(subDescription)
+                            void this.router.navigate(['/' + this.username])
                         }
-                        this.isErrorLoadingNewData = true
-                        this.loadingNewData = false
-                    },
-                    complete: () => {
-                        this.loadingNewData = false
-                        this.subsContainer.add(subDescription)
-                        void this.router.navigate(['/' + this.username])
+                    })
+                },
+                error: (err) => {
+                    if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                        this.errorMessageLoadingNewData = err.error.message
+                    } else {
+                        this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
                     }
-                })
-            },
-            error: (err) => {
-                if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
-                    this.errorMessageLoadingNewData = err.error.message
-                } else {
-                    this.errorMessageLoadingNewData = AppSettings.serverErrorMessage
+                    this.isErrorLoadingNewData = true
+                    this.loadingNewData = false
+                },
+                complete: () => {
+                    this.subsContainer.add(subProj)
                 }
-                this.isErrorLoadingNewData = true
-                this.loadingNewData = false
-            },
-            complete: () => {
-                this.subsContainer.add(subProj)
-            }
-        })
+            })
+        }
     }
 
     username: string
@@ -71,12 +81,14 @@ export class NewProjectComponent implements OnInit, OnDestroy {
         name: '',
         link: ''
     }
+    hasLink: boolean = false
 
     description: IDescription = {
         profileId: 0,
         projectId: 0,
         description: ''
     }
+
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer()
 

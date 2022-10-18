@@ -8,6 +8,10 @@
         <p *ngIf="project.name.length>40">{{project.name.length}}/50</p>
     </div>
     <div>
+        <label for="hasLink">Tiene link</label>
+        <input type="checkbox" name="hasLink" [(ngModel)]="hasLink">
+    </div>
+    <div *ngIf="hasLink">
         <label for="link">Link</label>
         <input name="link" type="text" placeholder="Link" [(ngModel)]="project.link" maxlength="255" required>
         <p *ngIf="project.link.length>200">{{project.link.length}}/255</p>
