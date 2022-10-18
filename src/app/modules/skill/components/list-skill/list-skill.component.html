@@ -7,9 +7,13 @@
 <p class="error-message" *ngIf="!loading && !isError && isEmpty">{{emptyMessage}}</p>
 
 <div *ngFor="let skill of skills" class="skill">
-    <p id="name">{{skill.skill.name}}</p>
+    <p id="name">{{skill.skill.name}} ({{skill.percentage}}%)</p>
     <p>{{skill.skill.type}}</p>
-    <button class="circular-button" [routerLink]="['../delete/'+skill.id]"><i class="bi bi-trash3"></i></button>
+    <div class="actions">
+        <button class="circular-button" [routerLink]="['../delete/'+skill.id]"><i class="bi bi-trash3"></i></button>
+        <button class="circular-button" [routerLink]="['../edit/'+skill.id]"><i
+                class="bi bi-pencil-square"></i></button>
+    </div>
 </div>
 
 <button type="button" routerLink="../add" class="circular-button create"><i

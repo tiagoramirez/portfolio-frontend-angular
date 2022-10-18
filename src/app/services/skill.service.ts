@@ -18,12 +18,16 @@ export class SkillService {
         return this.http.get<IUserSkills[]>(environment.API_URL + '/skill/get/' + username)
     }
 
-    // getById(userSkillsId: number): Observable<IUserSkills> {
-    //     return this.http.get<IUserSkills>(environment.API_URL + "/skill?userSkillsId=" + userSkillsId);
-    // }
+    getById(userSkillsId: number): Observable<IUserSkills> {
+        return this.http.get<IUserSkills>(environment.API_URL + "/skill?userSkillsId=" + userSkillsId);
+    }
 
     addNew(userSkill: IUserSkills): Observable<IUserSkills> {
         return this.http.post<IUserSkills>(environment.API_URL + '/skill/add', userSkill)
+    }
+
+    edit(userSkill: IUserSkills): Observable<IUserSkills> {
+        return this.http.put<IUserSkills>(environment.API_URL + '/skill/edit', userSkill)
     }
 
     delete(userSkillId: number): Observable<IUserSkills> {

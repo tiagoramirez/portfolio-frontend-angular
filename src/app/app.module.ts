@@ -43,6 +43,7 @@ import { EditBannerComponent } from './modules/img-handler/components/edit-banne
 import { UserGuardService as guard } from './guards/user_guard.service'
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { TokenInterceptorService } from './interceptors/token-interceptor.service'
+import { EditSkillComponent } from './modules/skill/components/edit-skill/edit-skill.component'
 
 const routes: Routes = [
     { path: '', component: UserListComponent },
@@ -69,6 +70,7 @@ const routes: Routes = [
     { path: ':username/project/delete/:projectId', component: DeleteProjectComponent, canActivate: [guard] },
     { path: ':username/skill/list', component: ListSkillComponent, canActivate: [guard] },
     { path: ':username/skill/add', component: NewSkillComponent, canActivate: [guard] },
+    { path: ':username/skill/edit/:userSkillsId', component: EditSkillComponent, canActivate: [guard] },
     { path: ':username/skill/delete/:userSkillsId', component: DeleteSkillComponent, canActivate: [guard] }
 ]
 

@@ -6,14 +6,16 @@ import { ListSkillComponent } from './components/list-skill/list-skill.component
 import { RouterModule } from '@angular/router'
 import { NewSkillComponent } from './components/new-skill/new-skill.component'
 import { DeleteSkillComponent } from './components/delete-skill/delete-skill.component'
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import { EditSkillComponent } from './components/edit-skill/edit-skill.component'
 
 @NgModule({
     declarations: [
         SkillComponent,
         ListSkillComponent,
         NewSkillComponent,
-        DeleteSkillComponent
+        DeleteSkillComponent,
+        EditSkillComponent
     ],
     imports: [
         CommonModule,
@@ -39,6 +41,7 @@ import { FormsModule } from '@angular/forms'
         SkillComponent,
         ListSkillComponent,
         NewSkillComponent,
+        EditSkillComponent,
         DeleteSkillComponent
     ]
 })
