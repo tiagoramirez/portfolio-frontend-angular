@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
+import { AppSettings } from 'src/app/helpers/appSettings'
 import { SubscriptionContainer } from 'src/app/helpers/subscriptionContainer'
 import { IUser } from '../../models/user.interface'
 import { AuthService } from '../../services/auth.service'
@@ -10,33 +11,37 @@ import { TokenService } from '../../services/token.service'
     styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit, OnDestroy {
-    constructor (private readonly authService: AuthService, private readonly tokenService: TokenService) { }
+    constructor(private readonly authService: AuthService, private readonly tokenService: TokenService) { }
 
-    ngOnInit (): void {
+    ngOnInit(): void {
         (this.tokenService.getToken() != null) ? this.isLogged = true : this.isLogged = false
 
         const sub = this.authService.getAllUsers().subscribe({
             next: (data) => {
                 this.users = data
-            },
-            error: (e) => {
                 this.loading = false
-                this.error = true
-                console.log(e)
+                this.isError = false
+            },
+            error: (err) => {
+                if (err.error.messageControlled !== undefined && err.error.messageControlled === true) {
+                    this.errorMessage = err.error.message
+                } else {
+                    this.errorMessage = AppSettings.serverErrorMessage
+                }
+                this.isError = true
+                this.loading = false
             },
             complete: () => {
-                this.loading = false
-                this.error = false
                 this.subsContainer.add(sub)
             }
         })
     }
 
-    ngOnDestroy (): void {
+    ngOnDestroy(): void {
         this.subsContainer.unsubscribeAll()
     }
 
-    onLogout (): void {
+    onLogout(): void {
         this.tokenService.logOut()
         window.location.reload()
     }
@@ -47,6 +52,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     subsContainer: SubscriptionContainer = new SubscriptionContainer()
 
-    error: boolean = false
     loading: boolean = true
+    errorMessage: string = ''
+    isError: boolean = false
 }
